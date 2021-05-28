@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
+import AuthRoutes from "./Auth";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -19,6 +21,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  ...AuthRoutes,
 ];
 
 const router = new VueRouter({
