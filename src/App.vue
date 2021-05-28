@@ -1,16 +1,16 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <Navbar />
-    </div>
-    <router-view />
-  </div>
+  <Signup />
 </template>
 
 <script>
+import Signup from "./views/Signup";
+
 export default {
   components: {
-    Navbar: () => import("@/components/Navbar.vue"),
+    Signup,
   },
 };
 </script>
+
+<style lang="scss">
+</style>
