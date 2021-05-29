@@ -5,7 +5,7 @@
         <img src="../assets/weightLiftingVector.png" class="img-fluid" />
       </div>
       <div id="signup-form" class="col">
-        <form action="">
+        <form action="" class="needs-validation">
           <div id="signup-text">
             <div id="signup-text-header">
               <h1 style="margin-right: 0.5rem">Sign Up for an</h1>
@@ -20,16 +20,18 @@
             class="form-control"
             placeholder="Full name"
             aria-label="Full name"
-            v-model="fullname"
+            v-model="name"
+            required
           />
 
           <input
             id="email-input"
-            type="text"
+            type="email"
             class="form-control"
             placeholder="Email Address"
             aria-label="Email Address"
             v-model="email"
+            required
           />
 
           <input
@@ -39,11 +41,61 @@
             placeholder="Password"
             aria-label="Password"
             v-model="password"
+            required
           />
 
-          <button class="btn btn-primary signup-btn" v-on:click="submitForm">
-            Create Account
-          </button>
+          <div
+            id="user-type-radio"
+            class="btn-group"
+            role="group"
+            aria-label="User type radio buttons"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio1"
+              autocomplete="off"
+              value="0"
+              v-model="userRole"
+              checked
+            />
+            <label class="btn btn-outline-primary" for="btnradio1"
+              >Client</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio2"
+              value="1"
+              v-model="userRole"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary" for="btnradio2"
+              >Trainer</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio3"
+              value="2"
+              v-model="userRole"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary" for="btnradio3"
+              >Nutritionist</label
+            >
+          </div>
+
+          <div>
+            <button class="btn btn-primary signup-btn" v-on:click="submitForm">
+              Create Account
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -56,13 +108,31 @@ import axios from "axios";
 export default {
   data() {
     return {
-      fullname: "",
+      name: "",
       email: "",
       password: "",
+      userRole: "0",
     };
   },
   methods: {
     async submitForm() {
+      let role = Number(this.userRole);
+      let resource_url = "";
+
+      switch (role) {
+        case 0:
+          resource_url = "clients/sign_up";
+          break;
+        case 1:
+          resource_url = "trainers/sign_up";
+          break;
+        case 2:
+          resource_url = "nutritionists/sign_up";
+          break;
+        default:
+          break;
+      }
+
       const payload = {
         email: this.email,
         password: this.password,
@@ -71,7 +141,7 @@ export default {
       };
 
       await axios.post(
-        "http://localhost:3000/authentication/clients/sign_up",
+        `http://localhost:3000/authentication/${resource_url}`,
         payload
       );
     },
@@ -85,6 +155,12 @@ h1 {
 }
 h4 {
   color: #999;
+}
+
+button {
+  background-color: rgb(216, 74, 74);
+  border-color: transparent;
+  border-radius: 20px;
 }
 
 input {
@@ -113,10 +189,8 @@ input::placeholder {
   text-align: center;
 }
 
-.signup-btn {
-  background-color: rgb(216, 74, 74);
-  border-color: transparent;
-  border-radius: 20px;
+#user-type-radio {
+  margin-bottom: 15px;
 }
 
 #side-image {
@@ -127,5 +201,9 @@ input::placeholder {
 
 #signup-text-header {
   display: flex;
+}
+
+.btn-outline-primary {
+  border-radius: 50px;
 }
 </style>
