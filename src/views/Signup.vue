@@ -2,25 +2,25 @@
   <div id="component-container">
     <div class="container">
       <div class="row">
-        <div id="side-image" class="col-6">
-          <img src="../assets/weightLiftingVector.png" class="img-fluid" />
-        </div>
-        <div id="signup-form" class="col-6">
+        <div
+          id="signup-form"
+          class="col-lg-6 col-sm-12 order-sm-1 order-lg-2 text-center my-4"
+        >
           <form action="" class="needs-validation">
-            <div id="signup-text">
+            <div id="signup-text" class="mb-4">
               <div id="signup-text-header">
-                <h1>
+                <h1 class="c-signup-title u-title-font text-center">
                   Sign Up for an
-                  <font style="color: rgb(216, 74, 74)">Account</font>
+                  <span class="text-primary">Account</span>
                 </h1>
               </div>
-              <h4>Healthy habits for a better life.</h4>
+              <p class="text-secondary">Healthy habits for a better life.</p>
             </div>
 
             <input
               id="fullname-input"
               type="text"
-              class="form-control"
+              class="form-control mb-3"
               placeholder="Full name"
               aria-label="Full name"
               v-model="name"
@@ -30,7 +30,7 @@
             <input
               id="email-input"
               type="email"
-              class="form-control"
+              class="form-control mb-3"
               placeholder="Email Address"
               aria-label="Email Address"
               v-model="email"
@@ -40,7 +40,7 @@
             <input
               id="email-input"
               type="password"
-              class="form-control"
+              class="form-control mb-3"
               placeholder="Password"
               aria-label="Password"
               v-model="password"
@@ -95,14 +95,15 @@
             </div>
 
             <div>
-              <button
-                class="btn btn-primary signup-btn"
-                v-on:click="submitForm"
-              >
+              <button class="btn btn-primary" v-on:click="submitForm">
                 Create Account
               </button>
             </div>
           </form>
+        </div>
+
+        <div id="side-image" class="col-lg-6 col-sm-12 order-sm-2 order-lg-1">
+          <img src="../assets/weightLiftingVector.png" class="img-fluid" />
         </div>
       </div>
     </div>
@@ -164,12 +165,10 @@ h4 {
   color: #999;
 }
 
-button {
-  background-color: rgb(216, 74, 74);
-  border-color: transparent;
-  border-radius: 20px;
+.c-signup-title,
+.c-signup-title * {
 }
-
+/* 
 input {
   background-color: rgb(247, 247, 247);
   border-radius: 25px;
@@ -178,43 +177,18 @@ input {
   height: 3.2rem;
   text-indent: 20px;
   color: #555;
-}
-input::placeholder {
+} */
+/* input::placeholder {
   color: #bbb;
   margin: 50px;
   text-indent: 20px;
-}
-
-#signup-text {
-  margin-bottom: 40px;
-}
-
-#signup-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+} */
 
 #user-type-radio {
   margin-bottom: 15px;
 }
 
-#side-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#signup-text-header {
-  display: flex;
-}
-
 #component-container {
   margin-top: 10%;
-}
-
-.btn-outline-primary {
-  border-radius: 50px;
 }
 </style>

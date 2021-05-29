@@ -1,13 +1,14 @@
 <template>
-  <Signup />
+  <div>
+    <Navbar />
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import Signup from "./views/Signup";
-
 export default {
   components: {
-    Signup,
+    Navbar: () => import("@/components/Navbar"),
   },
 };
 </script>
