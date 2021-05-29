@@ -1,102 +1,107 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div id="side-image" class="col">
-        <img src="../assets/weightLiftingVector.png" class="img-fluid" />
-      </div>
-      <div id="signup-form" class="col">
-        <form action="" class="needs-validation">
-          <div id="signup-text">
-            <div id="signup-text-header">
-              <h1 style="margin-right: 0.5rem">Sign Up for an</h1>
-              <h1 style="color: rgb(216, 74, 74)">Account</h1>
+  <div id="component-container">
+    <div class="container">
+      <div class="row">
+        <div id="side-image" class="col-6">
+          <img src="../assets/weightLiftingVector.png" class="img-fluid" />
+        </div>
+        <div id="signup-form" class="col-6">
+          <form action="" class="needs-validation">
+            <div id="signup-text">
+              <div id="signup-text-header">
+                <h1 style="margin-right: 0.5rem">Sign Up for an</h1>
+                <h1 style="color: rgb(216, 74, 74)">Account</h1>
+              </div>
+              <h4>Healthy habits for a better life.</h4>
             </div>
-            <h4>Healthy habits for a better life.</h4>
-          </div>
-
-          <input
-            id="fullname-input"
-            type="text"
-            class="form-control"
-            placeholder="Full name"
-            aria-label="Full name"
-            v-model="name"
-            required
-          />
-
-          <input
-            id="email-input"
-            type="email"
-            class="form-control"
-            placeholder="Email Address"
-            aria-label="Email Address"
-            v-model="email"
-            required
-          />
-
-          <input
-            id="email-input"
-            type="password"
-            class="form-control"
-            placeholder="Password"
-            aria-label="Password"
-            v-model="password"
-            required
-          />
-
-          <div
-            id="user-type-radio"
-            class="btn-group"
-            role="group"
-            aria-label="User type radio buttons"
-          >
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="btnradio1"
-              autocomplete="off"
-              value="0"
-              v-model="userRole"
-              checked
-            />
-            <label class="btn btn-outline-primary" for="btnradio1"
-              >Client</label
-            >
 
             <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="btnradio2"
-              value="1"
-              v-model="userRole"
-              autocomplete="off"
+              id="fullname-input"
+              type="text"
+              class="form-control"
+              placeholder="Full name"
+              aria-label="Full name"
+              v-model="name"
+              required
             />
-            <label class="btn btn-outline-primary" for="btnradio2"
-              >Trainer</label
-            >
 
             <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="btnradio3"
-              value="2"
-              v-model="userRole"
-              autocomplete="off"
+              id="email-input"
+              type="email"
+              class="form-control"
+              placeholder="Email Address"
+              aria-label="Email Address"
+              v-model="email"
+              required
             />
-            <label class="btn btn-outline-primary" for="btnradio3"
-              >Nutritionist</label
-            >
-          </div>
 
-          <div>
-            <button class="btn btn-primary signup-btn" v-on:click="submitForm">
-              Create Account
-            </button>
-          </div>
-        </form>
+            <input
+              id="email-input"
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              aria-label="Password"
+              v-model="password"
+              required
+            />
+
+            <div
+              id="user-type-radio"
+              class="btn-group"
+              role="group"
+              aria-label="User type radio buttons"
+            >
+              <input
+                type="radio"
+                class="btn-check"
+                name="btnradio"
+                id="btnradio1"
+                autocomplete="off"
+                value="0"
+                v-model="userRole"
+                checked
+              />
+              <label class="btn btn-outline-primary" for="btnradio1"
+                >Client</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="btnradio"
+                id="btnradio2"
+                value="1"
+                v-model="userRole"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-primary" for="btnradio2"
+                >Trainer</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="btnradio"
+                id="btnradio3"
+                value="2"
+                v-model="userRole"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-primary" for="btnradio3"
+                >Nutritionist</label
+              >
+            </div>
+
+            <div>
+              <button
+                class="btn btn-primary signup-btn"
+                v-on:click="submitForm"
+              >
+                Create Account
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -201,6 +206,10 @@ input::placeholder {
 
 #signup-text-header {
   display: flex;
+}
+
+#component-container {
+  margin-top: 10%;
 }
 
 .btn-outline-primary {
