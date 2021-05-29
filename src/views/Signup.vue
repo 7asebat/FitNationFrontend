@@ -47,52 +47,16 @@
               required
             />
 
-            <div
-              id="user-type-radio"
-              class="btn-group"
-              role="group"
-              aria-label="User type radio buttons"
-            >
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio1"
-                autocomplete="off"
-                value="0"
+            <b-form-group>
+              <b-form-radio-group
+                id="btn-radios-2"
                 v-model="userRole"
-                checked
-              />
-              <label class="btn btn-outline-primary" for="btnradio1"
-                >Client</label
-              >
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio2"
-                value="1"
-                v-model="userRole"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-primary" for="btnradio2"
-                >Trainer</label
-              >
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio3"
-                value="2"
-                v-model="userRole"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-primary" for="btnradio3"
-                >Nutritionist</label
-              >
-            </div>
+                :options="userTypes"
+                button-variant="outline-primary"
+                name="radio-btn-outline"
+                buttons
+              ></b-form-radio-group>
+            </b-form-group>
 
             <div>
               <button class="btn btn-primary" v-on:click="submitForm">
@@ -119,7 +83,12 @@ export default {
       name: "",
       email: "",
       password: "",
-      userRole: "0",
+      userRole: "client",
+      userTypes: [
+        { text: "Client", value: "client" },
+        { text: "Trainer", value: "trainer" },
+        { text: "Nutrionist", value: "nutrionist" },
+      ],
     };
   },
   methods: {

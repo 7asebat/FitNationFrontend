@@ -6,9 +6,9 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
 import "@/plugins/fontAwesome";
 
-import "./assets/styles/global.scss";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import "./assets/styles/global.scss";
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
