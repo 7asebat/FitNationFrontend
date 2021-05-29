@@ -9,8 +9,10 @@
           <form action="" class="needs-validation">
             <div id="signup-text">
               <div id="signup-text-header">
-                <h1 style="margin-right: 0.5rem">Sign Up for an</h1>
-                <h1 style="color: rgb(216, 74, 74)">Account</h1>
+                <h1>
+                  Sign Up for an
+                  <font style="color: rgb(216, 74, 74)">Account</font>
+                </h1>
               </div>
               <h4>Healthy habits for a better life.</h4>
             </div>
