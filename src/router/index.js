@@ -21,6 +21,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  {
+    path: "/workouts",
+    name: "Workouts",
+    component: () =>
+      import(/* webpackChunkName: "workouts" */ "@/views/Workouts.vue"),
+  },
   ...AuthRoutes,
 ];
 
