@@ -26,7 +26,19 @@
           Exercises
         </router-link>
 
-        <a href="#" class="navItem btn btn-primary text-light">Login</a>
+        <router-link
+          :to="{ name: 'Login' }"
+          class="navItem btn btn-outline-primary text-primary"
+        >
+          Login
+        </router-link>
+
+        <router-link
+          :to="{ name: 'Register' }"
+          class="navItem btn btn-primary text-light"
+        >
+          Register
+        </router-link>
       </nav>
     </div>
   </div>
