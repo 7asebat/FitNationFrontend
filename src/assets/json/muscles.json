@@ -1,0 +1,9 @@
+{
+  "abs": {
+    "title": "Abs Muscle",
+    "info": "The rectus abdominis muscle, also known as the \"abdominal muscle\", is a paired muscle running vertically on each side of the anterior wall of the human abdomen, as well as that of some other mammals.",
+    "exercises": 20,
+    "workoutPlans": 30,
+    "imgSrc": "stayFit.png"
+  }
+}
