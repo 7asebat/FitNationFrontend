@@ -3,14 +3,13 @@
     <div class="container">
       <ImageText
         title="Meals"
-        imgSrc="workoutsHeader.png"
+        imgSrc="meal.png"
         primaryButtonText="Create your own meal"
         secondaryButtonText="Need Help? Ask a nutritionist"
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
           veniam iusto esse impedit expedita itaque praesentium dolorum, dolorem
           eum earum fuga cum explicabo provident consequuntur. Ea dolorem non
           natus voluptates."
-        imagePosition="left"
         theme="success"
       />
 
