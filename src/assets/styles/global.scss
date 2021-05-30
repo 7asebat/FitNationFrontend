@@ -1,8 +1,5 @@
 // Include Bootstrap and BootstrapVue SCSS files
-$primary: #FF5555;
-$secondary: #9A9A9A;
-$border-radius: 25px;
-$dark: #707070;
+@import "./variables.scss";
 
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';

@@ -8,11 +8,25 @@
       </div>
 
       <nav>
-        <a href="#" class="navItem">Home</a>
-        <a href="#" class="navItem">Workout Plans</a>
-        <a href="#" class="navItem">Meals</a>
-        <a href="#" class="navItem">Exercises</a>
-        <a href="#" class="navItem btn btn-primary">Login</a>
+        <router-link :to="{ name: 'Home' }" class="navItem"> Home </router-link>
+
+        <router-link :to="{ name: 'Workouts' }" class="navItem">
+          Workout Plans
+        </router-link>
+
+        <router-link :to="{ name: 'Meals' }" class="navItem">
+          Meals
+        </router-link>
+
+        <router-link :to="{ name: 'Exercises' }" class="navItem">
+          Exercises
+        </router-link>
+
+        <router-link :to="{ name: 'Exercises' }" class="navItem">
+          Exercises
+        </router-link>
+
+        <a href="#" class="navItem btn btn-primary text-light">Login</a>
       </nav>
     </div>
   </div>
@@ -29,6 +43,7 @@ export default {};
 .navItem {
   display: inline-block;
   margin-left: 16px;
+  color: $dark;
   text-decoration: none;
 }
 </style>

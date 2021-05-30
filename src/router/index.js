@@ -27,17 +27,26 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "workouts" */ "@/views/Workouts.vue"),
   },
+
+  {
+    path: "/workouts/:id",
+    name: "SingleWorkout",
+    component: () =>
+      import(/* webpackChunkName: "workouts" */ "@/views/SingleWorkout.vue"),
+  },
+
   {
     path: "/exercises",
     name: "Exercises",
     component: () =>
       import(/* webpackChunkName: "exercises" */ "@/views/Exercises.vue"),
   },
+
   {
-    path: "/workouts/:id",
-    name: "SingleWorkout",
+    path: "/meals",
+    name: "Meals",
     component: () =>
-      import(/* webpackChunkName: "workouts" */ "@/views/SingleWorkout.vue"),
+      import(/* webpackChunkName: "meals" */ "@/views/Meals.vue"),
   },
   ...AuthRoutes,
 ];
