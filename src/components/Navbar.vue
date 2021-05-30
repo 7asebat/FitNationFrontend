@@ -8,7 +8,9 @@
       </div>
 
       <nav>
-        <router-link :to="{ name: 'Home' }" class="navItem"> Home </router-link>
+        <router-link :to="{ name: 'Index' }" class="navItem">
+          Home
+        </router-link>
 
         <router-link :to="{ name: 'Workouts' }" class="navItem">
           Workout Plans
