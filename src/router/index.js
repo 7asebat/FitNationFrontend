@@ -59,6 +59,12 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "meals" */ "@/views/Meals.vue"),
       },
+      {
+        path: "/workout-builder",
+        name: "WorkoutBuikder",
+        component: () =>
+          import(/* webpackChunkName: "workouts" */ "@/views/WorkoutBuilder.vue"),
+      },
       ...AuthRoutes,
     ],
   },
