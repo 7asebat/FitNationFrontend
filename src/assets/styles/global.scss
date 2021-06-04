@@ -1,28 +1,29 @@
 // Include Bootstrap and BootstrapVue SCSS files
 @import "./variables.scss";
+@import "./fonts.scss";
+@import "bootstrap/scss/bootstrap.scss";
+@import "bootstrap-vue/src/index.scss";
 
-@import 'bootstrap/scss/bootstrap.scss';
-@import 'bootstrap-vue/src/index.scss';
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
-.u-title-font, .u-title-font *{
-    font-family: "Bebas Neue", cursive;
+.u-title-font,
+.u-title-font * {
+  font-family: "Bebas Neue", cursive;
 }
 
 input {
-    height: 50px !important;
-    color: $dark;
+  height: 50px !important;
+  color: $dark;
 }
 
 input::placeholder {
-    color: $secondary;
+  color: $secondary;
 }
 
-.panelSidebar{
-    background: #333 !important;
+.panelSidebar {
+  background: #333 !important;
 }
