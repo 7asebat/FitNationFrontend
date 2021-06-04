@@ -75,6 +75,36 @@ const routes = [
             /* webpackChunkName: "recipes" */ "@/views/RecipesBuilder.vue"
           ),
       },
+
+      {
+        path: "/profile",
+        name: "Profile",
+        component: () => import("@/views/Profile.vue"),
+        redirect: { name: "ProfileOverview" },
+        children: [
+          {
+            path: "overview",
+            name: "ProfileOverview",
+            component: () => import("@/components/Profile/ProfileOverview.vue"),
+          },
+          {
+            path: "nutrition-info",
+            name: "NutritionInfo",
+            component: () => import("@/components/Profile/NutritionInfo.vue"),
+          },
+          {
+            path: "workout-performance",
+            name: "WorkoutPerformance",
+            component: () =>
+              import("@/components/Profile/WorkoutPerformance.vue"),
+          },
+          {
+            path: "correspondence",
+            name: "Correspondence",
+            component: () => import("@/components/Profile/Correspondence.vue"),
+          },
+        ],
+      },
       ...AuthRoutes,
     ],
   },
@@ -127,34 +157,6 @@ const routes = [
       import(/* webpackChunkName: "meals" */ "@/views/ListPanel.vue"),
   },
 
-  {
-    path: "/profile",
-    name: "Profile",
-    component: () => import("@/views/Profile.vue"),
-    redirect: { name: "ProfileOverview" },
-    children: [
-      {
-        path: "overview",
-        name: "ProfileOverview",
-        component: () => import("@/components/Profile/ProfileOverview.vue"),
-      },
-      {
-        path: "nutrition-info",
-        name: "NutritionInfo",
-        component: () => import("@/components/Profile/NutritionInfo.vue"),
-      },
-      {
-        path: "workout-performance",
-        name: "WorkoutPerformance",
-        component: () => import("@/components/Profile/WorkoutPerformance.vue"),
-      },
-      {
-        path: "correspondence",
-        name: "Correspondence",
-        component: () => import("@/components/Profile/Correspondence.vue"),
-      },
-    ],
-  },
   ...AuthRoutes,
 ];
 

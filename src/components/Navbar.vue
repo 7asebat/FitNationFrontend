@@ -50,9 +50,20 @@
             Register
           </router-link>
         </div>
-        <div class="d-inline-block ml-4" v-else>
-          Hi, <span class="text-primary">{{ loggedInUser.name }}</span>
-        </div>
+
+        <b-dropdown v-else class="ml-3 c-navbar__user_dropdown">
+          <template #button-content class="hamadas">
+            Hi, <span class="text-primary">{{ loggedInUser.name }}</span>
+          </template>
+          <b-dropdown-item :to="{ name: 'ProfileOverview' }">
+            <i class="fas fa-user"></i>
+            <span class="ml-2">Profile</span>
+          </b-dropdown-item>
+          <b-dropdown-item href="#">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-2">Logout</span>
+          </b-dropdown-item>
+        </b-dropdown>
       </nav>
     </div>
   </div>
@@ -75,7 +86,7 @@ export default {
 .navItem {
   display: inline-block;
   margin-left: 16px;
-  color: $dark;
+  color: $dark !important;
   text-decoration: none;
 }
 </style>
