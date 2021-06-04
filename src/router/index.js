@@ -54,6 +54,30 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "meals" */ "@/views/Meals.vue"),
   },
+
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("@/views/Profile.vue"),
+    redirect: { name: "ProfileOverview" },
+    children: [
+      {
+        path: "overview",
+        name: "ProfileOverview",
+        component: () => import("@/components/Profile/ProfileOverview.vue"),
+      },
+      {
+        path: "nutrition-info",
+        name: "NutritionInfo",
+        component: () => import("@/components/Profile/NutritionInfo.vue"),
+      },
+      {
+        path: "workout-performance",
+        name: "WorkoutPerformance",
+        component: () => import("@/components/Profile/WorkoutPerformance.vue"),
+      },
+    ],
+  },
   ...AuthRoutes,
 ];
 
