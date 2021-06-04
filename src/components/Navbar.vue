@@ -59,7 +59,7 @@
             <i class="fas fa-user"></i>
             <span class="ml-2">Profile</span>
           </b-dropdown-item>
-          <b-dropdown-item href="#">
+          <b-dropdown-item @click.prevent="logout">
             <i class="fas fa-sign-out-alt"></i>
             <span class="ml-2">Logout</span>
           </b-dropdown-item>
@@ -74,6 +74,13 @@ export default {
   computed: {
     loggedInUser() {
       return this.$store.state.user;
+    },
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "Index" });
     },
   },
 };

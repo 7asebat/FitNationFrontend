@@ -18,6 +18,11 @@ export default new Vuex.Store({
       localStorage.setItem("user", JSON.stringify(user));
     },
   },
-  actions: {},
+  actions: {
+    logout(context) {
+      context.commit("setUser", null);
+      context.commit("setToken", null);
+    },
+  },
   modules: {},
 });
