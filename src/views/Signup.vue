@@ -91,17 +91,29 @@ export default {
   },
   methods: {
     async submitForm() {
-      const payload = {
-        email: this.email,
-        password: this.password,
-        name: this.name,
-        country: 0,
-      };
+      try {
+        const payload = {
+          email: this.email,
+          password: this.password,
+          name: this.name,
+          country: 0,
+        };
 
-      await this.axios.post(
-        `authentication/${this.userRole}s/sign_up`,
-        payload
-      );
+        const response = await this.axios.post(
+          `authentication/${this.userRole}s/sign_up`,
+          payload
+        );
+
+        const user = response.data.data.user;
+        const token = response.data.data.token;
+
+        this.$store.commit("setUser", user);
+        this.$store.commit("setToken", token);
+
+        this.$router.push({ name: "Index" });
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
