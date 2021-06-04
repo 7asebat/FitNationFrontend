@@ -26,6 +26,13 @@
           Profile
         </router-link>
 
+        <router-link
+          :to="{ name: 'ListPanel', params: { type: 'nutritionist' } }"
+          class="navItem"
+        >
+          Search
+        </router-link>
+
         <a href="#" class="navItem btn btn-primary text-light">Login</a>
       </nav>
     </div>

@@ -36,7 +36,7 @@
 export default {
   data: () => ({
     name: "Profile",
-    type: "trainer",
+    type: "client",
     tabs: {
       client: [
         {
@@ -70,6 +70,14 @@ export default {
           title: "Correspondence",
           icon: "fa-envelope",
           link: "/profile/correspondence",
+        },
+      ],
+      nutritionist: [
+        {
+          name: "ProfileOverview",
+          title: "Overview",
+          icon: "fa-home",
+          link: "/profile/overview",
         },
       ],
     },

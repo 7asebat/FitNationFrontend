@@ -54,6 +54,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "meals" */ "@/views/Meals.vue"),
   },
+  {
+    path: "/list/:type",
+    name: "ListPanel",
+    component: () =>
+      import(/* webpackChunkName: "meals" */ "@/views/ListPanel.vue"),
+  },
 
   {
     path: "/profile",
