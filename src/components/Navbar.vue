@@ -24,8 +24,15 @@
           Exercises
         </router-link>
 
-        <router-link :to="{ name: 'Exercises' }" class="navItem">
-          Exercises
+        <router-link :to="{ name: 'Profile' }" class="navItem">
+          Profile
+        </router-link>
+
+        <router-link
+          :to="{ name: 'ListPanel', params: { type: 'nutritionist' } }"
+          class="navItem"
+        >
+          Search
         </router-link>
 
         <div class="d-inline-block" v-if="!loggedInUser">
