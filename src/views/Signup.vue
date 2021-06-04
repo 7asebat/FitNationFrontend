@@ -85,7 +85,7 @@ export default {
       userTypes: [
         { text: "Client", value: "client" },
         { text: "Trainer", value: "trainer" },
-        { text: "Nutrionist", value: "nutrionist" },
+        { text: "Nutritionist", value: "nutritionist" },
       ],
     };
   },
