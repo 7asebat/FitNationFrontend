@@ -5,6 +5,7 @@
         title="Workout Plans"
         imgSrc="workoutsHeader.png"
         primaryButtonText="Create your own plan"
+        primaryButtonRoute="WorkoutBuilder"
         secondaryButtonText="Need Help? Get a personal trainer"
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
           veniam iusto esse impedit expedita itaque praesentium dolorum, dolorem

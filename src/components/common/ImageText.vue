@@ -8,9 +8,13 @@
         <h1 class="c-image-text-title">{{ title }}</h1>
         <p class="text-secondary">{{ description }}</p>
         <div class="c-image-text-actions">
-          <a href="#" class="btn" :class="'btn-' + theme">
+          <router-link
+            class="btn"
+            :class="'btn-' + theme"
+            :to="{ name: primaryButtonRoute }"
+          >
             {{ primaryButtonText }}
-          </a>
+          </router-link>
           <a href="#" class="btn">{{ secondaryButtonText }}</a>
         </div>
       </div>
@@ -31,6 +35,7 @@ export default {
     title: String,
     description: String,
     primaryButtonText: String,
+    primaryButtonRoute: String,
     secondaryButtonText: String,
     imgSrc: String,
     imagePosition: {

@@ -12,7 +12,9 @@
       </div>
 
       <div>
-        <a href="" class="btn btn-primary">Create your own workout</a>
+        <router-link class="btn btn-primary" :to="{ name: 'WorkoutBuilder' }">
+          Create your own workout
+        </router-link>
       </div>
     </div>
 

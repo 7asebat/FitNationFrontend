@@ -5,6 +5,7 @@
         title="Meals"
         imgSrc="meal.png"
         primaryButtonText="Create your own meal"
+        primaryButtonRoute="RecipesBuilder"
         secondaryButtonText="Need Help? Ask a nutritionist"
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
           veniam iusto esse impedit expedita itaque praesentium dolorum, dolorem
