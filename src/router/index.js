@@ -42,7 +42,7 @@ const routes = [
   },
 
   {
-    path: "/exercises",
+    path: "/exercises/:id?",
     name: "Exercises",
     component: () =>
       import(/* webpackChunkName: "exercises" */ "@/views/Exercises.vue"),
@@ -75,6 +75,11 @@ const routes = [
         path: "workout-performance",
         name: "WorkoutPerformance",
         component: () => import("@/components/Profile/WorkoutPerformance.vue"),
+      },
+      {
+        path: "correspondence",
+        name: "Correspondence",
+        component: () => import("@/components/Profile/Correspondence.vue"),
       },
     ],
   },

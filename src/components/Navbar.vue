@@ -22,8 +22,8 @@
           Exercises
         </router-link>
 
-        <router-link :to="{ name: 'Exercises' }" class="navItem">
-          Exercises
+        <router-link :to="{ name: 'Profile' }" class="navItem">
+          Profile
         </router-link>
 
         <a href="#" class="navItem btn btn-primary text-light">Login</a>

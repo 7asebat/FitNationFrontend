@@ -27,6 +27,10 @@ export default {
         name: String,
         data: String,
       },
+      location: {
+        name: String,
+        data: String,
+      },
     },
   }),
 
@@ -53,6 +57,10 @@ export default {
       birthdate: {
         name: "Date of Birth",
         data: this.dateToString(dob),
+      },
+      location: {
+        name: "Location",
+        data: "Maadi, Cairo, Egypt",
       },
     };
   },

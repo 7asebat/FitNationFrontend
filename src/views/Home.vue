@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home container p-5">
     <h1>home</h1>
 
     <b-form-group
