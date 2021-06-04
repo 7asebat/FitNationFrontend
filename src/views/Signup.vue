@@ -59,7 +59,7 @@
             </b-form-group>
 
             <div>
-              <button class="btn btn-primary" v-on:click="submitForm">
+              <button class="btn btn-primary" v-on:click.prevent="submitForm">
                 Create Account
               </button>
             </div>
@@ -75,8 +75,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -93,23 +91,6 @@ export default {
   },
   methods: {
     async submitForm() {
-      let role = Number(this.userRole);
-      let resource_url = "";
-
-      switch (role) {
-        case 0:
-          resource_url = "clients/sign_up";
-          break;
-        case 1:
-          resource_url = "trainers/sign_up";
-          break;
-        case 2:
-          resource_url = "nutritionists/sign_up";
-          break;
-        default:
-          break;
-      }
-
       const payload = {
         email: this.email,
         password: this.password,
@@ -117,8 +98,8 @@ export default {
         country: 0,
       };
 
-      await axios.post(
-        `http://localhost:3000/authentication/${resource_url}`,
+      await this.axios.post(
+        `authentication/${this.userRole}s/sign_up`,
         payload
       );
     },
