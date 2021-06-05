@@ -30,7 +30,7 @@ export default {
   },
 
   data: () => ({
-    // $route.params.type contains the subdomain of the serach query
+    // $route.params.type contains the subdomain of the search query
     query: "",
     listTypes: {
       trainer: "trainers",

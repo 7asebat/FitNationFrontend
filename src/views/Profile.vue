@@ -30,7 +30,7 @@
 export default {
   data: () => ({
     name: "Profile",
-    type: "client",
+    type: "trainer",
     tabs: {
       client: [
         {
@@ -96,5 +96,3 @@ export default {
   },
 };
 </script>
-
-
