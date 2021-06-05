@@ -9,13 +9,16 @@
         <p class="text-secondary">{{ description }}</p>
         <div class="c-image-text-actions">
           <router-link
+            v-if="secondaryButtonText !== undefined"
             class="btn"
             :class="'btn-' + theme"
             :to="{ name: primaryButtonRoute }"
           >
             {{ primaryButtonText }}
           </router-link>
-          <a href="#" class="btn">{{ secondaryButtonText }}</a>
+          <a v-if="secondaryButtonText !== undefined" href="#" class="btn">
+            {{ secondaryButtonText }}
+          </a>
         </div>
       </div>
     </div>

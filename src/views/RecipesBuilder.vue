@@ -36,7 +36,12 @@
           @click="removeFoodItem(foodItem)"
         >
           <div
-            class="c-recipes-builder__food-card-overlay d-flex align-items-center justify-content-center"
+            class="
+              c-recipes-builder__food-card-overlay
+              d-flex
+              align-items-center
+              justify-content-center
+            "
           >
             <h1><i class="fas fa-trash text-danger"></i></h1>
           </div>
@@ -57,7 +62,16 @@ export default {
     return {
       recipeName: "",
       recipeDescription: "",
-      food: [],
+      food: [
+        {
+          id: 2,
+          has_image: false,
+          name: "Rice",
+          nutrition_facts: "Calorie dense",
+          food_type: null,
+          selected: false,
+        },
+      ],
     };
   },
 
