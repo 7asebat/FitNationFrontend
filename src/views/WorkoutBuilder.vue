@@ -26,7 +26,13 @@
             >
               <div class="c-workout-builder__delete-overlay">
                 <h1
-                  class="text-danger d-flex justify-content-center align-items-center h-100"
+                  class="
+                    text-danger
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    h-100
+                  "
                 >
                   <i class="fas fa-trash-alt"></i>
                 </h1>
@@ -43,6 +49,10 @@
         />
       </b-tab>
     </b-tabs>
+
+    <ButtonMain class="my-3 float-right" @clicked="addWorkout"
+      >Add Workout</ButtonMain
+    >
 
     <BuilderExercisesModal
       :dayName="`Day ${selectedDay}`"
@@ -63,6 +73,15 @@ export default {
     };
   },
   methods: {
+    async addWorkout(loading) {
+      loading(true);
+
+      try {
+        this.axios.post("workout_plans");
+      } catch (err) {
+        console.log(err);
+      }
+    },
     showExercisesModal() {
       this.$bvModal.show("builderExercisesModal");
     },
@@ -90,6 +109,7 @@ export default {
     BuilderExercisesModal: () =>
       import("@/components/workouts/builderExercisesModal"),
     ExerciseCard: () => import("@/components/ExerciseCard"),
+    ButtonMain: () => import("@/components/common/ButtonMain"),
   },
 };
 </script>

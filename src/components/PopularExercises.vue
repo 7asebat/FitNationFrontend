@@ -13,26 +13,37 @@
     <div class="row">
       <div
         class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3"
-        v-for="workout in popularExercises"
-        :key="workout"
+        v-for="exercise in popularExercises"
+        :key="exercise.id"
       >
-        <ExerciseCard :data="exerciseData[0]"/>
+        <ExerciseCard :data="exercise" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import exerciseData from "@/assets/json/popularExercises.json";
 export default {
   name: "PopularExercises",
 
-  data: () => ({
-    popularExercises: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+  created() {
+    this.getExercises();
+  },
 
-    // TODO(Abdelrahman) Assign this
-    exerciseData 
+  data: () => ({
+    popularExercises: [],
   }),
+
+  methods: {
+    async getExercises() {
+      try {
+        const response = await this.axios.get("exercises");
+        this.popularExercises = response.data.data.exercises;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
 
   components: {
     ExerciseCard: () => import("@/components/ExerciseCard.vue"),

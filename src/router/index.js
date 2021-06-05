@@ -115,6 +115,7 @@ const routes = [
     name: "Panel",
     component: () =>
       import(/* webpackChunkName: "Panel" */ "../views/Panel.vue"),
+    children: [],
   },
   {
     path: "/about",
