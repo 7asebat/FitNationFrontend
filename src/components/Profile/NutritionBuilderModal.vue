@@ -31,7 +31,7 @@
         <MealCard class="col-10" :meal="meal" />
 
         <div class="col-2 d-flex align-items-center h1">
-          x <b-input v-model="meal.amount" class="ml-3" />
+          x <b-input v-model="meal.amount" class="ml-3" type="number" />
         </div>
       </b-row>
 
@@ -78,6 +78,7 @@ export default {
           return { name, amount, count };
         });
       this.$emit("confirmEdits", { weight: this.weight, meals });
+      this.meals = [];
     },
   },
 };
