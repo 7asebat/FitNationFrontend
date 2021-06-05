@@ -21,8 +21,8 @@
     <div class="row">
       <div
         class="col col-md-3 mb-3"
-        v-for="workout in popularWorkouts"
-        :key="workout"
+        v-for="workout in workouts"
+        :key="workout.id"
       >
         <WorkoutCard
           level="Intermediate"
@@ -37,10 +37,27 @@
 
 <script>
 export default {
+  created() {
+    this.getWorkouts();
+  },
+
   data() {
     return {
-      popularWorkouts: [1, 2, 3, 4, 5, 6, 7, 8],
+      workouts: [],
     };
+  },
+
+  methods: {
+    async getWorkouts() {
+      try {
+        const response = await this.axios.get("workout_plans");
+        const workouts = response.data.data.workout_plans;
+
+        this.workouts = workouts;
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+    },
   },
 
   components: {
