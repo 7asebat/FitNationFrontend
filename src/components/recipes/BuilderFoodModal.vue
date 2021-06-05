@@ -21,7 +21,13 @@
             class="c-builder-food-modal__selected-overlay"
           >
             <h1
-              class="text-success d-flex justify-content-center align-items-center h-100"
+              class="
+                text-success
+                d-flex
+                justify-content-center
+                align-items-center
+                h-100
+              "
             >
               <i class="fas fa-check-circle"></i>
             </h1>
@@ -35,74 +41,13 @@
 
 <script>
 export default {
+  created() {
+    this.getAllFood();
+  },
+
   data() {
     return {
-      food: [
-        {
-          id: 2,
-          has_image: false,
-          name: "Rice",
-          nutrition_facts: "Calorie dense",
-          food_type: null,
-          selected: false,
-        },
-        {
-          id: 3,
-          has_image: false,
-          name: "Rice",
-          nutrition_facts: "Calorie dense",
-          food_type: null,
-          selected: false,
-        },
-        {
-          id: 4,
-          has_image: false,
-          name: "Rice",
-          nutrition_facts: "Calorie dense",
-          food_type: null,
-          selected: false,
-        },
-        {
-          id: 5,
-          has_image: null,
-          name: null,
-          nutrition_facts: null,
-          food_type: null,
-          selected: false,
-        },
-        {
-          id: 6,
-          has_image: false,
-          name: "Rice",
-          nutrition_facts: "Calorie dense",
-          food_type: null,
-          selected: false,
-        },
-        {
-          id: 7,
-          has_image: false,
-          name: "Rice",
-          nutrition_facts: "Calorie dense",
-          food_type: null,
-          selected: false,
-        },
-        {
-          id: 8,
-          has_image: false,
-          name: "Rice",
-          nutrition_facts: "Calorie dense",
-          food_type: null,
-          selected: false,
-        },
-        {
-          id: 9,
-          has_image: false,
-          name: "Rice",
-          nutrition_facts: "Calorie dense",
-          food_type: null,
-          selected: false,
-        },
-      ],
+      food: [],
     };
   },
 
@@ -113,6 +58,21 @@ export default {
   },
 
   methods: {
+    async getAllFood() {
+      try {
+        const response = await this.axios.get("foods");
+        let foods = response.data.data.food;
+
+        foods = foods.map((food) => {
+          food.selected = false;
+          return food;
+        });
+
+        this.food = foods;
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+    },
     addFood() {
       this.$emit("addFood", this.selectedFood);
       this.resetFood();

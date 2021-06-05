@@ -25,7 +25,9 @@
           class="mb-3"
         ></b-form-textarea>
 
-        <button class="btn btn-primary">Save Recipe</button>
+        <button class="btn btn-primary" @click.prevent="addRecipe">
+          Save Recipe
+        </button>
       </div>
       <div class="col-12 col-md-6">
         <h3 class="mb-3">Food in this recipe</h3>
@@ -36,7 +38,12 @@
           @click="removeFoodItem(foodItem)"
         >
           <div
-            class="c-recipes-builder__food-card-overlay d-flex align-items-center justify-content-center"
+            class="
+              c-recipes-builder__food-card-overlay
+              d-flex
+              align-items-center
+              justify-content-center
+            "
           >
             <h1><i class="fas fa-trash text-danger"></i></h1>
           </div>
@@ -68,6 +75,22 @@ export default {
   },
 
   methods: {
+    async addRecipe() {
+      try {
+        const foods = this.food.map((foodItem) => foodItem.id);
+        const payload = {
+          recipe: {
+            name: this.recipeName,
+            description: this.recipeDescription,
+            foods,
+          },
+        };
+
+        await this.axios.post("recipes", payload);
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+    },
     showFoodModal() {
       this.$bvModal.show("builderFoodModal");
     },
