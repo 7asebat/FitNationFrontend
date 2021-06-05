@@ -6,27 +6,23 @@
         :key="d"
         :title="`${dateToString(date.date)}`"
       >
-        <b-row class="p-2 px-4">
-          <b-alert
-            v-if="date.weight"
-            show
-            variant="success"
-            class="c-weight text-center mr-4"
-          >
-            Weight | {{ date.weight }}kg
-          </b-alert>
+        <div class="col p-2 px-4">
+          <b-row>
+            <div v-if="date.weight" class="alert alert-success mx-2">
+              Weight | {{ date.weight }}kg
+            </div>
+            <div v-if="date.bodyfat" class="alert alert-success mx-2">
+              Bodyfat | {{ date.bodyfat }}%
+            </div>
+          </b-row>
 
-          <b-alert
-            v-if="date.bodyfat"
-            show
-            variant="info"
-            class="c-weight text-center"
-          >
-            Bodyfat | {{ date.bodyfat }}%
-          </b-alert>
-        </b-row>
-
-        <b-table :items="date.nutrition" borderless></b-table>
+          <b-row v-for="(meal, i) in date.meals" :key="i">
+            <MealCard class="col-10" :meal="meal" />
+            <div class="col-2 d-flex align-items-center">
+              <h1>x {{ meal.amount }}</h1>
+            </div>
+          </b-row>
+        </div>
       </b-tab>
     </b-tabs>
   </div>
@@ -36,6 +32,10 @@
 export default {
   name: "NutritionInfo",
 
+  components: {
+    MealCard: () => import("@/components/MealCard.vue"),
+  },
+
   data: () => ({
     nutritionInfo: [
       {
@@ -43,14 +43,11 @@ export default {
         weight: 74.2,
         bodyfat: 17,
 
-        nutrition: [
+        meals: [
           {
-            name: "Brown Toast",
-            amount: 2,
-          },
-          {
-            name: "Cheddar Cheese",
-            amount: 4,
+            name: "Full English Breakfast",
+            amount: 9,
+            count: 3,
           },
         ],
       },
@@ -58,10 +55,16 @@ export default {
         date: new Date("2021-06-04"),
         weight: 75.2,
 
-        nutrition: [
+        meals: [
           {
-            name: "Caesar Salad",
-            amount: 5,
+            name: "Oatmeal Porridge",
+            amount: 2,
+            count: 3,
+          },
+          {
+            name: "Steak Sandwich",
+            amount: 4,
+            count: 3,
           },
         ],
       },

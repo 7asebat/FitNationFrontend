@@ -36,7 +36,7 @@
 export default {
   data: () => ({
     name: "Profile",
-    type: "trainer",
+    type: "client",
     tabs: {
       client: [
         {

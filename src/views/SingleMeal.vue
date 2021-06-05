@@ -5,6 +5,7 @@
       :imgSrc="meal.imgSrc"
       :description="meal.description"
     />
+    <h1>Items</h1>
     <FoodItemCard
       v-for="(foodItem, i) in meal.foods"
       :key="i"
