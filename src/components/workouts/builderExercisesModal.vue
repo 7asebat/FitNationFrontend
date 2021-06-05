@@ -11,7 +11,7 @@
       <div
         class="col-sm-6 col-md-3 mb-3"
         v-for="exercise in exerciseData"
-        :key="exercise.name"
+        :key="exercise.id"
       >
         <div
           class="c-builder-exercises-modal__exercise-wrapper"
@@ -22,13 +22,33 @@
               'c-builder-exercises-modal__selected-overlay--selected':
                 exercise.selected,
             }"
-            class="c-builder-exercises-modal__selected-overlay"
+            class="c-builder-exercises-modal__selected-overlay px-3"
           >
-            <h1
-              class="text-success d-flex justify-content-center align-items-center h-100"
+            <div
+              class="
+                d-flex
+                flex-column
+                align-items-center
+                justify-content-center
+                h-100
+              "
             >
-              <i class="fas fa-check-circle"></i>
-            </h1>
+              <b-form-input
+                type="number"
+                v-model="exercise.sets"
+                placeholder="Sets"
+                class="mb-3"
+                @click.stop=""
+              ></b-form-input>
+
+              <b-form-input
+                type="number"
+                v-model="exercise.reps"
+                placeholder="Reps"
+                @click.stop=""
+              ></b-form-input>
+            </div>
+            <!-- <i class="fas fa-check-circle"></i> -->
           </div>
           <ExerciseCard :data="exercise" />
         </div>
@@ -39,59 +59,13 @@
 
 <script>
 export default {
+  created() {
+    this.getExercises();
+  },
+
   data() {
     return {
-      exerciseData: [
-        {
-          name: "Leg Raises",
-          time: 30,
-          calories: 120,
-          imgSrc: "stayFit.png",
-          selected: false,
-        },
-        {
-          name: "Leg Raises 2",
-          time: 30,
-          calories: 120,
-          imgSrc: "stayFit.png",
-          selected: false,
-        },
-        {
-          name: "Leg Raises 3",
-          time: 30,
-          calories: 120,
-          imgSrc: "stayFit.png",
-          selected: false,
-        },
-        {
-          name: "Leg Raises 4",
-          time: 30,
-          calories: 120,
-          imgSrc: "stayFit.png",
-          selected: false,
-        },
-        {
-          name: "Leg Raises 5",
-          time: 30,
-          calories: 120,
-          imgSrc: "stayFit.png",
-          selected: false,
-        },
-        {
-          name: "Leg Raises 6",
-          time: 30,
-          calories: 120,
-          imgSrc: "stayFit.png",
-          selected: false,
-        },
-        {
-          name: "Leg Raises 7",
-          time: 30,
-          calories: 120,
-          imgSrc: "stayFit.png",
-          selected: false,
-        },
-      ],
+      exerciseData: [],
     };
   },
 
@@ -104,11 +78,33 @@ export default {
 
   computed: {
     selectedExercises() {
-      return this.exerciseData.filter((exercise) => exercise.selected);
+      return this.exerciseData.filter(
+        (exercise) =>
+          exercise.selected && Number(exercise.sets) && Number(exercise.reps)
+      );
     },
   },
 
   methods: {
+    async getExercises() {
+      try {
+        const response = await this.axios.get("exercises");
+        let exercises = response.data.data.exercises;
+
+        exercises = exercises.map((exercise) => {
+          exercise.exercise_id = exercise.id;
+          exercise.selected = false;
+          exercise.reps = "";
+          exercise.sets = "";
+
+          return exercise;
+        });
+
+        this.exerciseData = exercises;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     addExercises() {
       this.$emit("addExercises", this.selectedExercises);
       this.resetExercises();
@@ -144,8 +140,10 @@ export default {
   border-radius: $border-radius;
   transition: all 0.3s;
   opacity: 0;
+  visibility: hidden;
 }
 .c-builder-exercises-modal__selected-overlay--selected {
   opacity: 1;
+  visibility: visible;
 }
 </style>

@@ -18,7 +18,7 @@
           <div
             class="col-sm-6 col-md-3"
             v-for="exercise in dayValue.exercises"
-            :key="exercise.name"
+            :key="exercise.id"
           >
             <div
               class="c-workout-builder__exercise-card-wrapper"
@@ -77,10 +77,17 @@ export default {
       loading(true);
 
       try {
-        this.axios.post("workout_plans");
+        const payload = {
+          days: this.days,
+          client_id: 1,
+        };
+
+        await this.axios.post("workout_plans", payload);
       } catch (err) {
         console.log(err);
       }
+
+      loading(false);
     },
     showExercisesModal() {
       this.$bvModal.show("builderExercisesModal");
@@ -96,7 +103,7 @@ export default {
     removeExercise(exerciseToRemove) {
       this.days[this.selectedDay].exercises = this.days[
         this.selectedDay
-      ].exercises.filter((exercise) => exercise.name !== exerciseToRemove.name);
+      ].exercises.filter((exercise) => exercise.id !== exerciseToRemove.id);
     },
     initData() {
       for (let day = 0; day < 7; day++) {
