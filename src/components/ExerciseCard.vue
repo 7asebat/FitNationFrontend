@@ -2,9 +2,11 @@
   <div class="c-exercise-card">
     <div class="d-flex flex-column text-left">
       <div>
-        <img class="img-fluid rounded c-exercise-image" :src="getImgSrc(data.imgSrc)" />
+        <img
+          class="img-fluid rounded c-exercise-image"
+          :src="getImgSrc(data.imgSrc)"
+        />
       </div>
-      
 
       <div class="mt-2 text-uppercase text-dark c-exercise-title">
         {{ data.name }}
@@ -16,14 +18,13 @@
         <span class="ml-1"><i class="fas fa-fire"></i></span>
         <div class="mx-1">{{ data.calories }} Est. Calories</div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ExerciseCard',
+  name: "ExerciseCard",
 
   props: {
     data: {
@@ -38,8 +39,8 @@ export default {
 
   methods: {
     getImgSrc(imageName) {
-      var images = require.context('../assets/images', true);
-      return images('./' + imageName);
+      var images = require.context("../assets/images", true);
+      return images("./" + imageName);
     },
   },
 };
@@ -47,11 +48,14 @@ export default {
 
 <style lang="scss" scoped>
 .c-exercise-image {
-  border-radius: 15px !important;
+  width: 100%;
+  height: 165px;
+  object-fit: cover;
+  border-radius: $border-radius;
 }
 
 .c-exercise-title {
-  font-family: 'Bebas Neue', cursive;
+  font-family: "Bebas Neue", cursive;
 }
 .c-exercise-details {
   font-size: 13px !important;

@@ -6,7 +6,7 @@
         :key="w"
         :title="`Week ${week.week}`"
       >
-        <b-table :items="week.workouts" borderless></b-table>
+        <b-table fixed :items="week.workouts" borderless></b-table>
       </b-tab>
     </b-tabs>
   </div>
@@ -24,11 +24,13 @@ export default {
           {
             name: "Bench Press",
             weight: 20,
+            sets: 3,
             reps: 10,
           },
           {
             name: "Squats",
             weight: 40,
+            sets: 4,
             reps: 8,
           },
         ],
@@ -39,11 +41,14 @@ export default {
           {
             name: "Alternating Bicep Curls",
             weight: 10,
+            sets: 4,
             reps: 15,
           },
           {
             name: "Lat Pulldown",
             weight: 40,
+            sets: 4,
+
             reps: 8,
           },
         ],

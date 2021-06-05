@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column justify-content-center">
-    <div class="mb-5">
+    <div class="pb-3">
       <h1 class="c-popular-exercises-title">
         <span class="text-dark">Popular </span>
         <span class="text-danger">Exercises</span>
@@ -12,11 +12,11 @@
 
     <div class="row">
       <div
-        class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3"
+        class="col-12 col-md-6 col-lg-4 col-xl-3 pb-3 px-1"
         v-for="workout in popularExercises"
         :key="workout"
       >
-        <ExerciseCard :data="exerciseData[0]"/>
+        <ExerciseCard :data="exerciseData[0]" />
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@ export default {
     popularExercises: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 
     // TODO(Abdelrahman) Assign this
-    exerciseData 
+    exerciseData,
   }),
 
   components: {
