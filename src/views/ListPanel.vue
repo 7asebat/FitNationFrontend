@@ -11,7 +11,7 @@
       <h1>Search {{ listTypes[type] }}</h1>
       <b-input-group class="w-75 mx-auto my-5">
         <template #prepend>
-          <b-input-group-text>
+          <b-input-group-text class="bg-white">
             <i class="fas fa-search mr-2" />
             <span>Search</span>
           </b-input-group-text>
