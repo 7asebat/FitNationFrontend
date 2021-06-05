@@ -6,6 +6,8 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
 import "@/plugins/fontAwesome";
 import "@/plugins/axios";
+import "@/plugins/notification.js";
+import "@/plugins/errorsHandler.js";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";

@@ -83,8 +83,13 @@ export default {
         };
 
         await this.axios.post("workout_plans", payload);
+
+        this.$notification(
+          "successNotification",
+          "Workout Plan Added Successfully!"
+        );
       } catch (err) {
-        console.log(err);
+        this.$errorsHandler(err);
       }
 
       loading(false);

@@ -112,7 +112,7 @@ export default {
 
         this.$router.push({ name: "Index" });
       } catch (err) {
-        console.log(err);
+        this.$errorsHandler(err);
       }
     },
   },

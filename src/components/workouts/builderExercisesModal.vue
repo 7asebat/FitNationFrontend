@@ -102,7 +102,7 @@ export default {
 
         this.exerciseData = exercises;
       } catch (err) {
-        console.log(err);
+        this.$errorsHandler(err);
       }
     },
     addExercises() {

@@ -40,7 +40,7 @@ export default {
         const response = await this.axios.get("exercises");
         this.popularExercises = response.data.data.exercises;
       } catch (err) {
-        console.log(err);
+        this.$errorsHandler(err);
       }
     },
   },
