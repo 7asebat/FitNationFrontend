@@ -50,9 +50,13 @@
       </b-tab>
     </b-tabs>
 
-    <ButtonMain class="my-3 float-right" @clicked="addWorkout"
-      >Add Workout</ButtonMain
+    <ButtonMain
+      class="my-3 float-right"
+      @clicked="addWorkout"
+      :disabled="emptyWorkout"
     >
+      Add Workout
+    </ButtonMain>
 
     <BuilderExercisesModal
       :dayName="`Day ${selectedDay}`"
@@ -72,6 +76,11 @@ export default {
       selectedDay: 0,
     };
   },
+  computed: {
+    emptyWorkout() {
+      return Object.values(this.days).every((day) => day.exercises.length == 0);
+    },
+  },
   methods: {
     async addWorkout(loading) {
       loading(true);
@@ -88,6 +97,8 @@ export default {
           "successNotification",
           "Workout Plan Added Successfully!"
         );
+
+        this.$router.push({ name: "Workouts" });
       } catch (err) {
         this.$errorsHandler(err);
       }
