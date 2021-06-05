@@ -1,12 +1,16 @@
 <template>
   <div class="container-fluid d-flex flex-column">
-    <div class="container">
-      <ProfileHeader />
-    </div>
+    <ProfileHeader class="container" />
+    <!-- TODO(Abdelrahman) DEBUG: Remove this-->
+    <b-form-select
+      v-model="type"
+      class="container mt-5"
+      :options="['client', 'trainer', 'nutritionist']"
+    />
 
-    <div class="d-flex flex-row flex-wrap w-100 px-5 mx-5">
+    <div class="d-flex flex-row flex-wrap w-100 p-5 mx-5">
       <!-- TODO(Abdelrahman) Make this responsive-->
-      <b-nav pills vertical class>
+      <b-nav card pills vertical>
         <b-nav-item
           v-for="(tab, i) in tabs[type]"
           :key="i"
@@ -20,7 +24,9 @@
       </b-nav>
 
       <div class="col-10">
-        <router-view class="px-0" />
+        <b-card no-body>
+          <router-view class="px-0" />
+        </b-card>
       </div>
     </div>
   </div>
@@ -51,14 +57,6 @@ export default {
           icon: "fa-dumbbell",
           link: "/profile/workout-performance",
         },
-      ],
-      trainer: [
-        {
-          name: "ProfileOverview",
-          title: "Overview",
-          icon: "fa-home",
-          link: "/profile/overview",
-        },
         {
           name: "Correspondence",
           title: "Correspondence",
@@ -66,14 +64,15 @@ export default {
           link: "/profile/correspondence",
         },
       ],
-      nutritionist: [
+      trainer: [
         {
-          name: "ProfileOverview",
-          title: "Overview",
-          icon: "fa-home",
-          link: "/profile/overview",
+          name: "Correspondence",
+          title: "Correspondence",
+          icon: "fa-envelope",
+          link: "/profile/correspondence",
         },
       ],
+      nutritionist: [],
     },
     imgSrc: "buildBulk.png",
   }),

@@ -1,7 +1,14 @@
 <template>
   <div class="container-md">
     <b-col class="text-center align-items-center justify-content-center pt-5">
-      <h1>Search {{ listTypes[$route.params.type] }}</h1>
+      <!-- TODO(Abdelrahman) DEBUG: Remove this-->
+      <b-form-select
+        v-model="type"
+        class="w-25 my-3"
+        :options="['trainer', 'nutritionist']"
+      />
+      <!-- <h1>Search {{ listTypes[$route.params.type] }}</h1>-->
+      <h1>Search {{ listTypes[type] }}</h1>
       <b-input-group class="w-75 mx-auto my-5">
         <template #prepend>
           <b-input-group-text>
@@ -32,25 +39,33 @@ export default {
   data: () => ({
     // $route.params.type contains the subdomain of the search query
     query: "",
+    type: "",
     listTypes: {
       trainer: "trainers",
       nutritionist: "nutritionists",
     },
-    searchResults: [
-      {
-        title: "Chris Bumstead",
-        text: "Classic Physique Mr. Olympia",
-        link: "/",
-        imgSrc: "buildBulk.png",
-      },
-      {
-        title: "Big Ramy",
-        text: "Open Men's Physique Mr. Olympia",
-        link: "/",
-        imgSrc: "beHealthy.png",
-      },
-    ],
   }),
+
+  computed: {
+    searchResults() {
+      if (this.query)
+        return [
+          {
+            title: "Chris Bumstead",
+            text: "Classic Physique Mr. Olympia",
+            link: "/",
+            imgSrc: "buildBulk.png",
+          },
+          {
+            title: "Big Ramy",
+            text: "Open Men's Physique Mr. Olympia",
+            link: "/",
+            imgSrc: "beHealthy.png",
+          },
+        ];
+      else return [];
+    },
+  },
 };
 </script>
 

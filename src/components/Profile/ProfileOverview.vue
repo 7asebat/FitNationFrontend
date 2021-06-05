@@ -1,25 +1,25 @@
 <template>
-  <div class="container-fluid p-2">
+  <div class="container-fluid p-4">
     <p class="c-profile-overview__notification bg-light p-3 text-dark">
       <i class="fas fa-running"></i>
       <span class="ml-2">Time is running out, you should run too!</span>
     </p>
-    <div class="row">
-      <div class="col-md-2">
+    <div class="row p-2">
+      <div class="col-xl-3 col-lg-6 col-md-12 my-1">
         <div class="c-activity-card bg-warning py-3 px-4 text-light">
           <h1 class="m-0"><i class="fas fa-fire"></i></h1>
           <h1 class="m-0">320K</h1>
           <p class="m-0 text-black">Calories Burnt</p>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-xl-3 col-lg-6 col-md-12 my-1">
         <div class="c-activity-card bg-primary py-3 px-4 text-light">
           <h1 class="m-0"><i class="fas fa-dumbbell"></i></h1>
           <h1 class="m-0">20+</h1>
           <p class="m-0 text-black">Exercises</p>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-xl-3 col-lg-6 col-md-12 my-1">
         <div class="c-activity-card bg-success py-3 px-4 text-light">
           <h1 class="m-0"><i class="fas fa-award"></i></h1>
           <h1 class="m-0">42 Days</h1>
@@ -88,16 +88,16 @@ export default {
 
   methods: {
     dateToString(date) {
-      return `${date.getUTCDate()}/${
-        date.getUTCMonth() + 1
-      }/${date.getUTCFullYear().toString().substr(2, 2)}`;
+      return `${date.getUTCDate()}/${date.getUTCMonth() + 1}/${date
+        .getUTCFullYear()
+        .toString()
+        .substr(2, 2)}`;
     },
   },
 };
 </script>
 
 <style></style>
-
 
 <style lang="scss" scoped>
 .c-profile-overview__notification {

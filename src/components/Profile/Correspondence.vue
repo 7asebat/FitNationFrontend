@@ -1,32 +1,46 @@
 <template>
   <div class="container-fluid">
-    <b-card no-body>
-      <b-tabs pills card>
-        <b-tab
-          v-for="(day, d) in correspondenceInfoSorted"
-          :key="d"
-          :title="`${dateToString(day.date)}`"
-          class="p-0"
-        >
-          <b-card no-body class="rounded-0">
-            <b-tabs pills card vertical>
-              <b-tab
-                v-for="(withWho, i) in day.texts"
-                :key="i"
-                :title="withWho.with"
-                class="rounded-0"
-              >
-                <ChatCard
-                  :with="withWho.with"
-                  :texts="withWho.texts"
-                  class="p-2"
+    <b-tabs pills card>
+      <b-tab
+        v-for="(day, d) in correspondenceInfoSorted"
+        :key="d"
+        :title="`${dateToString(day.date)}`"
+        class="p-0"
+      >
+        <b-card no-body class="rounded-0">
+          <b-tabs pills card vertical>
+            <b-tab
+              v-for="(withWho, i) in day.texts"
+              :key="i"
+              :title="withWho.with"
+              class="rounded-0"
+            >
+              <ChatCard
+                :with="withWho.with"
+                :texts="withWho.texts"
+                class="p-2"
+              />
+
+              <b-input-group class="mx-auto">
+                <template #append>
+                  <b-input-group-text
+                    class="c-send-icon border-left-0 pr-3"
+                    @click="sendText"
+                  >
+                    <i class="fas fa-paper-plane" />
+                  </b-input-group-text>
+                </template>
+                <b-form-input
+                  v-model="message"
+                  class="border-right-0 text-right"
+                  @keyup.enter="sendText"
                 />
-              </b-tab>
-            </b-tabs>
-          </b-card>
-        </b-tab>
-      </b-tabs>
-    </b-card>
+              </b-input-group>
+            </b-tab>
+          </b-tabs>
+        </b-card>
+      </b-tab>
+    </b-tabs>
   </div>
 </template>
 
@@ -39,6 +53,7 @@ export default {
   },
 
   data: () => ({
+    message: "",
     fields: [{ key: "from" }, { key: "text", label: "" }],
     correspondenceInfo: [
       {
@@ -81,6 +96,16 @@ export default {
         .toString()
         .substr(2, 2)}`;
     },
+
+    sendText() {
+      if (this.message === "") return;
+      this.correspondenceInfo[0].texts[0].texts.unshift({
+        date: new Date(Date.now()),
+        type: "outgoing",
+        text: this.message,
+      });
+      this.message = "";
+    },
   },
   computed: {
     correspondenceInfoSorted() {
@@ -92,7 +117,11 @@ export default {
 </script>
 
 <style lang="scss">
-.c-weight {
-  //width: 100px !important;
+.c-send-icon {
+  background-color: transparent;
+}
+
+.c-send-icon:hover {
+  color: $primary;
 }
 </style>
