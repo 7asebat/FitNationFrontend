@@ -1,11 +1,7 @@
 <template>
   <div class="container-fluid d-flex flex-column">
-    <div class="d-flex justify-content-center">
-      <img
-        :src="getImgSrc(imgSrc)"
-        alt=""
-        class="img rounded-circle c-profile-image my-4"
-      />
+    <div class="container">
+      <ProfileHeader />
     </div>
 
     <div class="d-flex flex-row flex-wrap w-100 px-5 mx-5">
@@ -24,9 +20,7 @@
       </b-nav>
 
       <div class="col-10">
-        <b-card no-body>
-          <router-view class="px-0" />
-        </b-card>
+        <router-view class="px-0" />
       </div>
     </div>
   </div>
@@ -84,6 +78,16 @@ export default {
     imgSrc: "buildBulk.png",
   }),
 
+  computed: {
+    loggedInUser() {
+      return this.$store.state.user;
+    },
+  },
+
+  components: {
+    ProfileHeader: () => import("@/components/Profile/ProfileHeader"),
+  },
+
   methods: {
     getImgSrc(imageName) {
       var images = require.context("../assets/images", true);
@@ -93,8 +97,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.c-profile-image {
-  width: 200px !important;
-}
-</style>
+
