@@ -7,7 +7,7 @@
         class="img c-profile-image"
       />
       <div class="ml-3">
-        <div class="d-flex">
+        <div class="d-flex justify-content-between">
           <h3>{{ loggedInUser.name }}</h3>
           <div class="ml-4">
             <a href="#" class="btn btn-outline-primary">
@@ -37,6 +37,7 @@
 export default {
   computed: {
     loggedInUser() {
+      // return { name: "Abdelrahman Farid" };
       return this.$store.state.user;
     },
   },
@@ -45,7 +46,7 @@ export default {
 
 <style scoped lang="scss">
 .c-profile__user-info {
-  max-width: 600px;
+  max-width: 900px;
   // margin-right: auto;
   // margin-left: auto;
 }

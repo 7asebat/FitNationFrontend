@@ -47,7 +47,12 @@ a .c-query-link:hover {
   color: $primary !important;
   text-decoration: none !important;
 }
+
+// NOTE(Abdelrahman) Responsive image crop
 .c-query-card img {
-  max-height: 400px !important;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: $border-radius;
 }
 </style>

@@ -31,6 +31,7 @@
 
 <script>
 export default {
+  data: () => ({}),
   components: {
     ImageText: () => import("@/components/common/ImageText.vue"),
     MealCard: () => import("@/components/MealCard.vue"),

@@ -12,7 +12,7 @@
       <p class="m-0">
         <i class="fas fa-heartbeat text-success"></i>
         <span class="text-success mx-2">Nutrition Facts:</span>
-        <span>Calorie dense</span>
+        <span>{{ food.nutrition_facts }}</span>
       </p>
       <p>
         <i class="fas fa-utensils text-success"></i>

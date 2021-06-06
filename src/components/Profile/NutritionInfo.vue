@@ -1,32 +1,52 @@
 <template>
   <div class="container-fluid">
     <b-tabs pills card>
+      <template #tabs-start>
+        <b-button @click="insertDay" class="bg-dark rounded-circle mr-2">
+          +
+        </b-button>
+      </template>
+
       <b-tab
         v-for="(date, d) in nutritionInfoSorted"
         :key="d"
         :title="`${dateToString(date.date)}`"
+        class="py-3 px-5"
       >
-        <b-row class="p-2 px-4">
-          <b-alert
-            v-if="date.weight"
-            show
-            variant="success"
-            class="c-weight text-center mr-4"
-          >
+        <b-row class="col py-2">
+          <div v-if="date.weight" class="alert alert-success mx-2">
             Weight | {{ date.weight }}kg
-          </b-alert>
-
-          <b-alert
-            v-if="date.bodyfat"
-            show
-            variant="info"
-            class="c-weight text-center"
-          >
+          </div>
+          <div v-if="date.bodyfat" class="alert alert-success mx-2">
             Bodyfat | {{ date.bodyfat }}%
-          </b-alert>
+          </div>
         </b-row>
 
-        <b-table :items="date.nutrition" borderless></b-table>
+        <b-row v-for="(meal, i) in date.meals" :key="i">
+          <MealCard class="col-10" :meal="meal" />
+          <div class="col-2 d-flex align-items-center">
+            <h1>x {{ meal.amount }}</h1>
+          </div>
+        </b-row>
+
+        <b-row align-h="end">
+          <b-button
+            variant="primary"
+            pill
+            class="py-3 px-5 mr-5 mb-4"
+            @click="$bvModal.show(`nutrition-modal${d}`)"
+          >
+            <i class="fas fa-pen mr-2" />
+            <span>Edit</span>
+          </b-button>
+        </b-row>
+
+        <NutritionBuilderModal
+          :modalId="`nutrition-modal${d}`"
+          @confirmEdits="
+            confirmEdits(nutritionInfoSorted[d].date, ...arguments)
+          "
+        />
       </b-tab>
     </b-tabs>
   </div>
@@ -36,32 +56,42 @@
 export default {
   name: "NutritionInfo",
 
+  components: {
+    MealCard: () => import("@/components/MealCard.vue"),
+    NutritionBuilderModal: () =>
+      import("@/components/Profile/NutritionBuilderModal.vue"),
+  },
+
   data: () => ({
+    isAdding: false,
     nutritionInfo: [
       {
-        date: new Date("2021-06-03"),
+        date: new Date("2021-06-02"),
         weight: 74.2,
         bodyfat: 17,
 
-        nutrition: [
+        meals: [
           {
-            name: "Brown Toast",
-            amount: 2,
-          },
-          {
-            name: "Cheddar Cheese",
-            amount: 4,
+            name: "Full English Breakfast",
+            amount: 9,
+            count: 3,
           },
         ],
       },
       {
-        date: new Date("2021-06-04"),
+        date: new Date("2021-06-03"),
         weight: 75.2,
 
-        nutrition: [
+        meals: [
           {
-            name: "Caesar Salad",
-            amount: 5,
+            name: "Oatmeal Porridge",
+            amount: 2,
+            count: 3,
+          },
+          {
+            name: "Steak Sandwich",
+            amount: 4,
+            count: 3,
           },
         ],
       },
@@ -73,6 +103,28 @@ export default {
         .getUTCFullYear()
         .toString()
         .substr(2, 2)}`;
+    },
+
+    insertDay() {
+      let date = new Date(Date.now());
+      date.setHours(0, 0, 0, 0);
+      this.nutritionInfo.unshift({ date, meals: [] });
+    },
+
+    confirmEdits(date, edits) {
+      let d = this.nutritionInfo.findIndex((el) => el.date === date);
+      const { weight, meals } = edits;
+
+      if (weight) {
+        this.nutritionInfo[d].weight = weight;
+      }
+      if (meals) {
+        if (this.nutritionInfo[d].meals) {
+          this.nutritionInfo[d].meals.push(...meals);
+        } else {
+          this.nutritionInfo[d].meals = meals;
+        }
+      }
     },
   },
   computed: {

@@ -2,17 +2,43 @@
   <div class="container-fluid">
     <b-tabs pills card>
       <b-tab
-        v-for="(date, d) in correspondenceInfoSorted"
+        v-for="(day, d) in correspondenceInfoSorted"
         :key="d"
-        :title="`${dateToString(date.date)}`"
+        :title="`${dateToString(day.date)}`"
         class="p-0"
       >
-        <b-table
-          :items="date.messages"
-          :fields="fields"
-          head-variant="dark"
-          striped
-        />
+        <b-card no-body class="rounded-0">
+          <b-tabs pills card vertical>
+            <b-tab
+              v-for="(withWho, i) in day.texts"
+              :key="i"
+              :title="withWho.with"
+              class="rounded-0"
+            >
+              <ChatCard
+                :with="withWho.with"
+                :texts="withWho.texts"
+                class="p-2"
+              />
+
+              <b-input-group class="mx-auto">
+                <template #append>
+                  <b-input-group-text
+                    class="c-send-icon border-left-0 pr-3"
+                    @click="sendText"
+                  >
+                    <i class="fas fa-paper-plane" />
+                  </b-input-group-text>
+                </template>
+                <b-form-input
+                  v-model="message"
+                  class="border-right-0 text-right"
+                  @keyup.enter="sendText"
+                />
+              </b-input-group>
+            </b-tab>
+          </b-tabs>
+        </b-card>
       </b-tab>
     </b-tabs>
   </div>
@@ -22,19 +48,42 @@
 export default {
   name: "Correspondence",
 
+  components: {
+    ChatCard: () => import("@/components/ChatCard.vue"),
+  },
+
   data: () => ({
+    message: "",
     fields: [{ key: "from" }, { key: "text", label: "" }],
     correspondenceInfo: [
       {
-        date: new Date("2021-06-03"),
-        messages: [
+        date: new Date("2021-06-04"),
+        texts: [
           {
-            from: "Chris Bumstead",
-            text: "Good job! Keep up the good work!",
+            with: "Abdelrahman Farid",
+            texts: [
+              {
+                date: new Date("2021-06-04T12:34:00"),
+                type: "incoming",
+                text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque corporis ducimus enim labore non, placeat rerum. Commodi dignissimos ducimus id iusto numquam officia sunt totam unde. Animi natus quae quis?",
+              },
+              {
+                date: new Date("2021-06-04T12:35:00"),
+
+                type: "outgoing",
+                text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque corporis ducimus enim labore non, placeat rerum. Commodi dignissimos ducimus id iusto numquam officia sunt totam unde. Animi natus quae quis?",
+              },
+            ],
           },
           {
-            from: "Big Ramy",
-            text: "In response to the message you sent, you should fit your carbohydrate intake around your meal times",
+            with: "Khaled Abdelrahman",
+            texts: [
+              {
+                date: new Date("2021-06-04T12:34:00"),
+                type: "incoming",
+                text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque corporis ducimus enim labore non, placeat rerum. Commodi dignissimos ducimus id iusto numquam officia sunt totam unde. Animi natus quae quis?",
+              },
+            ],
           },
         ],
       },
@@ -47,6 +96,16 @@ export default {
         .toString()
         .substr(2, 2)}`;
     },
+
+    sendText() {
+      if (this.message === "") return;
+      this.correspondenceInfo[0].texts[0].texts.unshift({
+        date: new Date(Date.now()),
+        type: "outgoing",
+        text: this.message,
+      });
+      this.message = "";
+    },
   },
   computed: {
     correspondenceInfoSorted() {
@@ -58,7 +117,11 @@ export default {
 </script>
 
 <style lang="scss">
-.c-weight {
-  //width: 100px !important;
+.c-send-icon {
+  background-color: transparent;
+}
+
+.c-send-icon:hover {
+  color: $primary;
 }
 </style>

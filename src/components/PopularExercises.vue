@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column justify-content-center">
-    <div class="mb-5">
+    <div class="pb-3">
       <h1 class="c-popular-exercises-title">
         <span class="text-dark">Popular </span>
         <span class="text-danger">Exercises</span>
