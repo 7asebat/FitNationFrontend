@@ -1,5 +1,5 @@
 <template>
-  <div class="c-exercise-card">
+  <div class="c-exercise-card shadow-sm bg-light">
     <div class="d-flex flex-column text-left">
       <div>
         <img
@@ -8,10 +8,12 @@
         />
       </div>
 
-      <h3 class="mt-2 text-uppercase text-dark c-exercise-title">
-        {{ data.name }}
-      </h3>
-      <p class="font-small text-secondary">{{ data.tips }}</p>
+      <div class="mx-3">
+        <h3 class="mt-2 text-uppercase text-dark c-exercise-title">
+          {{ data.name }}
+        </h3>
+        <p class="font-small text-secondary">{{ data.tips }}</p>
+      </div>
 
       <!-- <div class="text-secondary d-flex flex-row c-exercise-details">
         <span class="mr-1"><i class="fas fa-clock"></i></span>
@@ -48,6 +50,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.c-exercise-card {
+  border-radius: $border-radius;
+  overflow: hidden;
+}
 .c-exercise-image {
   border-radius: 15px !important;
 }

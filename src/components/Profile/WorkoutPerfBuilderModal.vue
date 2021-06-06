@@ -20,24 +20,61 @@
         />
       </b-input-group>
 
-      <b-row
-        v-for="(exercise, i) in exercises"
-        :key="i"
-        class="rounded border-primary py-3"
-      >
-        <ExerciseCard :data="exercise" />
+      <div class="row rounded border-primary py-3">
+        <div
+          class="col-12 col-md-4 col-lg-3 mb-3"
+          v-for="exercise in exercises"
+          :key="exercise.id"
+        >
+          <div
+            class="c-builder-exercises-modal__exercise-wrapper"
+            @click.prevent="exercise.selected = !exercise.selected"
+          >
+            <div
+              :class="{
+                'c-builder-exercises-modal__selected-overlay--selected':
+                  exercise.selected,
+              }"
+              class="c-builder-exercises-modal__selected-overlay px-3"
+            >
+              <div
+                class="
+                  d-flex
+                  flex-column
+                  align-items-center
+                  justify-content-center
+                  h-100
+                "
+              >
+                <b-form-input
+                  type="number"
+                  v-model="exercise.sets"
+                  placeholder="Sets"
+                  class="mb-3"
+                  @click.stop=""
+                ></b-form-input>
 
-        <b-col class="col-4">
-          <div class="d-flex align-items-center h4">
-            <b-input v-model="exercise.sets" class="mx-2" type="number" />
-            <div>SETS</div>
+                <b-form-input
+                  type="number"
+                  v-model="exercise.reps"
+                  placeholder="Reps"
+                  class="mb-3"
+                  @click.stop=""
+                ></b-form-input>
+
+                <b-form-input
+                  type="number"
+                  v-model="exercise.weight"
+                  placeholder="Weight"
+                  @click.stop=""
+                ></b-form-input>
+              </div>
+              <!-- <i class="fas fa-check-circle"></i> -->
+            </div>
+            <ExerciseCard :data="exercise" />
           </div>
-          <div class="d-flex align-items-center h4">
-            <b-input v-model="exercise.reps" class="mx-2" type="number" />
-            <div>REPS</div>
-          </div>
-        </b-col>
-      </b-row>
+        </div>
+      </div>
 
       <div></div>
     </div>
@@ -48,35 +85,44 @@
 export default {
   name: "ExercisePerfBuilderModal",
 
+  created() {
+    this.getExercises();
+  },
+
   components: {
     ExerciseCard: () => import("@/components/ExerciseCard.vue"),
   },
   data: () => ({
     exerciseQuery: "",
-    exercises: [
-      {
-        name: "Bench Press",
-        time: 2,
-        calories: 500,
-        sets: 0,
-        reps: 0,
-        imgSrc: "buildBulk.png",
-      },
-      {
-        name: "Squats",
-        time: 2,
-        calories: 500,
-        sets: 0,
-        reps: 0,
-        imgSrc: "buildBulk.png",
-      },
-    ],
+    exercises: [],
   }),
   props: {
     modalId: String,
   },
 
   methods: {
+    async getExercises() {
+      this.isLoading = true;
+      try {
+        const response = await this.axios.get("exercises");
+        let exercises = response.data.data.exercises;
+
+        exercises = exercises.map((exercise) => {
+          exercise.exercise_id = exercise.id;
+          exercise.selected = false;
+          exercise.reps = "";
+          exercise.sets = "";
+          exercise.weight = "";
+
+          return exercise;
+        });
+
+        this.exercises = exercises;
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+      this.isLoading = false;
+    },
     confirmEdits() {
       const exercises = this.exercises
         .filter((exercise) => (exercise.sets > 0) & (exercise.reps > 0))
@@ -91,4 +137,27 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.c-builder-exercises-modal__exercise-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+.c-builder-exercises-modal__selected-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: $border-radius;
+  transition: all 0.3s;
+  opacity: 0;
+  visibility: hidden;
+}
+.c-builder-exercises-modal__selected-overlay--selected {
+  opacity: 1;
+  visibility: visible;
+}
+</style>

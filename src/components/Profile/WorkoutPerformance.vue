@@ -1,17 +1,37 @@
 <template>
   <div class="container-fluid">
     <b-tabs pills card>
-      <template #tabs-start>
-        <b-button @click="insertWeek" class="bg-dark rounded-circle mr-2">
-          +
-        </b-button>
-      </template>
       <b-tab
         v-for="(week, w) in workoutInfoSorted"
         :key="w"
-        :title="`Week ${week.week}`"
+        :title="`Week ${week.week} of ${new Date().getFullYear()}`"
       >
-        <b-table fixed :items="week.workouts" borderless></b-table>
+        <!-- <div class="row">
+          <div
+            class="col-12 col-md-4 col-lg-3"
+            v-for="exercise in week.exercises"
+            :key="exercise.id"
+          >
+            <ExerciseCard :data="exercise" />
+          </div>
+        </div> -->
+        <b-table
+          striped
+          responsive
+          hover
+          :items="week.exercises"
+          :fields="[
+            'id',
+            'name',
+            'tips',
+            {
+              key: 'meta_data',
+              label: 'Targeted Muscles',
+              formatter: formatExerciseType,
+            },
+          ]"
+          borderless
+        ></b-table>
         <b-row align-h="end">
           <b-button
             variant="primary"
@@ -37,49 +57,82 @@
 export default {
   name: "WorkoutPerformance",
 
+  created() {
+    let d = new Date();
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    let weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+
+    this.currentWeakOfYear = weekNo;
+
+    const workoutInfo = [];
+    for (let i = weekNo; i > weekNo - 7 && i > 0; i--) {
+      workoutInfo.push({
+        week: i,
+        exercises: [
+          {
+            id: 1,
+            name: "push ups",
+            tips: "technique is much more important than reps",
+            exercise_type: 0,
+            meta_data: {
+              muscle_groups: [1, 2, 3],
+            },
+          },
+          {
+            id: 4,
+            name: "test new exercise",
+            tips: " etmaran gamed",
+            exercise_type: null,
+            meta_data: {
+              muscle_groups: ["3"],
+            },
+          },
+          {
+            id: 5,
+            name: "hamada",
+            tips: "ganzabel",
+            exercise_type: null,
+            meta_data: {
+              muscle_groups: ["6"],
+            },
+          },
+          {
+            id: 6,
+            name: "test b number",
+            tips: "test",
+            exercise_type: null,
+            meta_data: {
+              muscle_groups: [6],
+            },
+          },
+          {
+            id: 7,
+            name: "tst",
+            tips: "tesada",
+            exercise_type: null,
+            meta_data: {
+              muscle_groups: [6],
+            },
+          },
+        ],
+      });
+    }
+
+    this.workoutInfo = workoutInfo;
+  },
+
   components: {
+    // ExerciseCard: () => import("@/components/ExerciseCard.vue"),
+
     WorkoutPerfBuilderModal: () =>
       import("@/components/Profile/WorkoutPerfBuilderModal.vue"),
   },
 
   data: () => ({
-    workoutInfo: [
-      {
-        week: 5,
-        workouts: [
-          {
-            name: "Bench Press",
-            weight: 20,
-            sets: 3,
-            reps: 10,
-          },
-          {
-            name: "Squats",
-            weight: 40,
-            sets: 4,
-            reps: 8,
-          },
-        ],
-      },
-      {
-        week: 4,
-        workouts: [
-          {
-            name: "Alternating Bicep Curls",
-            weight: 10,
-            sets: 4,
-            reps: 15,
-          },
-          {
-            name: "Lat Pulldown",
-            weight: 40,
-            sets: 4,
-
-            reps: 8,
-          },
-        ],
-      },
-    ],
+    currentWeakOfYear: "",
+    workoutInfo: [],
   }),
   methods: {
     dateToString(date) {
@@ -103,6 +156,14 @@ export default {
           this.workoutInfo[w].workouts = edits;
         }
       }
+    },
+
+    formatExerciseType(exerciseMetaData) {
+      console.log(exerciseMetaData);
+      const muscleIds = exerciseMetaData.muscle_groups;
+      const muscles = this.$store.state.enums.muscles;
+
+      return muscleIds.map((id) => muscles[id]).join(",");
     },
   },
 

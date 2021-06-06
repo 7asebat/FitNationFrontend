@@ -45,6 +45,12 @@ export default [
       import(/* webpackChunkName: "meals" */ "@/views/Meals.vue"),
   },
   {
+    path: "/meals/:id",
+    name: "SingleMeal",
+    component: () =>
+      import(/* webpackChunkName: "meals" */ "@/views/SingleMeal.vue"),
+  },
+  {
     path: "/workout-builder",
     name: "WorkoutBuilder",
     component: () =>
