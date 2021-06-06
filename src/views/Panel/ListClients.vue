@@ -97,8 +97,25 @@ export default {
       }
       this.isLoading = false;
     },
-    deleteClient() {
-      this.$bvModal.hide("deleteClient");
+    async deleteClient() {
+      try{
+        const id = this.clientToDelete.id;
+        await this.axios.delete(`clients/${id}`);
+
+        this.clients = this.clients.filter(client => client.id !== id);
+
+        this.$bvModal.hide("deleteClient");
+        this.$notification(
+          "successNotification",
+          `Client: ${this.clientToDelete.name} has been deleted successfully!`
+        );
+
+
+      }catch(err){
+        this.$errorsHandler(err);
+      }
+
+      
     },
   },
 
