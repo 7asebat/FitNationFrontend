@@ -64,16 +64,7 @@ export default {
     return {
       recipeName: "",
       recipeDescription: "",
-      food: [
-        {
-          id: 2,
-          has_image: false,
-          name: "Rice",
-          nutrition_facts: "Calorie dense",
-          food_type: null,
-          selected: false,
-        },
-      ],
+      food: [],
     };
   },
 
