@@ -7,6 +7,31 @@
       rerum, doloremque quis quidem sint. Doloribus, veniam officia.
     </p>
 
+    <div class="row">
+      <div class="col-12 col-md-4 mb-3">
+        <b-form-input
+          v-model="workoutName"
+          placeholder="Enter Workout Name"
+          required
+          style="height: auto !important"
+        ></b-form-input>
+      </div>
+      <div class="col-12 col-md-4 mb-3">
+        <b-form-select
+          v-model="selectedLevel"
+          :options="workoutLevels"
+        ></b-form-select>
+      </div>
+      <div class="col-12 col-md-4 mb-3">
+        <b-form-radio-group
+          v-model="equipmentsRequired"
+          :options="equipmentsOptions"
+          button-variant="outline-primary"
+          buttons
+        ></b-form-radio-group>
+      </div>
+    </div>
+
     <b-tabs content-class="mt-3" @activate-tab="changeSelectedDay">
       <b-tab
         v-for="(dayValue, dayKey) in days"
@@ -53,7 +78,7 @@
     <ButtonMain
       class="my-3 float-right"
       @clicked="addWorkout"
-      :disabled="emptyWorkout"
+      :disabled="!validForm"
     >
       Add Workout
     </ButtonMain>
@@ -74,11 +99,39 @@ export default {
     return {
       days: {},
       selectedDay: 0,
+      workoutName: "",
+      selectedLevel: null,
+      equipmentsRequired: false,
+      equipmentsOptions: [
+        { text: "Equipments Required", value: true },
+        { text: "No Equipments", value: false },
+      ],
     };
   },
   computed: {
+    validForm() {
+      return (
+        !this.emptyWorkout && this.workoutName && this.selectedLevel !== null
+      );
+    },
     emptyWorkout() {
       return Object.values(this.days).every((day) => day.exercises.length == 0);
+    },
+    workoutLevels() {
+      const levels = this.$store.state.enums.workoutLevels;
+
+      const options = Object.keys(levels).map((key) => ({
+        text: levels[key],
+        value: key,
+      }));
+
+      options.unshift({
+        text: "Select Workout Level",
+        value: null,
+        disabled: true,
+      });
+
+      return options;
     },
   },
   methods: {
@@ -88,6 +141,9 @@ export default {
       try {
         const payload = {
           days: this.days,
+          name: this.workoutName,
+          level: this.selectedLevel,
+          requires_equipment: this.equipmentsRequired,
           client_id: 1,
         };
 

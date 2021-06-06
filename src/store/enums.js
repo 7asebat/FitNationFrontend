@@ -22,6 +22,11 @@ export default {
       1: "fruits",
       2: "carbohydrates",
     },
+    workoutLevels: {
+      0: "Beginner",
+      1: "Intermediate",
+      2: "Advanced",
+    },
   }),
   mutations: {},
   actions: {},
