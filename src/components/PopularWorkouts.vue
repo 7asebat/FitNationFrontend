@@ -25,10 +25,10 @@
         :key="workout.id"
       >
         <WorkoutCard
-          level="Intermediate"
-          :calories="1200"
-          :exercisesNumber="5"
-          :equipmentsRequired="false"
+          :title="workout.name"
+          :level="workout.level"
+          :exercisesNumber="workout.exercises_count"
+          :equipmentsRequired="workout.requires_equipment"
         />
       </div>
     </div>

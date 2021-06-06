@@ -1,19 +1,26 @@
 <template>
   <div class="c-workout-card">
     <div class="c-workout-card-workout-info">
-      <h3 class="text-light c-workout-card-workout-title">Body balance</h3>
+      <h3 class="text-light c-workout-card-workout-title">{{ title }}</h3>
       <p class="my-1 c-workout-card-workout-property">
-        <span class="text-warning"><i class="fas fa-signal"></i></span>
-        <span class="mx-2 text-light">{{ level }}</span>
+        <span
+          :class="{
+            'text-warning': level === 1,
+            'text-success': level === 0,
+            'text-danger': level === 2,
+          }"
+        >
+          <i class="fas fa-signal"></i>
+        </span>
+        <span class="mx-2 text-light">{{ levelName }}</span>
       </p>
 
       <p class="my-1 c-workout-card-workout-property">
-        <span class="text-danger"><i class="fas fa-fire"></i></span>
-        <span class="mx-2 text-light">{{ calories }} Est. calories</span>
-      </p>
-      <p class="my-1 c-workout-card-workout-property">
         <span class="text-danger"><i class="fas fa-running"></i></span>
-        <span class="mx-2 text-light">{{ exercisesNumber }} Exercises</span>
+        <span class="mx-2 text-light">
+          {{ exercisesNumber }}
+          {{ exercisesNumber > 1 ? "Exercises" : "Exercise" }}
+        </span>
       </p>
       <p class="my-1 c-workout-card-workout-property">
         <span class="text-danger"><i class="fas fa-dumbbell"></i></span>
@@ -39,11 +46,18 @@
 <script>
 export default {
   props: {
-    level: String,
-    calories: Number,
+    title: String,
+    level: Number,
     exercisesNumber: Number,
     equipmentsRequired: Boolean,
     image: String,
+  },
+
+  computed: {
+    levelName() {
+      const levels = this.$store.state.enums.workoutLevels;
+      return levels[this.level];
+    },
   },
 };
 </script>
