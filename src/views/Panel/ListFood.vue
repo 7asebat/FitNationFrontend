@@ -6,13 +6,25 @@
           <h2>Food</h2>
           <p class="text-secondary">A list of all the food items</p>
         </div>
+        <div>
+          <button class="btn btn-success" v-b-modal="'addFoodModal'">
+            <i class="fas fa-plus"></i>
+            <span class="ml-2">Add Food</span>
+          </button>
+        </div>
       </div>
       <b-table
         striped
         responsive
         hover
         :items="foods"
-        :fields="['id', 'name', 'nutrition_facts', 'food_type', 'actions']"
+        :fields="[
+          'id',
+          'name',
+          'nutrition_facts',
+          { key: 'food_type', formatter: 'formatFoodType' },
+          'actions',
+        ]"
         :busy="isLoading"
       >
         <template v-slot:cell(actions)="data">
@@ -44,6 +56,8 @@
       <b>{{ foodToDelete ? foodToDelete.name : "" }}</b
       >. <br />Are you sure ?
     </DeleteModal>
+
+    <AddFoodModal @addedFood="(food) => foods.push(food)" />
   </div>
 </template>
 
@@ -68,9 +82,7 @@ export default {
     async getFoods(foodsPage) {
       this.isLoading = true;
       try {
-        const response = await this.axios.get(
-          `foods?page=${foodsPage}`
-        );
+        const response = await this.axios.get(`foods?page=${foodsPage}`);
         const { food } = response.data.data;
 
         this.foods = food;
@@ -80,11 +92,11 @@ export default {
       this.isLoading = false;
     },
     async deleteFood() {
-      try{
+      try {
         const id = this.foodToDelete.id;
         await this.axios.delete(`foods/${id}`);
 
-        this.foods = this.foods.filter(food => food.id !== id);
+        this.foods = this.foods.filter((food) => food.id !== id);
 
         this.$bvModal.hide("deleteFood");
         this.$notification(
@@ -93,15 +105,19 @@ export default {
         );
 
         this.foodToDelete = null;
-      }catch(err){
+      } catch (err) {
         this.$errorsHandler(err);
       }
-
+    },
+    formatFoodType(foodTypeId) {
+      const foodTypes = this.$store.state.enums.foodTypes;
+      return foodTypes[foodTypeId] || "-";
     },
   },
 
   components: {
     DeleteModal: () => import("@/components/common/DeleteModal"),
+    AddFoodModal: () => import("@/components/Panel/AddFoodModal"),
   },
 };
 </script>
