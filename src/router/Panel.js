@@ -25,4 +25,12 @@ export default [
         /* webpackChunkName: "panel" */ "@/views/Panel/ListNutritionists.vue"
       ),
   },
+  {
+    path: "food",
+    name: "PanelListFood",
+    component: () =>
+      import(
+        /* webpackChunkName: "panel" */ "@/views/Panel/ListFood.vue"
+      ),
+  },
 ];
