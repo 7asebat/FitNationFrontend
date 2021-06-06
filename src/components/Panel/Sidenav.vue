@@ -27,6 +27,14 @@
             <router-link :to="{ name: 'PanelListNutritionists' }">
               <i class="fas fa-apple-alt"></i>
             </router-link>
+
+            <router-link :to="{ name: 'PanelListFood' }">
+              <i class="fas fa-apple-alt"></i>
+            </router-link>
+
+            <router-link :to="{ name: 'PanelListExercises' }">
+              <i class="fas fa-apple-alt"></i>
+            </router-link>
           </b-nav>
         </nav>
       </div>
