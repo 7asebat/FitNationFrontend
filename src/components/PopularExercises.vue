@@ -37,11 +37,33 @@ export default {
     isLoading: false,
   }),
 
+  props:{
+    muscleGroup: {
+      type: String,
+      default: ""
+    }
+  },
+
+  computed:{
+    musclesEnum(){
+      return this.$store.state.enums.muscles;
+    }
+  },
+
   methods: {
     async getExercises() {
       this.isLoading = true;
       try {
-        const response = await this.axios.get("exercises");
+        
+        let response;
+        if(this.muscleGroup){
+          const muscleGroup = Object.keys(this.musclesEnum).find(key => this.musclesEnum[key] === this.muscleGroup.toLowerCase());
+
+          response = await this.axios.get(`exercises/muscle_group?muscle_group=${muscleGroup}`);
+        }
+        else 
+          response = await this.axios.get("exercises");
+
         this.popularExercises = response.data.data.exercises;
       } catch (err) {
         this.$errorsHandler(err);
@@ -54,6 +76,12 @@ export default {
     Loading: () => import("@/components/common/Loading.vue"),
     ExerciseCard: () => import("@/components/ExerciseCard.vue"),
   },
+
+  watch: {
+    muscleGroup(){
+      this.getExercises();
+    }
+  }
 };
 </script>
 
