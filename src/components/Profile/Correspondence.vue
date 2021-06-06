@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <BreakpointDetector @change="breakpoint = $event" />
     <b-tabs pills card>
       <b-tab
         v-for="(day, d) in correspondenceInfoSorted"
@@ -8,7 +9,7 @@
         class="p-0"
       >
         <b-card no-body class="rounded-0">
-          <b-tabs pills card vertical>
+          <b-tabs pills card :vertical="breakpoint === 'xl'">
             <b-tab
               v-for="(withWho, i) in day.texts"
               :key="i"
@@ -49,10 +50,12 @@ export default {
   name: "Correspondence",
 
   components: {
-    ChatCard: () => import("@/components/ChatCard.vue"),
+    ChatCard: () => import("@/components/ChatCard"),
+    BreakpointDetector: () => import("@/components/BreakpointDetector"),
   },
 
   data: () => ({
+    breakpoint: "",
     message: "",
     fields: [{ key: "from" }, { key: "text", label: "" }],
     correspondenceInfo: [
