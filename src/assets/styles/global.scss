@@ -30,6 +30,9 @@ input::placeholder {
 
 .panelSidebar {
   background: #333;
+  .b-sidebar-body{
+    background: #333;
+  }
 }
 
 .c-navbar__user_dropdown, .c-navbar__user_dropdown.show {

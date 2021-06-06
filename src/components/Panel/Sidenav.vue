@@ -7,25 +7,25 @@
       no-header
       :visible="true"
       :no-close-on-route-change="true"
-      :width="sidebarOpened ? '250px' : '70px'"
+      :width="'70px'"
     >
       <div>
         <nav class="mb-3">
           <b-nav vertical class="sidebarNav my-3">
-            <router-link :to="{ name: 'PanelDashboard' }" class>
+            <router-link :to="{ name: 'PanelDashboard' }">
               <i class="fas fa-tachometer-alt"></i>
             </router-link>
 
-            <router-link :to="{ name: 'PanelAdmins' }">
-              <i class="fas fa-users-cog"></i>
-            </router-link>
-
-            <router-link :to="{ name: 'PanelEditors' }">
-              <i class="fas fa-user-edit"></i>
-            </router-link>
-
-            <router-link :to="{ name: 'PanelUsers' }">
+            <router-link :to="{ name: 'PanelListClients' }">
               <i class="fas fa-users"></i>
+            </router-link>
+
+            <router-link :to="{ name: 'PanelListTrainers' }">
+              <i class="fas fa-running"></i>
+            </router-link>
+
+            <router-link :to="{ name: 'PanelListNutritionists' }">
+              <i class="fas fa-apple-alt"></i>
             </router-link>
           </b-nav>
         </nav>
@@ -76,4 +76,7 @@ export default {
   margin-left: 15px;
   transition: opacity 0.3s;
 }
+// .tooltip.b-tooltip.bs-tooltip-right {
+//   left: 55px !important;
+// }
 </style>

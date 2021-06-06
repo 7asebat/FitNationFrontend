@@ -13,7 +13,6 @@ axios.interceptors.request.use(
     config.url = `${backendEnv}${config.url}`;
 
     const token = store.state.token;
-    console.log(token);
     if (token != null) config.headers.Authorization = `Bearer ${token}`;
 
     return config;

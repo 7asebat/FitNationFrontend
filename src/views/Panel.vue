@@ -11,8 +11,6 @@
       </div>
       <!-- </b-container> -->
     </main>
-
-    <NewOrderToaster :newOrders.sync="newOrders"> </NewOrderToaster>
   </div>
 </template>
 
