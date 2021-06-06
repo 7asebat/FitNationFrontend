@@ -5,16 +5,15 @@
       :key="i"
       :align-h="alignment[text.type]"
     >
-      <b-alert
-        show
-        :variant="variant[text.type]"
-        :class="`c-text ${textAlignment[text.type]}`"
+      <div
+        class="c-text alert"
+        :class="`${textAlignment[text.type]} ${variant[text.type]}`"
       >
         {{ text.text }} <br />
-        <span class="c-text-time">{{
-          text.date.toTimeString().slice(0, 5)
-        }}</span>
-      </b-alert>
+        <span class="c-text-time">
+          {{ text.date.toTimeString().slice(0, 5) }}
+        </span>
+      </div>
     </b-row>
   </div>
 </template>
@@ -36,8 +35,8 @@ export default {
       outgoing: "text-right",
     },
     variant: {
-      incoming: "primary",
-      outgoing: "dark",
+      incoming: "alert-primary",
+      outgoing: "alert-dark",
     },
   }),
 
@@ -52,7 +51,7 @@ export default {
 
 <style scoped lang="scss">
 .c-text {
-  min-width: 600px !important;
+  min-width: 60% !important;
 }
 
 .c-text-time {
