@@ -24,12 +24,16 @@
         v-for="workout in workouts"
         :key="workout.id"
       >
-        <WorkoutCard
-          :title="workout.name"
-          :level="workout.level"
-          :exercisesNumber="workout.exercises_count"
-          :equipmentsRequired="workout.requires_equipment"
-        />
+        <router-link
+          :to="{ name: 'SingleWorkout', params: { id: workout.id } }"
+        >
+          <WorkoutCard
+            :title="workout.name"
+            :level="workout.level"
+            :exercisesNumber="workout.exercises_count"
+            :equipmentsRequired="workout.requires_equipment"
+          />
+        </router-link>
       </div>
     </div>
   </div>

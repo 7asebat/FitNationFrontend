@@ -4,7 +4,7 @@
       <div>
         <img
           class="img-fluid rounded c-exercise-image"
-          src="@/assets/images/stayFit.png"
+          src="@/assets/images/workout.png"
         />
       </div>
 
@@ -12,15 +12,11 @@
         <h3 class="mt-2 text-uppercase text-dark c-exercise-title">
           {{ data.name }}
         </h3>
-        <p class="font-small text-secondary">{{ data.tips }}</p>
+        <p>
+          <i class="fas fa-dumbbell text-primary"></i>
+          <span class="ml-2">{{ muscleName }}</span>
+        </p>
       </div>
-
-      <!-- <div class="text-secondary d-flex flex-row c-exercise-details">
-        <span class="mr-1"><i class="fas fa-clock"></i></span>
-        <div class="">{{ data.time }} Mins -</div>
-        <span class="ml-1"><i class="fas fa-fire"></i></span>
-        <div class="mx-1">{{ data.calories }} Est. Calories</div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -30,15 +26,17 @@ export default {
   name: "ExerciseCard",
 
   props: {
-    data: {
-      name: String,
-      time: Number,
-      calories: Number,
-      imgSrc: String,
-    },
+    data: Object,
   },
 
-  computed: {},
+  computed: {
+    muscleName() {
+      const muscles = this.$store.state.enums.muscles;
+      const selectedMuscles = this.data.meta_data.muscle_groups;
+
+      return selectedMuscles.map((muscleId) => muscles[muscleId]).join(" , ");
+    },
+  },
 
   methods: {
     getImgSrc(imageName) {
@@ -56,6 +54,9 @@ export default {
 }
 .c-exercise-image {
   border-radius: 15px !important;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 
 .c-exercise-title {
