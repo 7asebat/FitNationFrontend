@@ -41,7 +41,6 @@ export default {
   name: "Exercises",
 
   components: {
-    // MuscleSelection: () => import("@/components/MuscleSelection.vue"),
     MuscleSelector: () => import("@/components/Exercises/MuscleSelector.vue"),
     PopularExercises: () => import("@/components/PopularExercises.vue"),
   },

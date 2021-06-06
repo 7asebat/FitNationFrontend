@@ -10,7 +10,9 @@
       </p>
     </div>
 
-    <div class="row">
+    <Loading v-if="isLoading" />
+
+    <div v-if="!isLoading" class="row">
       <div
         class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3"
         v-for="exercise in popularExercises"
@@ -32,20 +34,24 @@ export default {
 
   data: () => ({
     popularExercises: [],
+    isLoading: false,
   }),
 
   methods: {
     async getExercises() {
+      this.isLoading = true;
       try {
         const response = await this.axios.get("exercises");
         this.popularExercises = response.data.data.exercises;
       } catch (err) {
         this.$errorsHandler(err);
       }
+      this.isLoading = false;
     },
   },
 
   components: {
+    Loading: () => import("@/components/common/Loading.vue"),
     ExerciseCard: () => import("@/components/ExerciseCard.vue"),
   },
 };
