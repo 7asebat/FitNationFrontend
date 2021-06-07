@@ -1,5 +1,5 @@
 <template>
-  <div class="c-exercise-card shadow-sm bg-light">
+  <div class="c-exercise-card shadow-sm bg-light h-100">
     <div class="d-flex flex-column text-left">
       <div>
         <img

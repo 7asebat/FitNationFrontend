@@ -116,10 +116,14 @@ export default {
       }
     },
     formatExerciseType(exerciseMetaData) {
-      const muscleIds = exerciseMetaData.muscle_groups;
-      const muscles = this.$store.state.enums.muscles;
+      if (exerciseMetaData && exerciseMetaData.muscle_groups) {
+        const muscleIds = exerciseMetaData.muscle_groups;
+        const muscles = this.$store.state.enums.muscles;
 
-      return muscleIds.map((id) => muscles[id]).join(",");
+        return muscleIds.map((id) => muscles[id]).join(",");
+      }
+
+      return "";
     },
   },
 

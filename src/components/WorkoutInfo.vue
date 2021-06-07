@@ -21,7 +21,10 @@
           <h4 v-else class="u-title-font text-success">Active workout</h4>
         </div>
         <p class="text-secondary">
-          {{ workout.description }}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quia
+          veniam repellendus iure quis id dolore? Fuga beatae ab pariatur
+          doloremque. Sed, dignissimos? Similique, est illum rerum commodi nihil
+          consectetur!
         </p>
 
         <p class="my-1 c-workout-card-workout-property">
