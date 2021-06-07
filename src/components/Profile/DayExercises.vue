@@ -3,7 +3,7 @@
     <div class="row my-4">
       <div
         class="col-12 position-relative"
-        :class="{ 'col-md-8 col-lg-9': suggestedExercises.length }"
+        :class="{ 'col-md-8 col-lg-9': loggedInUser.active_workout_plan }"
       >
         <div v-show="!exercises.length">
           <h2 class="u-title-font">No exercises tracked for this day</h2>
@@ -32,53 +32,67 @@
           + Add Exercises
         </button>
       </div>
-      <div class="col-12 col-md-4 col-lg-3" v-if="suggestedExercises.length">
+      <div
+        class="col-12 col-md-4 col-lg-3"
+        v-if="loggedInUser.active_workout_plan"
+      >
         <div class="bg-light p-3 c-day-exercises__suggested-exercises">
-          <h3 class="u-title-font">
-            This day's <span class="text-primary"> Exercises </span>
-          </h3>
-          <p class="text-secondary">
-            Exercises you should do based on your current workout plan
-          </p>
+          <div v-if="!suggestedExercises.length">
+            <h3 class="u-title-font">
+              You can take a <span class="text-success">rest</span> for today!
+            </h3>
+            <p class="text-secondary">
+              Based on your workout plan, you don't have any exercise to do
+              today. Feel free to take a rest
+            </p>
+          </div>
+          <div v-if="suggestedExercises.length">
+            <h3 class="u-title-font">
+              This day's <span class="text-primary"> Exercises </span>
+            </h3>
+            <p class="text-secondary">
+              Exercises you should do based on your current workout plan
+            </p>
 
-          <div
-            v-for="exercise in suggestedExercises"
-            :key="exercise.instance_id"
-            class="mb-3"
-          >
-            <div class="d-flex">
-              <div>
-                <img
-                  v-if="exercise.image"
-                  :src="exercise.image"
-                  alt=""
-                  class="c-day-exercises__suggested-exercise-image mr-2"
-                />
+            <div
+              v-for="exercise in suggestedExercises"
+              :key="exercise.instance_id"
+              class="mb-3"
+            >
+              <div class="d-flex">
+                <div>
+                  <img
+                    v-if="exercise.image"
+                    :src="exercise.image"
+                    alt=""
+                    class="c-day-exercises__suggested-exercise-image mr-2"
+                  />
 
-                <img
-                  v-else
-                  src="@/assets/images/defaultExercise.png"
-                  alt=""
-                  class="c-day-exercises__suggested-exercise-image mr-2"
-                />
-              </div>
+                  <img
+                    v-else
+                    src="@/assets/images/defaultExercise.png"
+                    alt=""
+                    class="c-day-exercises__suggested-exercise-image mr-2"
+                  />
+                </div>
 
-              <div>
-                <h6>{{ exercise.name }}</h6>
-                <p class="m-0">SETS: {{ exercise.sets }}</p>
-                <p class="m-0">REPS: {{ exercise.reps }}</p>
-                <div class="d-flex">
-                  <b-form-input
-                    v-model="exercise.performance"
-                    placeholder="Weight"
-                    class="h-auto mr-2"
-                  ></b-form-input>
-                  <button
-                    class="btn btn-success"
-                    @click="addSuggestedExercise(exercise)"
-                  >
-                    Add
-                  </button>
+                <div>
+                  <h6>{{ exercise.name }}</h6>
+                  <p class="m-0">SETS: {{ exercise.sets }}</p>
+                  <p class="m-0">REPS: {{ exercise.reps }}</p>
+                  <div class="d-flex">
+                    <b-form-input
+                      v-model="exercise.performance"
+                      placeholder="Weight"
+                      class="h-auto mr-2"
+                    ></b-form-input>
+                    <button
+                      class="btn btn-success"
+                      @click="addSuggestedExercise(exercise)"
+                    >
+                      Add
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
