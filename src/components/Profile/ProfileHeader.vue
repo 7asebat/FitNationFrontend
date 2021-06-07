@@ -2,7 +2,14 @@
   <div>
     <div class="c-profile__user-info d-flex my-5">
       <img
-        src="@/assets/images/workout.png"
+        v-if="loggedInUser.avatar"
+        :src="loggedInUser.avatar"
+        alt=""
+        class="img c-profile-image"
+      />
+      <img
+        v-else
+        src="@/assets/images/defaultUser.png"
         alt=""
         class="img c-profile-image"
       />

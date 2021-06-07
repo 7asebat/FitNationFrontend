@@ -3,8 +3,14 @@
     <div class="d-flex flex-column text-left">
       <div>
         <img
+          v-if="data.image"
           class="img-fluid rounded c-exercise-image"
-          src="@/assets/images/workout.png"
+          :src="data.image"
+        />
+        <img
+          v-else
+          class="img-fluid rounded c-exercise-image"
+          src="@/assets/images/defaultExercise.png"
         />
       </div>
 
