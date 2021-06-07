@@ -84,21 +84,21 @@
                   <h6>{{ exercise.name }}</h6>
                   <p class="m-0">SETS: {{ exercise.sets }}</p>
                   <p class="m-0">REPS: {{ exercise.reps }}</p>
-                  <div class="d-flex">
-                    <b-form-input
-                      v-model="exercise.performance"
-                      placeholder="Weight"
-                      class="h-auto mr-2"
-                    ></b-form-input>
-                    <button
-                      class="btn btn-success"
-                      @click="addSuggestedExercise(exercise)"
-                    >
-                      Add
-                    </button>
-                  </div>
+
+                  <b-form-input
+                    v-model="exercise.performance"
+                    placeholder="Weight"
+                    class="h-auto mb-2"
+                  ></b-form-input>
+                  <button
+                    class="btn btn-success"
+                    @click="addSuggestedExercise(exercise)"
+                  >
+                    Add
+                  </button>
                 </div>
               </div>
+              <hr />
             </div>
           </div>
         </div>

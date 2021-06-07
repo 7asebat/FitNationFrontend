@@ -15,6 +15,17 @@
       />
       <div class="my-3">
         <h3>{{ loggedInUser.name }}</h3>
+        <span
+          class="px-3 my-2 d-inline-block text-light round-corner"
+          :class="{
+            'bg-success': loggedInUser.role === 'nutrionist',
+            'bg-info': loggedInUser.role === 'client',
+            'bg-primary': loggedInUser.role === 'trainer',
+          }"
+        >
+          {{ loggedInUser.role }}
+        </span>
+
         <!-- <div class="d-flex justify-content-between">
           <div class="ml-4">
             <a href="#" class="btn btn-outline-primary">
