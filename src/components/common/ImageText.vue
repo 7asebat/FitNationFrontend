@@ -20,14 +20,14 @@
         </div>
         <div class="c-image-text-actions">
           <router-link
-            v-if="secondaryButtonText !== undefined"
+            v-if="primaryButtonText"
             class="btn"
             :class="'btn-' + theme"
             :to="{ name: primaryButtonRoute }"
           >
             {{ primaryButtonText }}
           </router-link>
-          <a v-if="secondaryButtonText !== undefined" href="#" class="btn">
+          <a v-if="secondaryButtonText" href="#" class="btn">
             {{ secondaryButtonText }}
           </a>
         </div>

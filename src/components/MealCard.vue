@@ -3,7 +3,7 @@
     <!-- TODO(Abdelrahman) add a photo here -->
     <img
       v-if="recipe.image"
-      src="recipe.image"
+      :src="recipe.image"
       alt=""
       class="c-meal-card-image"
     />

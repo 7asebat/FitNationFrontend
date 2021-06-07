@@ -53,7 +53,9 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) document.title = to.meta.title;
 
   const loggedInUser = store.state.user;
+  console.log(loggedInUser);
   const userRole = loggedInUser ? loggedInUser.role : null;
+  console.log(userRole);
 
   const requiresNotAuth = to.matched.some(
     (record) => record.meta.requiresNotAuth
