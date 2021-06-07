@@ -41,6 +41,19 @@
           </div>
         </div>
       </div>
+
+      <b-pagination
+        v-model="meta.page"
+        :total-rows="meta.total"
+        :per-page="meta.limit"
+        @change="
+          (page) => {
+            getRecipes(page);
+          }
+        "
+        align="right"
+        first-number
+      ></b-pagination>
     </div>
   </div>
 </template>
@@ -48,11 +61,12 @@
 <script>
 export default {
   created() {
-    this.getRecipes();
+    this.getRecipes(1);
   },
 
   data: () => ({
     recipes: null,
+    meta: {},
   }),
 
   components: {
@@ -67,11 +81,14 @@ export default {
   },
 
   methods: {
-    async getRecipes() {
+    async getRecipes(recipesPage) {
       try {
-        const response = await this.axios.get("recipes");
+        const response = await this.axios.get(`recipes?page=${recipesPage}`);
         const recipes = response.data.data.recipes;
 
+        const { count, limit, page, total } = response.data;
+        const meta = { count, limit, page, total };
+        this.meta = meta;
         this.recipes = recipes;
       } catch (err) {
         this.$errorsHandler(err);
