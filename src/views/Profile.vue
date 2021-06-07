@@ -80,6 +80,12 @@ export default {
           icon: "fa-envelope",
           link: "/profile/correspondence",
         },
+        {
+          name: "MyWorkoutPlans",
+          title: "My Workout Plans",
+          icon: "fa-envelope",
+          link: "/profile/my-workout-plans",
+        },
       ],
       trainer: [
         {

@@ -26,6 +26,11 @@
           <i class="fas fa-dumbbell text-primary"></i>
           <span class="ml-2">REPS: {{ reps }}</span>
         </p>
+
+        <p v-if="weight">
+          <i class="fas fa-dumbbell text-primary"></i>
+          <span class="ml-2">WEIGHT: {{ weight }}</span>
+        </p>
       </div>
     </div>
   </div>
@@ -39,6 +44,7 @@ export default {
     data: Object,
     sets: Number,
     reps: Number,
+    weight: Number,
   },
 
   computed: {

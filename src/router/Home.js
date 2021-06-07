@@ -87,9 +87,9 @@ export default [
         component: () => import("@/components/Profile/WorkoutPerformance.vue"),
       },
       {
-        path: "correspondence",
-        name: "Correspondence",
-        component: () => import("@/components/Profile/Correspondence.vue"),
+        path: "my-workout-plans",
+        name: "MyWorkoutPlans",
+        component: () => import("@/components/Profile/MyWorkoutPlans.vue"),
       },
     ],
   },

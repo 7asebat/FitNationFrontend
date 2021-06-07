@@ -42,7 +42,7 @@
 
                 <b-form-input
                   type="number"
-                  v-model="exercise.weight"
+                  v-model="exercise.performance"
                   placeholder="Weight"
                   @click.stop=""
                 ></b-form-input>
@@ -88,7 +88,7 @@ export default {
     async addExercise(exercise) {
       try {
         const payload = {
-          performance: exercise.weight,
+          performance: exercise.performance,
           date: this.activeDay,
           exercise_id: exercise.id,
           sets: exercise.seps,
@@ -118,7 +118,7 @@ export default {
           exercise.selected = false;
           if (!exercise.reps) exercise.reps = "";
           if (!exercise.sets) exercise.sets = "";
-          if (!exercise.weight) exercise.weight = "";
+          if (!exercise.performance) exercise.performance = "";
 
           return exercise;
         });

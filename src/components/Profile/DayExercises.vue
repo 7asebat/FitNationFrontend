@@ -1,14 +1,28 @@
 <template>
   <div class="position-relative">
     <div class="row my-4">
-      <div class="col-12 col-md-8 col-lg-9 position-relative">
+      <div
+        class="col-12 position-relative"
+        :class="{ 'col-md-8 col-lg-9': loggedInUser.active_workout_plan }"
+      >
+        <div v-show="!exercises.length">
+          <h2 class="u-title-font">No exercises tracked for this day</h2>
+          <p class="text-secondary">
+            Add exercises to this day to keep track of your performance
+          </p>
+        </div>
         <div class="row">
           <div
-            class="col-12 col-md-4 col-lg-3 mb-3"
+            class="col-12 mb-3 col-md-4 col-lg-3"
             v-for="exercise in exercises"
-            :key="exercise.id"
+            :key="exercise.instance_id"
           >
-            <ExerciseCard :data="exercise" />
+            <ExerciseCard
+              :data="exercise"
+              :sets="exercise.sets"
+              :reps="exercise.reps"
+              :weight="exercise.performance"
+            />
           </div>
         </div>
         <button
@@ -18,14 +32,23 @@
           + Add Exercises
         </button>
       </div>
-      <div class="col-12 col-md-4 col-lg-3">
+      <div
+        class="col-12 col-md-4 col-lg-3"
+        v-if="loggedInUser.active_workout_plan"
+      >
         <div class="bg-light p-3 c-day-exercises__suggested-exercises">
-          <h3>Suggested Exercises</h3>
+          <h3 class="u-title-font">
+            This day's <span class="text-primary"> Exercises </span>
+          </h3>
           <p class="text-secondary">
             Exercises you should do based on your current workout plan
           </p>
 
-          <div v-for="exercise in exercises" :key="exercise.id" class="mb-3">
+          <div
+            v-for="exercise in exercises"
+            :key="exercise.instance_id"
+            class="mb-3"
+          >
             <div class="d-flex">
               <img
                 src="@/assets/images/beHealthy.png"
@@ -74,6 +97,12 @@ export default {
     };
   },
 
+  computed: {
+    loggedInUser() {
+      return this.$store.state.user;
+    },
+  },
+
   methods: {
     addExercise(exercise) {
       this.exercises.push(exercise);
@@ -89,7 +118,15 @@ export default {
         );
 
         let exercises = response.data.client_exercise_instances;
-        exercises = exercises.map((exercise) => exercise.exercise);
+        exercises = exercises.map((exerciseInstance) => {
+          const exercise = exerciseInstance.exercise;
+          exercise.reps = exerciseInstance.reps;
+          exercise.sets = exerciseInstance.sets;
+          exercise.duration = exerciseInstance.duration;
+          exercise.performance = exerciseInstance.performance;
+          exercise.instance_id = exerciseInstance.id;
+          return exercise;
+        });
 
         this.exercises = exercises;
         console.log(response);

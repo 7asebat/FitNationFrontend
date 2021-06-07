@@ -19,15 +19,7 @@ export default {
 
   data() {
     return {
-      workout: {
-        title: "Body Balance",
-        description:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex alias quos quod sunt sed fugiat magnam, labore excepturi id molestiae, facere assumenda unde nihil repellendus earum maxime eveniet ad blanditiis!",
-        level: "Intermediate",
-        calories: 1200,
-        exercises: 12,
-        equipmentsRequired: true,
-      },
+      workout: {},
     };
   },
 
