@@ -6,7 +6,18 @@
     >
       <div class="d-flex h-100 flex-column justify-content-center mb-3">
         <h1 class="c-image-text-title">{{ title }}</h1>
-        <p class="text-secondary">{{ description }}</p>
+        <p class="text-secondary" v-if="typeof description === 'string'">
+          {{ description }}
+        </p>
+        <div v-else>
+          <p
+            class="text-secondary"
+            v-for="(paragraph, idx) in description"
+            :key="idx"
+          >
+            {{ paragraph }}
+          </p>
+        </div>
         <div class="c-image-text-actions">
           <router-link
             v-if="secondaryButtonText !== undefined"
@@ -36,7 +47,7 @@
 export default {
   props: {
     title: String,
-    description: String,
+    description: [String, Array],
     primaryButtonText: String,
     primaryButtonRoute: String,
     secondaryButtonText: String,
