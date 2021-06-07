@@ -17,14 +17,24 @@
             class="btn btn-primary"
             @click="chooseWorkout"
             v-if="
-              !loggedInUser.active_workout_plan ||
-              loggedInUser.active_workout_plan.id !== workout.id
+              loggedInUser &&
+              (!loggedInUser.active_workout_plan ||
+                loggedInUser.active_workout_plan.id !== workout.id)
             "
           >
             Choose this workout
           </button>
 
-          <h4 v-else class="u-title-font text-success">Active workout</h4>
+          <h4
+            v-if="
+              loggedInUser &&
+              loggedInUser.active_workout_plan &&
+              loggedInUser.active_workout_plan.id === workout.id
+            "
+            class="u-title-font text-success"
+          >
+            Active workout
+          </h4>
         </div>
         <p class="text-secondary">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quia
