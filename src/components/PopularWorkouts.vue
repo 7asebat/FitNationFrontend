@@ -21,7 +21,7 @@
     <div class="row">
       <div
         class="col-12 col-md-4 col-lg-3 mb-4"
-        v-for="workout in workouts"
+        v-for="workout in workoutsFiltered"
         :key="workout.id"
       >
         <router-link
@@ -37,31 +37,69 @@
         </router-link>
       </div>
     </div>
+
+    <b-pagination
+      v-if="showPagination"
+      v-model="meta.page"
+      :total-rows="meta.total"
+      :per-page="meta.limit"
+      @change="
+        (page) => {
+          getWorkouts(page);
+        }
+      "
+      align="right"
+      first-number
+    ></b-pagination>
   </div>
 </template>
 
 <script>
 export default {
   created() {
-    this.getWorkouts();
+    this.getWorkouts(1);
   },
 
   data() {
     return {
       workouts: [],
+      meta: {},
     };
   },
 
+  props: {
+    limit: Number,
+    showPagination: {
+      type: Boolean,
+      default: true,
+    },
+  },
+
   methods: {
-    async getWorkouts() {
+    async getWorkouts(workoutsPage) {
       try {
-        const response = await this.axios.get("workout_plans");
+        const response = await this.axios.get(
+          `workout_plans?page=${workoutsPage}`
+        );
         const workouts = response.data.data.workout_plans;
+
+        const { count, limit, page, total } = response.data;
+        const meta = { count, limit, page, total };
+        this.meta = meta;
 
         this.workouts = workouts;
       } catch (err) {
         this.$errorsHandler(err);
       }
+    },
+  },
+
+  computed: {
+    workoutsFiltered() {
+      if (this.workouts && Number(this.limit)) {
+        return this.workouts.slice(0, this.limit);
+      }
+      return this.workouts;
     },
   },
 

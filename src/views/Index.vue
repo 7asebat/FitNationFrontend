@@ -16,6 +16,9 @@
       ]"
       imagePosition="left"
     />
+
+    <PopularWorkouts :limit="4" :showPagination="false" class="mb-4" />
+    <LatestRecipes :limit="4" :showPagination="false" />
   </div>
 </template>
 
@@ -23,6 +26,8 @@
 export default {
   components: {
     ImageText: () => import("@/components/common/ImageText.vue"),
+    PopularWorkouts: () => import("@/components/PopularWorkouts.vue"),
+    LatestRecipes: () => import("@/components/LatestRecipes"),
   },
 };
 </script>

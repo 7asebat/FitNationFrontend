@@ -22,77 +22,21 @@
         theme="success"
       />
 
-      <div class="c-meals-popular-meals">
-        <h1 class="u-title-font">
-          Popular <span class="text-success">Meals</span>
-        </h1>
-
-        <div class="row">
-          <div
-            class="col-sm-12 col-md-3 mb-4"
-            v-for="recipe in recipes"
-            :key="recipe.id"
-          >
-            <router-link
-              :to="{ name: 'SingleMeal', params: { id: recipe.id } }"
-            >
-              <MealCard :recipe="recipe" />
-            </router-link>
-          </div>
-        </div>
-      </div>
-
-      <b-pagination
-        v-model="meta.page"
-        :total-rows="meta.total"
-        :per-page="meta.limit"
-        @change="
-          (page) => {
-            getRecipes(page);
-          }
-        "
-        align="right"
-        first-number
-      ></b-pagination>
+      <LatestRecipes />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  created() {
-    this.getRecipes(1);
-  },
-
-  data: () => ({
-    recipes: null,
-    meta: {},
-  }),
-
   components: {
     ImageText: () => import("@/components/common/ImageText.vue"),
-    MealCard: () => import("@/components/MealCard.vue"),
+    LatestRecipes: () => import("@/components/LatestRecipes"),
   },
 
   computed: {
     loggedInUser() {
       return this.$store.state.user;
-    },
-  },
-
-  methods: {
-    async getRecipes(recipesPage) {
-      try {
-        const response = await this.axios.get(`recipes?page=${recipesPage}`);
-        const recipes = response.data.data.recipes;
-
-        const { count, limit, page, total } = response.data;
-        const meta = { count, limit, page, total };
-        this.meta = meta;
-        this.recipes = recipes;
-      } catch (err) {
-        this.$errorsHandler(err);
-      }
     },
   },
 };
