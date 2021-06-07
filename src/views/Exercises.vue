@@ -10,11 +10,10 @@
             </div>
 
             <div id="muscle-text-action" class="d-flex flex-row mt-3">
-              <!-- TODO(Abdelrahman) Make this button wider -->
               <div>
-                <a href="" class="btn btn-primary text-uppercase"
-                  >Browse all exercises</a
-                >
+                <a href="#exercises" class="btn btn-primary text-uppercase">
+                  Browse all exercises
+                </a>
               </div>
 
               <div class="d-flex align-items-center ml-5">
@@ -30,7 +29,7 @@
       </div>
 
       <div class="mt-5 w-100">
-        <PopularExercises :muscleGroup="selectedMuscle"/>
+        <PopularExercises :muscleGroup="selectedMuscle" />
       </div>
     </div>
   </div>

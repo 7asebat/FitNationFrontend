@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column justify-content-center">
+  <div class="d-flex flex-column justify-content-center" id="exercises">
     <div class="pb-3">
       <h1 class="c-popular-exercises-title">
         <span class="text-dark">Popular </span>

@@ -11,7 +11,7 @@
         </p>
       </div>
 
-      <div>
+      <div v-if="canCreateWorkout">
         <router-link class="btn btn-primary" :to="{ name: 'WorkoutBuilder' }">
           Create your own workout
         </router-link>
@@ -95,6 +95,12 @@ export default {
   },
 
   computed: {
+    canCreateWorkout() {
+      const user = this.$store.state.user;
+      if (user && ["client", "trainer"].includes(user.role)) return true;
+      else return false;
+    },
+
     workoutsFiltered() {
       if (this.workouts && Number(this.limit)) {
         return this.workouts.slice(0, this.limit);
