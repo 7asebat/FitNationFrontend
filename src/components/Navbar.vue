@@ -52,8 +52,10 @@
         </div>
 
         <b-dropdown v-else class="ml-3 c-navbar__user_dropdown">
-          <template #button-content class="hamadas">
-            Hi, <span class="text-primary">{{ loggedInUser.name }}</span>
+          <template #button-content>
+            <h4 class="u-title-font d-inline mr-3">
+              Hi, <span class="text-primary">{{ loggedInUser.name }}</span>
+            </h4>
           </template>
           <b-dropdown-item :to="{ name: 'ProfileOverview' }">
             <i class="fas fa-user"></i>
@@ -65,6 +67,47 @@
           </b-dropdown-item>
         </b-dropdown>
       </nav>
+
+      <div class="d-block d-lg-none">
+        <b-navbar-toggle target="navbar-toggle-collapse">
+          <template #default="{ expanded }">
+            <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>
+            <b-icon v-else icon="chevron-bar-down"></b-icon>
+          </template>
+        </b-navbar-toggle>
+
+        <b-collapse id="navbar-toggle-collapse" is-nav>
+          <b-navbar-nav class="ml-auto u-title-font">
+            <b-nav-item :to="{ name: 'Index' }" class="navItem"
+              >Home</b-nav-item
+            >
+            <b-nav-item :to="{ name: 'Workouts' }" class="navItem"
+              >Plans</b-nav-item
+            >
+            <b-nav-item :to="{ name: 'Meals' }" class="navItem"
+              >Meals</b-nav-item
+            >
+            <b-nav-item :to="{ name: 'Exercises' }" class="navItem"
+              >Exercises</b-nav-item
+            >
+            <b-nav-item :to="{ name: 'Profile' }" class="navItem"
+              >Profile</b-nav-item
+            >
+            <b-nav-item
+              :to="{ name: 'ListPanel', params: { type: 'nutritionist' } }"
+              class="navItem"
+            >
+              Search
+            </b-nav-item>
+            <b-nav-item :to="{ name: 'Login' }" class="navItem"
+              >Login</b-nav-item
+            >
+            <b-nav-item :to="{ name: 'Register' }" class="navItem">
+              Register
+            </b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </div>
     </div>
   </div>
 </template>
@@ -93,11 +136,16 @@ export default {
 .navItem {
   display: inline-block;
   margin-left: 16px;
-  color: $dark;
   text-decoration: none;
+  color: $dark;
   font-size: 20px;
 }
-.navItem.router-link-exact-active {
+.navItem * {
+  color: $dark;
+  font-size: 20px;
+}
+.navItem.router-link-exact-active,
+.navItem .router-link-exact-active {
   color: $primary;
   border-bottom: 2px solid $primary;
 }
