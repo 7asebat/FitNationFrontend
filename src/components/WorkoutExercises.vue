@@ -1,14 +1,27 @@
 <template>
   <div>
-    <b-tabs pills card vertical>
-      <b-tab v-for="day in days" :key="day.name" :title="day.name">
+    <!-- <div v-for="(dayValue, dayKey) in days" :key="dayValue.day">
+      dayValue : {{ dayValue }} dayKey :{{ dayKey }}
+      
+    </div> -->
+
+    <b-tabs pills card vertical v-if="days">
+      <b-tab
+        v-for="(dayValue, dayKey) in days"
+        :key="dayKey"
+        :title="daysNames[dayKey]"
+      >
         <div class="row">
           <div
             class="col-sm-12 col-md-4 col-lg-3"
-            v-for="exercise in day.exercises"
+            v-for="exercise in dayValue"
             :key="exercise.name"
           >
-            <ExerciseCard :data="exercise" />
+            <ExerciseCard
+              :data="exercise.exercise"
+              :sets="exercise.sets"
+              :reps="exercise.reps"
+            />
           </div>
         </div>
       </b-tab>
@@ -18,48 +31,20 @@
 
 <script>
 export default {
+  props: {
+    days: Object,
+  },
+
   data() {
     return {
-      days: [
-        {
-          name: "Day 1",
-          exercises: [
-            {
-              name: "Leg Raises",
-              time: 30,
-              calories: 120,
-              imgSrc: "beHealthy.png",
-            },
-            {
-              name: "Leg Raises",
-              time: 30,
-              calories: 120,
-              imgSrc: "stayFit.png",
-            },
-          ],
-        },
-        {
-          name: "Day 2",
-          exercises: [],
-        },
-        {
-          name: "Day 3",
-          exercises: [],
-        },
-        {
-          name: "Day 4",
-          exercises: [],
-        },
-        {
-          name: "Day 5",
-          exercises: [],
-        },
-        {
-          name: "Day 6",
-          exercises: [],
-        },
-      ],
+      // days: [],
     };
+  },
+
+  computed: {
+    daysNames() {
+      return this.$store.state.enums.days;
+    },
   },
 
   components: {

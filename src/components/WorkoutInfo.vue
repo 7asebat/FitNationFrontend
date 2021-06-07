@@ -6,7 +6,7 @@
       </div>
       <div class="col-lg-6 col-sm-12">
         <div class="d-flex justify-content-between align-items-center">
-          <h1 class="u-title-font">{{ workout.title }}</h1>
+          <h1 class="u-title-font">{{ workout.name }}</h1>
           <button class="btn btn-primary">Choose this workout</button>
         </div>
         <p class="text-secondary">
@@ -15,24 +15,18 @@
 
         <p class="my-1 c-workout-card-workout-property">
           <span class="text-warning"><i class="fas fa-signal"></i></span>
-          <span class="mx-2 text-dark">{{ workout.level }}</span>
+          <span class="mx-2 text-dark">{{ levelNames[workout.level] }}</span>
         </p>
 
-        <p class="my-1 c-workout-card-workout-property">
-          <span class="text-danger"><i class="fas fa-fire"></i></span>
-          <span class="mx-2 text-dark"
-            >{{ workout.calories }} Est. calories</span
-          >
-        </p>
-        <p class="my-1 c-workout-card-workout-property">
+        <!-- <p class="my-1 c-workout-card-workout-property">
           <span class="text-danger"><i class="fas fa-running"></i></span>
           <span class="mx-2 text-dark">{{ workout.exercises }} Exercises</span>
-        </p>
+        </p> -->
         <p class="my-1 c-workout-card-workout-property">
           <span class="text-danger"><i class="fas fa-dumbbell"></i></span>
           <span class="mx-2 text-dark">
             {{
-              workout.equipmentsRequired
+              workout.requires_equipment
                 ? "Equipments Required"
                 : "Equipments Not Required"
             }}
@@ -48,6 +42,12 @@ export default {
   props: {
     workout: {
       required: true,
+    },
+  },
+
+  computed: {
+    levelNames() {
+      return this.$store.state.enums.workoutLevels;
     },
   },
 };

@@ -16,6 +16,16 @@
           <i class="fas fa-dumbbell text-primary"></i>
           <span class="ml-2">{{ muscleName }}</span>
         </p>
+
+        <p v-if="sets">
+          <i class="fas fa-dumbbell text-primary"></i>
+          <span class="ml-2">SETS: {{ sets }}</span>
+        </p>
+
+        <p v-if="reps">
+          <i class="fas fa-dumbbell text-primary"></i>
+          <span class="ml-2">REPS: {{ reps }}</span>
+        </p>
       </div>
     </div>
   </div>
@@ -27,6 +37,8 @@ export default {
 
   props: {
     data: Object,
+    sets: Number,
+    reps: Number,
   },
 
   computed: {
