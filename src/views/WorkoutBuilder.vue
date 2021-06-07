@@ -8,7 +8,7 @@
     </p>
 
     <div class="row">
-      <div class="col-12 col-md-4 mb-3">
+      <div class="col-12 col-md-6 mb-3">
         <b-form-input
           v-model="workoutName"
           placeholder="Enter Workout Name"
@@ -16,13 +16,23 @@
           style="height: auto !important"
         ></b-form-input>
       </div>
-      <div class="col-12 col-md-4 mb-3">
+      <div class="col-12 col-md-6 mb-3">
         <b-form-select
           v-model="selectedLevel"
           :options="workoutLevels"
         ></b-form-select>
       </div>
-      <div class="col-12 col-md-4 mb-3">
+
+      <div class="col-12 col-md-6 mb-3">
+        <b-form-file
+          v-model="image"
+          :state="Boolean(image)"
+          placeholder="Choose a file or drop it here..."
+          drop-placeholder="Drop file here..."
+        ></b-form-file>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3">
         <b-form-radio-group
           v-model="equipmentsRequired"
           :options="equipmentsOptions"
@@ -36,7 +46,7 @@
       <b-tab
         v-for="(dayValue, dayKey) in days"
         :key="dayKey"
-        :title="`Day ${Number(dayKey) + 1}`"
+        :title="daysNames[dayKey]"
         :active="selectedDay === Number(dayKey)"
       >
         <div class="row">
@@ -101,6 +111,7 @@ export default {
       selectedDay: 0,
       workoutName: "",
       selectedLevel: null,
+      image: undefined,
       equipmentsRequired: false,
       equipmentsOptions: [
         { text: "Equipments Required", value: true },
@@ -109,6 +120,10 @@ export default {
     };
   },
   computed: {
+    daysNames() {
+      return this.$store.state.enums.days;
+    },
+
     validForm() {
       return (
         !this.emptyWorkout && this.workoutName && this.selectedLevel !== null
@@ -146,14 +161,29 @@ export default {
           requires_equipment: this.equipmentsRequired,
         };
 
-        await this.axios.post("workout_plans", payload);
+        const response = await this.axios.post("workout_plans", payload);
+        const workoutPlan = response.data.data.workout_plan;
+
+        if (this.image) {
+          try {
+            const payload = new FormData();
+            payload.append("image", this.image);
+
+            await this.axios.patch(
+              `workout_plans/${workoutPlan.id}/image`,
+              payload
+            );
+          } catch (err) {
+            this.$errorsHandler(new Error("Failed to upload workout image"));
+          }
+        }
 
         this.$notification(
           "successNotification",
           "Workout Plan Added Successfully!"
         );
 
-        this.$router.push({ name: "Workouts" });
+        this.$router.push({ name: "MyWorkoutPlans" });
       } catch (err) {
         this.$errorsHandler(err);
       }

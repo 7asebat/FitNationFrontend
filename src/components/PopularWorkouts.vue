@@ -32,6 +32,7 @@
             :level="workout.level"
             :exercisesNumber="workout.exercises_count"
             :equipmentsRequired="workout.requires_equipment"
+            :image="workout.image"
           />
         </router-link>
       </div>

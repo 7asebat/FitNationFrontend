@@ -13,7 +13,7 @@
     <div v-if="workoutPlans.length">
       <div class="row">
         <div
-          class="col-12 col-md-4 col-lg-3"
+          class="col-12 col-md-4 col-lg-3 mb-4"
           v-for="workout in workoutPlans"
           :key="workout.id"
         >
@@ -25,6 +25,7 @@
               :level="workout.level"
               :exercisesNumber="workout.exercises_count"
               :equipmentsRequired="workout.requires_equipment"
+              :image="workout.image"
             />
           </router-link>
         </div>

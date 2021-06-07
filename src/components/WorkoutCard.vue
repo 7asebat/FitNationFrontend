@@ -36,10 +36,13 @@
 
     <div class="c-workout-card-black-overlay"></div>
     <img
-      src="@/assets/images/workout.png"
+      v-if="!image"
+      src="@/assets/images/defaultWorkout.png"
       alt=""
       class="c-workout-card-image"
     />
+
+    <img v-else :src="image" alt="" class="c-workout-card-image" />
   </div>
 </template>
 
