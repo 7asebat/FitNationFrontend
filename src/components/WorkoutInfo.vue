@@ -7,7 +7,9 @@
       <div class="col-lg-6 col-sm-12">
         <div class="d-flex justify-content-between align-items-center">
           <h1 class="u-title-font">{{ workout.name }}</h1>
-          <button class="btn btn-primary">Choose this workout</button>
+          <button class="btn btn-primary" @click="chooseWorkout">
+            Choose this workout
+          </button>
         </div>
         <p class="text-secondary">
           {{ workout.description }}
@@ -48,6 +50,22 @@ export default {
   computed: {
     levelNames() {
       return this.$store.state.enums.workoutLevels;
+    },
+  },
+
+  methods: {
+    async chooseWorkout() {
+      try {
+        const payload = { workout_plan_id: this.workout.id };
+        await this.axios.patch("me/workout_plans/active_plan", payload);
+
+        this.$notification(
+          "successNotification",
+          "Active workout plan is set succesfully"
+        );
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
     },
   },
 };
