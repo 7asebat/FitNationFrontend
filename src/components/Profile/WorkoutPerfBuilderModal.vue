@@ -5,7 +5,6 @@
     size="lg"
     title="Add this week's workout"
     ok-title="Add Exercises"
-    @ok="confirmEdits"
   >
     <b-input-group class="mb-2">
       <b-input-group-prepend is-text>
@@ -26,8 +25,17 @@
           :key="exercise.id"
         >
           <div class="d-flex bg-light round-corner overflow-hidden">
+            <video
+              autoplay
+              loop
+              v-if="exercise.clip"
+              :src="exercise.clip"
+              class="exerciseImage"
+              type="video/mp4"
+            ></video>
+
             <img
-              v-if="exercise.image"
+              v-else-if="exercise.image"
               class="exerciseImage"
               :src="exercise.image"
               alt=""
@@ -168,26 +176,26 @@ export default {
       }
       this.isLoading = false;
     },
-    async confirmEdits() {
-      try {
-        // const payload
+    // async confirmEdits() {
+    //   try {
+    //     // const payload
 
-        await this.axios.post("clients/exercises_instances");
-      } catch (err) {
-        this.$errorsHandler(err);
-      }
+    //     await this.axios.post("clients/exercises_instances");
+    //   } catch (err) {
+    //     this.$errorsHandler(err);
+    //   }
 
-      const exercises = this.exercises.filter(
-        (exercise) => (exercise.sets > 0) & (exercise.reps > 0)
-      );
+    //   const exercises = this.exercises.filter(
+    //     (exercise) => (exercise.sets > 0) & (exercise.reps > 0)
+    //   );
 
-      // await this
+    //   // await this
 
-      exercises;
+    //   exercises;
 
-      this.$emit("confirmEdits", exercises);
-      this.exercises = [];
-    },
+    //   this.$emit("confirmEdits", exercises);
+    //   this.exercises = [];
+    // },
   },
 };
 </script>

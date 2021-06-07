@@ -2,11 +2,21 @@
   <div class="c-exercise-card shadow-sm bg-light h-100">
     <div class="d-flex flex-column text-left">
       <div>
+        <video
+          autoplay
+          loop
+          v-if="data.clip"
+          :src="data.clip"
+          class="c-exercise-image"
+          type="video/mp4"
+        ></video>
+
         <img
-          v-if="data.image"
+          v-else-if="data.image"
           class="img-fluid rounded c-exercise-image"
           :src="data.image"
         />
+
         <img
           v-else
           class="img-fluid rounded c-exercise-image"

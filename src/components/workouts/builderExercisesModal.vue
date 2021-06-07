@@ -14,7 +14,7 @@
         :key="exercise.id"
       >
         <div
-          class="c-builder-exercises-modal__exercise-wrapper"
+          class="c-builder-exercises-modal__exercise-wrapper h-100"
           @click.prevent="exercise.selected = !exercise.selected"
         >
           <div

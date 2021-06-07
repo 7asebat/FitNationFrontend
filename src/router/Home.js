@@ -61,7 +61,7 @@ export default [
     component: () =>
       import(/* webpackChunkName: "recipes" */ "@/views/RecipesBuilder.vue"),
     meta: {
-      roles: ["client", "trainer"],
+      roles: ["nutritionist"],
     },
   },
 

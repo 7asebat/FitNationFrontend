@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const routeRoles = to.meta.roles;
 
-  if (requiresNotAuth && loggedInUser) next({ name: "Home" });
+  if (requiresNotAuth && loggedInUser) next({ name: "Index" });
 
   if (requiresAuth && !loggedInUser)
     next({
@@ -75,7 +75,7 @@ router.beforeEach((to, from, next) => {
 
   if (routeRoles && !routeRoles.includes(userRole))
     next({
-      name: "Home",
+      name: "Index",
     });
   else next();
 });
