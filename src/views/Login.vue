@@ -2,11 +2,11 @@
   <div id="component-container">
     <div class="container">
       <div class="row">
-        <div id="signup-form" class="col-lg-6 col-sm-12 text-center my-4">
+        <div id="login-form" class="col-lg-6 col-sm-12 text-center my-4">
           <form action="" class="needs-validation">
-            <div id="signup-text" class="mb-4">
-              <div id="signup-text-header">
-                <h1 class="c-signup-title u-title-font text-center">
+            <div id="login-text" class="mb-4">
+              <div id="login-text-header">
+                <h1 class="c-login-title u-title-font text-center">
                   Login into your
                   <span class="text-primary">Account</span>
                 </h1>
@@ -33,7 +33,7 @@
             />
 
             <div>
-              <button class="btn btn-primary px-5" v-on:click="submitForm">
+              <button class="btn btn-primary px-5" @click.prevent="submitForm">
                 Login
               </button>
             </div>
@@ -49,52 +49,33 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  data() {
-    return {
-      name: "",
-      email: "",
-      password: "",
-      userRole: "client",
-      userTypes: [
-        { text: "Client", value: "client" },
-        { text: "Trainer", value: "trainer" },
-        { text: "Nutrionist", value: "nutrionist" },
-      ],
-    };
-  },
+  data: () => ({
+    email: "",
+    password: "",
+  }),
+
   methods: {
     async submitForm() {
-      let role = Number(this.userRole);
-      let resource_url = "";
+      try {
+        const payload = {
+          email: this.email,
+          password: this.password,
+        };
 
-      switch (role) {
-        case 0:
-          resource_url = "clients/sign_up";
-          break;
-        case 1:
-          resource_url = "trainers/sign_up";
-          break;
-        case 2:
-          resource_url = "nutritionists/sign_up";
-          break;
-        default:
-          break;
+        const response = await this.axios.post(
+          "authentication/sign_in",
+          payload
+        );
+        const user = response.data.data.user;
+        const token = response.data.data.token;
+
+        this.$store.commit("setUser", user);
+        this.$store.commit("setToken", token);
+        this.$router.push({ name: "Index" });
+      } catch (err) {
+        this.$errorsHandler(err);
       }
-
-      const payload = {
-        email: this.email,
-        password: this.password,
-        name: this.name,
-        country: 0,
-      };
-
-      await axios.post(
-        `http://localhost:3000/authentication/${resource_url}`,
-        payload
-      );
     },
   },
 };
@@ -108,8 +89,8 @@ h4 {
   color: #999;
 }
 
-.c-signup-title,
-.c-signup-title * {
+.c-login-title,
+.c-login-title * {
 }
 /* 
 input {

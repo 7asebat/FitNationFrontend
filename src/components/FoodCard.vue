@@ -4,7 +4,7 @@
       <img class="w-100" v-if="food.image" :src="food.image" alt="" />
       <img class="w-100" v-else src="@/assets/images/defaultFood.png" alt="" />
     </div>
-    <div class="c-food-card__info ml-2">
+    <div class="c-food-card__info ml-2 pl-2">
       <h4>{{ food.name }}</h4>
       <p class="m-0">
         <i class="fas fa-heartbeat text-success"></i>
@@ -14,7 +14,7 @@
       <p>
         <i class="fas fa-utensils text-success"></i>
         <span class="text-success mx-2">Food Type:</span>
-        <span>Vegetables</span>
+        <span>{{ foodTypes[food.food_type] }}</span>
       </p>
     </div>
   </div>
@@ -25,6 +25,12 @@ export default {
   props: {
     food: {
       required: true,
+    },
+  },
+
+  computed: {
+    foodTypes() {
+      return this.$store.state.enums.foodTypes;
     },
   },
 };
