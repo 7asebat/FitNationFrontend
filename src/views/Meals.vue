@@ -20,8 +20,12 @@
         </h1>
 
         <div class="row">
-          <div class="col-sm-12 col-md-3 mb-2" v-for="index in 10" :key="index">
-            <MealCard />
+          <div
+            class="col-sm-12 col-md-3 mb-2"
+            v-for="recipe in recipes"
+            :key="recipe.id"
+          >
+            <MealCard :recipe="recipe" />
           </div>
         </div>
       </div>
@@ -31,10 +35,29 @@
 
 <script>
 export default {
-  data: () => ({}),
+  created() {
+    this.getRecipes();
+  },
+
+  data: () => ({
+    recipes: null,
+  }),
+
   components: {
     ImageText: () => import("@/components/common/ImageText.vue"),
     MealCard: () => import("@/components/MealCard.vue"),
+  },
+  methods: {
+    async getRecipes() {
+      try {
+        const response = await this.axios.get("recipes");
+        const recipes = response.data.data.recipes;
+
+        this.recipes = recipes;
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+    },
   },
 };
 </script>
