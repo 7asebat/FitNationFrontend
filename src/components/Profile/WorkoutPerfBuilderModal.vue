@@ -1,5 +1,6 @@
 <template>
   <b-modal
+    scrollable
     :id="`workoutPerfBuilderModal-${modalId}`"
     size="lg"
     title="Add this week's workout"
@@ -13,22 +14,20 @@
           v-for="exercise in exercises"
           :key="exercise.id"
         >
-          <div class="d-flex">
-            <div>
-              <img
-                class="exerciseImage"
-                src="@/assets/images/stayFit.png"
-                alt=""
-              />
-            </div>
-            <div class="ml-3">
+          <div class="d-flex bg-light round-corner overflow-hidden">
+            <img
+              class="exerciseImage"
+              src="@/assets/images/stayFit.png"
+              alt=""
+            />
+            <div class="mx-3 py-3">
               <h4>{{ exercise.name }}</h4>
-              <div class="d-flex">
+              <div class="d-flex flex-wrap">
                 <b-form-input
                   type="number"
                   v-model="exercise.sets"
                   placeholder="Sets"
-                  class="mb-3"
+                  class="mr-3 mb-2 h-auto flexItem"
                   @click.stop=""
                 ></b-form-input>
 
@@ -36,7 +35,7 @@
                   type="number"
                   v-model="exercise.reps"
                   placeholder="Reps"
-                  class="mb-3"
+                  class="mr-3 mb-2 h-auto flexItem"
                   @click.stop=""
                 ></b-form-input>
 
@@ -44,11 +43,12 @@
                   type="number"
                   v-model="exercise.performance"
                   placeholder="Weight"
+                  class="mr-3 mb-2 h-auto flexItem"
                   @click.stop=""
                 ></b-form-input>
 
                 <button
-                  class="btn btn-success"
+                  class="btn mb-2 btn-success flexItem h-auto"
                   @click.prevent="addExercise(exercise)"
                 >
                   Add
@@ -177,6 +177,11 @@ export default {
   visibility: visible;
 }
 .exerciseImage {
-  width: 80px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.flexItem {
+  flex: 0 0 140px;
 }
 </style>
