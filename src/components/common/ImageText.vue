@@ -72,7 +72,7 @@ export default {
 
 <style lang="scss" scoped>
 .c-image-text {
-  max-height: 800px;
+  // max-height: 800px;
 }
 
 .c-image-text-title {
