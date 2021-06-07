@@ -21,7 +21,7 @@
 
         <div class="row">
           <div
-            class="col-sm-12 col-md-3 mb-2"
+            class="col-sm-12 col-md-3 mb-4"
             v-for="recipe in recipes"
             :key="recipe.id"
           >

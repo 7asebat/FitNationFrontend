@@ -17,6 +17,14 @@
           class="mb-3"
         ></b-form-input>
 
+        <b-form-file
+          v-model="recipeImage"
+          :state="Boolean(recipeImage)"
+          class="mb-3"
+          placeholder="Choose a file or drop it here..."
+          drop-placeholder="Drop file here..."
+        ></b-form-file>
+
         <b-form-textarea
           v-model="recipeDescription"
           placeholder="Recipe description ..."
@@ -62,6 +70,7 @@
 export default {
   data() {
     return {
+      recipeImage: "",
       recipeName: "",
       recipeDescription: "",
       food: [],
@@ -77,16 +86,20 @@ export default {
   methods: {
     async addRecipe() {
       try {
-        const foods = this.food.map((foodItem) => foodItem.id);
-        const payload = {
-          recipe: {
-            name: this.recipeName,
-            description: this.recipeDescription,
-            foods,
-          },
-        };
+        const foods = this.food.map((foodItem) => foodItem.id).join(",");
+        const payload = new FormData();
+        payload.append("name", this.recipeName);
+        payload.append("description", this.recipeDescription);
+        payload.append("foods", foods);
+        payload.append("image", this.recipeImage);
 
         await this.axios.post("recipes", payload);
+
+        this.$notification(
+          "successNotification",
+          "Recipe created successfully"
+        );
+        this.$router.push({ name: "Meals" });
       } catch (err) {
         this.$errorsHandler(err);
       }
