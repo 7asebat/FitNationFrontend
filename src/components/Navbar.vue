@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-sm">
+  <div class="shadow-sm bg-light">
     <div
       class="container d-flex align-items-center justify-content-between py-3"
     >
