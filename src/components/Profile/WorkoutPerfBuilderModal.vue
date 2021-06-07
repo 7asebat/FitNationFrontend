@@ -27,10 +27,19 @@
         >
           <div class="d-flex bg-light round-corner overflow-hidden">
             <img
+              v-if="exercise.image"
               class="exerciseImage"
-              src="@/assets/images/stayFit.png"
+              :src="exercise.image"
               alt=""
             />
+
+            <img
+              v-else
+              class="exerciseImage"
+              src="@/assets/images/defaultExercise.png"
+              alt=""
+            />
+
             <div class="mx-3 py-3">
               <h4>{{ exercise.name }}</h4>
               <div class="d-flex flex-wrap">

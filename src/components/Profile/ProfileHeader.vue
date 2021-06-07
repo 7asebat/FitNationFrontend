@@ -15,6 +15,7 @@
       />
       <div class="my-3">
         <h3>{{ loggedInUser.name }}</h3>
+        <p class="m-0 text-secondary">{{ loggedInUser.email }}</p>
         <span
           class="px-3 my-2 d-inline-block text-light round-corner"
           :class="{
