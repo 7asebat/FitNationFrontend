@@ -11,7 +11,12 @@
             <ExerciseCard :data="exercise" />
           </div>
         </div>
-        <button class="btn btn-success">+</button>
+        <button
+          class="btn btn-success"
+          @click="$bvModal.show(`workoutPerfBuilderModal-${date.getDay()}`)"
+        >
+          + Add Exercises
+        </button>
       </div>
       <div class="col-12 col-md-4 col-lg-3">
         <div class="bg-light p-3 c-day-exercises__suggested-exercises">
@@ -43,6 +48,12 @@
         </div>
       </div>
     </div>
+
+    <WorkoutPerfBuilderModal
+      :modalId="String(date.getDay())"
+      :activeDay="date"
+      @addExercise="addExercise"
+    />
   </div>
 </template>
 
@@ -58,66 +69,15 @@ export default {
 
   data() {
     return {
-      exercises: [
-        {
-          id: 1,
-          name: "push ups",
-          tips: "technique is much more important than reps",
-          exercise_type: 0,
-          meta_data: {
-            muscle_groups: [1, 2, 3],
-          },
-        },
-        {
-          id: 4,
-          name: "test new exercise",
-          tips: " etmaran gamed",
-          exercise_type: null,
-          meta_data: {
-            muscle_groups: ["3"],
-          },
-        },
-        {
-          id: 5,
-          name: "hamada",
-          tips: "ganzabel",
-          exercise_type: null,
-          meta_data: {
-            muscle_groups: ["6"],
-          },
-        },
-        {
-          id: 6,
-          name: "test b number",
-          tips: "test",
-          exercise_type: null,
-          meta_data: {
-            muscle_groups: [6],
-          },
-        },
-        {
-          id: 7,
-          name: "tst",
-          tips: "tesada",
-          exercise_type: null,
-          meta_data: {
-            muscle_groups: [6],
-          },
-        },
-        {
-          id: 8,
-          name: "test",
-          tips: "test",
-          exercise_type: null,
-          meta_data: {
-            muscle_groups: [2],
-          },
-        },
-      ],
+      text: "",
+      exercises: [],
     };
   },
 
   methods: {
+    addExercise(exercise) {
+      this.exercises.push(exercise);
+    },
     async getExercises() {
       try {
         const year = `0${this.date.getUTCFullYear()}`.slice(-2);
@@ -127,6 +87,11 @@ export default {
         const response = await this.axios.get(
           `me/exercises_instances?date=${year}-${month}-${day}`
         );
+
+        let exercises = response.data.client_exercise_instances;
+        exercises = exercises.map((exercise) => exercise.exercise);
+
+        this.exercises = exercises;
         console.log(response);
       } catch (err) {
         this.$errorsHandler(err);
@@ -136,6 +101,8 @@ export default {
 
   components: {
     ExerciseCard: () => import("@/components/ExerciseCard.vue"),
+    WorkoutPerfBuilderModal: () =>
+      import("@/components/Profile/WorkoutPerfBuilderModal"),
   },
 };
 </script>

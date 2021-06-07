@@ -1,26 +1,12 @@
 <template>
   <b-modal
-    :id="modalId"
+    :id="`workoutPerfBuilderModal-${modalId}`"
     size="lg"
     title="Add this week's workout"
-    ok-title="Confirm"
+    ok-title="Add Exercises"
     @ok="confirmEdits"
   >
     <div class="d-flex flex-column">
-      <h4>Recommended Based on your workouts</h4>
-      <!-- <b-input-group class="mx-auto mb-3">
-        <template #append>
-          <b-input-group-text class="bg-white border-left-0 pr-3">
-            <i class="fas fa-search" />
-          </b-input-group-text>
-        </template>
-
-        <b-form-input
-          v-model="exerciseQuery"
-          class="border-right-0 text-right"
-        />
-      </b-input-group> -->
-
       <div class="row rounded border-primary py-3">
         <div
           class="col-12 mb-3"
@@ -28,11 +14,13 @@
           :key="exercise.id"
         >
           <div class="d-flex">
-            <img
-              class="exerciseImage"
-              src="@/assets/images/stayFit.png"
-              alt=""
-            />
+            <div>
+              <img
+                class="exerciseImage"
+                src="@/assets/images/stayFit.png"
+                alt=""
+              />
+            </div>
             <div class="ml-3">
               <h4>{{ exercise.name }}</h4>
               <div class="d-flex">
@@ -58,6 +46,13 @@
                   placeholder="Weight"
                   @click.stop=""
                 ></b-form-input>
+
+                <button
+                  class="btn btn-success"
+                  @click.prevent="addExercise(exercise)"
+                >
+                  Add
+                </button>
               </div>
             </div>
           </div>
@@ -86,9 +81,32 @@ export default {
   }),
   props: {
     modalId: String,
+    activeDay: Date,
   },
 
   methods: {
+    async addExercise(exercise) {
+      try {
+        const payload = {
+          performance: exercise.weight,
+          date: this.activeDay,
+          exercise_id: exercise.id,
+          sets: exercise.seps,
+          reps: exercise.reps,
+        };
+
+        await this.axios.post("clients/exercises_instances", payload);
+
+        this.$notification(
+          "successNotification",
+          "Exercises of your day have been updated successfully"
+        );
+
+        this.$emit("addExercise", exercise);
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+    },
     async getExercises() {
       this.isLoading = true;
       try {
@@ -111,13 +129,23 @@ export default {
       }
       this.isLoading = false;
     },
-    confirmEdits() {
-      const exercises = this.exercises
-        .filter((exercise) => (exercise.sets > 0) & (exercise.reps > 0))
-        .map((exercise) => {
-          const { name, sets, reps } = exercise;
-          return { name, sets, reps };
-        });
+    async confirmEdits() {
+      try {
+        // const payload
+
+        await this.axios.post("clients/exercises_instances");
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+
+      const exercises = this.exercises.filter(
+        (exercise) => (exercise.sets > 0) & (exercise.reps > 0)
+      );
+
+      // await this
+
+      console.log(exercises);
+
       this.$emit("confirmEdits", exercises);
       this.exercises = [];
     },
@@ -149,6 +177,6 @@ export default {
   visibility: visible;
 }
 .exerciseImage {
-  width: 100px;
+  width: 80px;
 }
 </style>

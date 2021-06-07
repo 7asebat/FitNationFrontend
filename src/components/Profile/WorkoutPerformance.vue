@@ -16,7 +16,13 @@
       </div>
     </div>
 
-    <b-tabs>
+    <b-tabs
+      @activate-tab="
+        (newIndex) => {
+          activeDay = days[newIndex].date;
+        }
+      "
+    >
       <b-tab
         v-for="day in days"
         :key="day.date.getTime()"
@@ -46,8 +52,10 @@ export default {
     workoutInfo: [],
     days: [],
     selectedDay: new Date(),
+    activeDay: new Date(),
   }),
   methods: {
+    addExerciseToActiveDay() {},
     selectWeek(selectedDate) {
       const startDate = new Date(selectedDate);
       startDate.setDate(startDate.getDate() - startDate.getDay());
