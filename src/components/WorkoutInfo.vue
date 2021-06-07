@@ -2,7 +2,13 @@
   <div>
     <div class="row">
       <div class="col-lg-6 col-sm-12 mb-4">
-        <img src="@/assets/images/workout.png" class="w-100" alt="" />
+        <img
+          v-if="!workout.image"
+          src="@/assets/images/defaultWorkout.png"
+          class="w-100"
+          alt=""
+        />
+        <img v-else :src="workout.image" class="w-100" alt="" />
       </div>
       <div class="col-lg-6 col-sm-12">
         <div class="d-flex justify-content-between align-items-center">
@@ -28,7 +34,15 @@
         </p>
 
         <p class="my-1 c-workout-card-workout-property">
-          <span class="text-warning"><i class="fas fa-signal"></i></span>
+          <span
+            :class="{
+              'text-warning': workout.level === 1,
+              'text-success': workout.level === 0,
+              'text-danger': workout.level === 2,
+            }"
+          >
+            <i class="fas fa-signal"></i>
+          </span>
           <span class="mx-2 text-dark">{{ levelNames[workout.level] }}</span>
         </p>
 

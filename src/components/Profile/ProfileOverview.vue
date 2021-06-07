@@ -6,23 +6,20 @@
     </p>
     <div class="row p-2">
       <div class="col-xl-3 col-lg-6 col-md-12 my-1">
-        <div class="c-activity-card bg-warning py-3 px-4 text-light">
-          <h1 class="m-0"><i class="fas fa-fire"></i></h1>
-          <h1 class="m-0">320K</h1>
-          <p class="m-0 text-black">Calories Burnt</p>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-12 my-1">
         <div class="c-activity-card bg-primary py-3 px-4 text-light">
           <h1 class="m-0"><i class="fas fa-dumbbell"></i></h1>
-          <h1 class="m-0">20+</h1>
-          <p class="m-0 text-black">Exercises</p>
+          <h1 class="m-0">{{ exercisesCount }}</h1>
+          <p class="m-0 text-black">
+            {{ exercisesCount == 1 ? "Exercise" : "Exercises" }}
+          </p>
         </div>
       </div>
       <div class="col-xl-3 col-lg-6 col-md-12 my-1">
         <div class="c-activity-card bg-success py-3 px-4 text-light">
           <h1 class="m-0"><i class="fas fa-award"></i></h1>
-          <h1 class="m-0">42 Days</h1>
+          <h1 class="m-0">
+            {{ longestStreak }} {{ longestStreak == 1 ? "Day" : "Days" }}
+          </h1>
           <p class="m-0 text-black">Longest Streak</p>
         </div>
       </div>
@@ -34,64 +31,27 @@
 export default {
   name: "ProfileOverview",
 
-  data: () => ({
-    profileInfo: {
-      name: {
-        name: String,
-        data: String,
-      },
-      age: {
-        name: String,
-        data: String,
-      },
-      birthdate: {
-        name: String,
-        data: String,
-      },
-      location: {
-        name: String,
-        data: String,
-      },
-    },
-  }),
-
-  async created() {
-    // Profile info mock
-    const pinfo = {
-      birthdate: new Date("1999-06-19"),
-      name: "Abdelrahman Farid",
-      age: 21,
-    };
-
-    // Date of Birth
-    const dob = pinfo.birthdate;
-
-    this.profileInfo = {
-      name: {
-        name: "Name",
-        data: pinfo.name,
-      },
-      age: {
-        name: "Age",
-        data: pinfo.age,
-      },
-      birthdate: {
-        name: "Date of Birth",
-        data: this.dateToString(dob),
-      },
-      location: {
-        name: "Location",
-        data: "Maadi, Cairo, Egypt",
-      },
+  data() {
+    return {
+      longestStreak: "",
+      exercisesCount: "",
     };
   },
 
+  async created() {
+    this.getOverview();
+  },
+
   methods: {
-    dateToString(date) {
-      return `${date.getUTCDate()}/${date.getUTCMonth() + 1}/${date
-        .getUTCFullYear()
-        .toString()
-        .substr(2, 2)}`;
+    async getOverview() {
+      try {
+        const response = await this.axios.get("clients/dashboard");
+
+        this.longestStreak = response.data.longest_streak;
+        this.exercisesCount = response.data.exercise_instances_count;
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
     },
   },
 };
