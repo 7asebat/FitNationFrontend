@@ -24,7 +24,7 @@
               facere? Inventore iusto magnam cumque repellendus?
             </p>
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12" :class="{ 'col-md-6': selectedMuscle }">
             <svg
               width="100%"
               height="100%"
