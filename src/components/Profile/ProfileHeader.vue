@@ -18,7 +18,7 @@
         <span
           class="px-3 my-2 d-inline-block text-light round-corner"
           :class="{
-            'bg-success': loggedInUser.role === 'nutrionist',
+            'bg-success': loggedInUser.role === 'nutritionist',
             'bg-info': loggedInUser.role === 'client',
             'bg-primary': loggedInUser.role === 'trainer',
           }"

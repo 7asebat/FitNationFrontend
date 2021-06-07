@@ -9,18 +9,22 @@
           class="mr-3 u-title-font profile-tab-head mb-2"
           >Overview</router-link
         >
+
         <router-link
+          v-if="type === 'client'"
           :to="{ name: 'NutritionInfo' }"
           class="mr-3 u-title-font profile-tab-head mb-2"
           >Nutrition</router-link
         >
         <router-link
+          v-if="type === 'client'"
           :to="{ name: 'WorkoutPerformance' }"
           class="mr-3 u-title-font profile-tab-head mb-2"
           >Workout Performance</router-link
         >
 
         <router-link
+          v-if="['client', 'trainer'].includes(type)"
           :to="{ name: 'MyWorkoutPlans' }"
           class="mr-3 u-title-font profile-tab-head mb-2"
           >My Workout Plans</router-link
