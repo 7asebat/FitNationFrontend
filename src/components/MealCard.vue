@@ -16,9 +16,11 @@
     />
 
     <div class="px-3">
-      <h4 class="c-meal-card__food-name mt-2 w-100">{{ recipe.name }}</h4>
+      <h4 class="c-meal-card__food-name mt-2 w-100 text-dark">
+        {{ recipe.name }}
+      </h4>
       <p class="text-secondary">{{ recipe.description }}</p>
-      <p>
+      <p class="text-dark">
         <span class="text-success mr-2"><i class="fas fa-utensils"></i></span>
         {{ recipe.foods.length }} foods
       </p>

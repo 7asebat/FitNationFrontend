@@ -37,32 +37,33 @@ export default {
     isLoading: false,
   }),
 
-  props:{
+  props: {
     muscleGroup: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
 
-  computed:{
-    musclesEnum(){
+  computed: {
+    musclesEnum() {
       return this.$store.state.enums.muscles;
-    }
+    },
   },
 
   methods: {
     async getExercises() {
       this.isLoading = true;
       try {
-        
         let response;
-        if(this.muscleGroup){
-          const muscleGroup = Object.keys(this.musclesEnum).find(key => this.musclesEnum[key] === this.muscleGroup.toLowerCase());
+        if (this.muscleGroup) {
+          const muscleGroup = Object.keys(this.musclesEnum).find(
+            (key) => this.musclesEnum[key] === this.muscleGroup.toLowerCase()
+          );
 
-          response = await this.axios.get(`exercises/muscle_group?muscle_group=${muscleGroup}`);
-        }
-        else 
-          response = await this.axios.get("exercises");
+          response = await this.axios.get(
+            `exercises/muscle_group?muscle_group=${muscleGroup}`
+          );
+        } else response = await this.axios.get("exercises");
 
         this.popularExercises = response.data.data.exercises;
       } catch (err) {
@@ -78,10 +79,10 @@ export default {
   },
 
   watch: {
-    muscleGroup(){
+    muscleGroup() {
       this.getExercises();
-    }
-  }
+    },
+  },
 };
 </script>
 

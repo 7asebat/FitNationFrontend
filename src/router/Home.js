@@ -48,6 +48,7 @@ export default [
   {
     path: "/meals/:id",
     name: "SingleMeal",
+    props: true,
     component: () =>
       import(/* webpackChunkName: "meals" */ "@/views/SingleMeal.vue"),
   },

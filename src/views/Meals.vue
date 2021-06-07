@@ -33,7 +33,11 @@
             v-for="recipe in recipes"
             :key="recipe.id"
           >
-            <MealCard :recipe="recipe" />
+            <router-link
+              :to="{ name: 'SingleMeal', params: { id: recipe.id } }"
+            >
+              <MealCard :recipe="recipe" />
+            </router-link>
           </div>
         </div>
       </div>
