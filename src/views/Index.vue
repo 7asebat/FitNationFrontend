@@ -2,13 +2,13 @@
   <div class="container">
     <ImageText
       title="Get the body of the champions"
-      imgSrc="workoutsHeader.png"
+      imgSrc="whoAreWe.png"
       description="We are an independent gym that is committed to working with you to gain the results you want. Whether your aim is to loose weight, tone up, build bulk or gain weight we can put together a gym programme or recommend the right classes for you to attend in our studios."
     />
 
     <ImageText
       title="Get to know us!"
-      imgSrc="Login.png"
+      imgSrc="indexHeader.png"
       :description="[
         'We are an independent gym that is committed to working with you to gain the results you want. Whether your aim is to loose weight, tone up, build bulk or gain weight we can put together a gym programme or recommend the right classes for you to attend in our studios.',
         'Our members benefit from a free gym programme and review every month, free studio classes and price reductions on our personal training sessions. As a member you can also access our pool and tennis courts for free and have priority for booking any of the pre-book activities, classes or sessions that we run.',

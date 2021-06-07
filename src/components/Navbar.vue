@@ -24,8 +24,8 @@
           Exercises
         </router-link>
 
-        <router-link :to="{ name: 'Profile' }" class="navItem u-title-font">
-          Profile
+        <router-link :to="{ name: 'About' }" class="navItem u-title-font">
+          About
         </router-link>
 
         <router-link
