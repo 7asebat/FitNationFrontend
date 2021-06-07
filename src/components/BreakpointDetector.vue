@@ -4,13 +4,13 @@
     <div v-b-visible="lgSet" class="d-lg-none c-detector" />
     <div v-b-visible="mdSet" class="d-md-none c-detector" />
     <div v-b-visible="smSet" class="d-sm-none c-detector" />
-    <div
+    <!-- <div
       class="p-4 my-2 rounded h1 text-center text-light bg-primary"
       style="min-width: 180px"
       v-show="visible"
     >
       {{ breakpoint }}
-    </div>
+    </div> -->
   </div>
 </template>
 

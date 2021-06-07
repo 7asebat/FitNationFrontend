@@ -51,7 +51,6 @@
 export default {
   data: () => ({
     name: "Profile",
-    type: "client",
     breakpoint: "",
 
     tabs: {
@@ -95,12 +94,23 @@ export default {
           link: "/profile/correspondence",
         },
       ],
-      nutritionist: [],
+      nutritionist: [
+        {
+          name: "ProfileOverview",
+          title: "Overview",
+          icon: "fa-home",
+          link: "/profile/overview",
+        },
+      ],
     },
     imgSrc: "buildBulk.png",
   }),
 
   computed: {
+    type() {
+      return this.loggedInUser.role;
+    },
+
     loggedInUser() {
       return this.$store.state.user;
     },
