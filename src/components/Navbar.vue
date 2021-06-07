@@ -7,7 +7,7 @@
         <h2 class="text-dark">Fit<span class="text-primary">Nation</span></h2>
       </router-link>
 
-      <nav>
+      <nav class="d-none d-lg-block">
         <router-link :to="{ name: 'Index' }" class="navItem">
           Home
         </router-link>
