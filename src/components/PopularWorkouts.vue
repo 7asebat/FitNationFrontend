@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between">
       <div>
         <h1 class="c-popular-workouts-title">
-          Popular
+          Latest
           <span class="text-danger">Workouts</span>
         </h1>
         <p class="text-secondary">
@@ -20,7 +20,7 @@
 
     <div class="row">
       <div
-        class="col col-md-3 mb-3"
+        class="col-12 col-md-4 col-lg-3 mb-4"
         v-for="workout in workouts"
         :key="workout.id"
       >

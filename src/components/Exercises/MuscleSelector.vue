@@ -12,7 +12,10 @@
         />
 
         <div class="row">
-          <div v-if="selectedMuscle" class="col c-muscle-selector__muscle-info">
+          <div
+            v-if="selectedMuscle"
+            class="col-12 col-md-6 c-muscle-selector__muscle-info"
+          >
             <h1 class="u-title-font">{{ selectedMuscle }}</h1>
             <p class="text-secondary">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam
@@ -21,7 +24,7 @@
               facere? Inventore iusto magnam cumque repellendus?
             </p>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-6">
             <svg
               width="100%"
               height="100%"

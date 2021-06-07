@@ -11,17 +11,17 @@
       <img
         src="@/assets/images/stayFit.png"
         alt=""
-        class="c-goals-slider-goal mx-3"
+        class="c-goals-slider-goal mx-3 mb-4"
       />
       <img
         src="@/assets/images/buildBulk.png"
         alt=""
-        class="c-goals-slider-goal mx-3"
+        class="c-goals-slider-goal mx-3 mb-4"
       />
       <img
         src="@/assets/images/beHealthy.png"
         alt=""
-        class="c-goals-slider-goal mx-3"
+        class="c-goals-slider-goal mx-3 mb-4"
       />
     </div>
   </div>
@@ -34,5 +34,9 @@
 }
 .c-goals-slider-goal {
   width: 250px;
+}
+
+.c-goals-slider-slider {
+  flex-wrap: wrap;
 }
 </style>
