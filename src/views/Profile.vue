@@ -71,12 +71,15 @@ export default {
           icon: "fa-dumbbell",
           link: "/profile/workout-performance",
         },
+
+        /*
         {
           name: "Correspondence",
           title: "Correspondence",
           icon: "fa-envelope",
           link: "/profile/correspondence",
-        },
+         },
+        */
         {
           name: "MyWorkoutPlans",
           title: "My Workout Plans",
