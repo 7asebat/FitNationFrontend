@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="c-profile__user-info d-flex my-5">
+    <div class="c-profile__user-info text-center my-5">
       <img
         v-if="loggedInUser.avatar"
         :src="loggedInUser.avatar"
@@ -13,28 +13,28 @@
         alt=""
         class="img c-profile-image"
       />
-      <div class="ml-3">
-        <div class="d-flex justify-content-between">
-          <h3>{{ loggedInUser.name }}</h3>
+      <div class="my-3">
+        <h3>{{ loggedInUser.name }}</h3>
+        <!-- <div class="d-flex justify-content-between">
           <div class="ml-4">
             <a href="#" class="btn btn-outline-primary">
               <i class="fas fa-user-edit"></i>
               <span class="ml-2">Edit Profile</span>
             </a>
           </div>
-        </div>
+        </div> -->
         <p class="text-secondary">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
           necessitatibus dignissimos enim quam tempora.
         </p>
-        <p class="mb-1">
+        <!-- <p class="mb-1">
           <i class="far fa-calendar-alt text-primary"></i>
           <span class="mx-2 text-secondary">15 May 1980 (21 years)</span>
         </p>
         <p class="mb-1">
           <i class="fas fa-map-marker-alt text-primary"></i>
           <span class="mx-2 text-secondary">Maadi, Cairo, Egypt</span>
-        </p>
+        </p> -->
       </div>
     </div>
   </div>
@@ -53,9 +53,9 @@ export default {
 
 <style scoped lang="scss">
 .c-profile__user-info {
-  max-width: 900px;
-  // margin-right: auto;
-  // margin-left: auto;
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .c-profile-image {

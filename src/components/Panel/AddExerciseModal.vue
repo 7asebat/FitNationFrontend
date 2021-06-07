@@ -37,7 +37,7 @@ export default {
       name: "",
       tips: "",
       muscle: 0,
-      image: "",
+      image: undefined,
     };
   },
 
@@ -54,19 +54,32 @@ export default {
   methods: {
     async addExercise() {
       try {
-        const payload = new FormData();
-        payload.append("name", this.name);
-        payload.append("tips", this.tips);
-        payload.append(
-          "meta_data",
-          JSON.stringify({
-            muscle_groups: [Number(this.muscle)],
-          })
-        );
-        payload.append("image", this.image);
+        const payload = {
+          exercise: {
+            name: this.name,
+            tips: this.tips,
+            meta_data: {
+              muscle_groups: [Number(this.muscle)],
+            },
+          },
+        };
 
         const response = await this.axios.post("exercises", payload);
         const exercise = response.data.data.exercise;
+
+        if (this.image) {
+          const payload = new FormData();
+          payload.append("image", this.image);
+          try {
+            const response = await this.axios.patch(
+              `exercises/${exercise.id}/image`,
+              payload
+            );
+            console.log(response);
+          } catch (err) {
+            this.$errorsHandler(new Error("Failed to upload exercise image!"));
+          }
+        }
 
         this.$emit("addedExercise", exercise);
         this.$notification(

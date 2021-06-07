@@ -13,7 +13,7 @@
 
         <div class="row">
           <div v-if="selectedMuscle" class="col c-muscle-selector__muscle-info">
-            <h1>{{ selectedMuscle }}</h1>
+            <h1 class="u-title-font">{{ selectedMuscle }}</h1>
             <p class="text-secondary">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam
               sapiente quisquam commodi, similique perferendis voluptatibus,

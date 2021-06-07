@@ -5,12 +5,13 @@
         class="col-12 position-relative"
         :class="{ 'col-md-8 col-lg-9': loggedInUser.active_workout_plan }"
       >
-        <div v-show="!exercises.length">
+        <div v-show="!exercises.length" class="text-center">
           <h2 class="u-title-font">No exercises tracked for this day</h2>
           <p class="text-secondary">
             Add exercises to this day to keep track of your performance
           </p>
         </div>
+
         <div class="row">
           <div
             class="col-12 mb-3 col-md-4 col-lg-3"
@@ -25,12 +26,15 @@
             />
           </div>
         </div>
-        <button
-          class="btn btn-success"
-          @click="$bvModal.show(`workoutPerfBuilderModal-${date.getDay()}`)"
-        >
-          + Add Exercises
-        </button>
+
+        <div class="d-flex justify-content-center align-items-center">
+          <button
+            class="btn btn-success"
+            @click="$bvModal.show(`workoutPerfBuilderModal-${date.getDay()}`)"
+          >
+            + Add Exercises
+          </button>
+        </div>
       </div>
       <div
         class="col-12 col-md-4 col-lg-3"

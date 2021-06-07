@@ -1,48 +1,33 @@
 <template>
   <div class="container-fluid d-flex flex-column">
     <ProfileHeader class="container" />
-    <!-- TODO(Abdelrahman) DEBUG: Remove this-->
-    <div
-      class="container d-flex flex-column align-items-center py-2"
-      id="debug"
-    >
-      <BreakpointDetector visible @change="breakpoint = $event" />
-      <!-- <b-form-select
-        class="w-75"
-        v-model="type"
-        :options="['client', 'trainer', 'nutritionist']"
-      /> -->
-    </div>
 
-    <div class="d-flex flex-row flex-wrap w-100 p-xl-3 p-lg-1 px-3">
-      <div class="col-xl-2 py-1 c-nav-tabs rounded border">
-        <b-nav card-header justified pills :vertical="breakpoint === 'xl'">
-          <b-nav-item
-            v-for="(tab, i) in tabs[type]"
-            :key="i"
-            :to="tab.link"
-            :active="$route.name === tab.name"
-            class="my-1"
-          >
-            <i :class="`fas ${tab.icon}`"></i>
-            {{ tab.title }}
-          </b-nav-item>
-        </b-nav>
+    <div class="container">
+      <div class="text-center">
+        <router-link
+          :to="{ name: 'ProfileOverview' }"
+          class="mr-3 u-title-font profile-tab-head mb-2"
+          >Overview</router-link
+        >
+        <router-link
+          :to="{ name: 'NutritionInfo' }"
+          class="mr-3 u-title-font profile-tab-head mb-2"
+          >Nutrition</router-link
+        >
+        <router-link
+          :to="{ name: 'WorkoutPerformance' }"
+          class="mr-3 u-title-font profile-tab-head mb-2"
+          >Workout Performance</router-link
+        >
+
+        <router-link
+          :to="{ name: 'MyWorkoutPlans' }"
+          class="mr-3 u-title-font profile-tab-head mb-2"
+          >My Workout Plans</router-link
+        >
       </div>
 
-      <div
-        class="col-xl-10 col-lg-12"
-        :class="{
-          'px-2': breakpoint === 'xl',
-          'px-0': breakpoint !== 'xl',
-          'py-0': breakpoint === 'xl',
-          'py-2': breakpoint !== 'xl',
-        }"
-      >
-        <b-card no-body class="p-3">
-          <router-view class="px-0" />
-        </b-card>
-      </div>
+      <router-view class="mt-5" />
     </div>
   </div>
 </template>
@@ -120,7 +105,7 @@ export default {
     ProfileHeader: () => import("@/components/Profile/ProfileHeader"),
 
     // TODO(Abdelrahman) Move this into vuex
-    BreakpointDetector: () => import("@/components/BreakpointDetector"),
+    // BreakpointDetector: () => import("@/components/BreakpointDetector"),
   },
 
   methods: {
@@ -135,5 +120,16 @@ export default {
 <style lang="scss">
 .c-nav-tabs {
   background-color: #f7f7f7 !important;
+}
+.profile-tab-head {
+  font-size: 25px;
+  color: $dark;
+}
+.profile-tab-head:hover {
+  text-decoration: none;
+}
+.profile-tab-head.router-link-exact-active {
+  color: $primary;
+  border-bottom: 2px solid $primary;
 }
 </style>

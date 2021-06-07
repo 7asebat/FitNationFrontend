@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="d-flex mb-3">
+    <div class="d-flex mb-3 align-items-center justify-content-center">
       <h3 class="u-title-font mr-3">
         Select
         <span class="text-primary">Week</span>
@@ -17,6 +17,7 @@
     </div>
 
     <b-tabs
+      class="workoutPerformanceTabs"
       @activate-tab="
         (newIndex) => {
           activeDay = days[newIndex].date;

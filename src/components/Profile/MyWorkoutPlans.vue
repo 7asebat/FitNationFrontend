@@ -11,8 +11,6 @@
     </div>
 
     <div v-if="workoutPlans.length">
-      <h1 class="u-title-font m-0">My Workouts</h1>
-      <p class="text-secondary">A list of all workouts you have created</p>
       <div class="row">
         <div
           class="col-12 col-md-4 col-lg-3"
