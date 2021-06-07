@@ -8,29 +8,29 @@
       </router-link>
 
       <nav class="d-none d-lg-block">
-        <router-link :to="{ name: 'Index' }" class="navItem">
+        <router-link :to="{ name: 'Index' }" class="navItem u-title-font">
           Home
         </router-link>
 
-        <router-link :to="{ name: 'Workouts' }" class="navItem">
+        <router-link :to="{ name: 'Workouts' }" class="navItem u-title-font">
           Workout Plans
         </router-link>
 
-        <router-link :to="{ name: 'Meals' }" class="navItem">
+        <router-link :to="{ name: 'Meals' }" class="navItem u-title-font">
           Meals
         </router-link>
 
-        <router-link :to="{ name: 'Exercises' }" class="navItem">
+        <router-link :to="{ name: 'Exercises' }" class="navItem u-title-font">
           Exercises
         </router-link>
 
-        <router-link :to="{ name: 'Profile' }" class="navItem">
+        <router-link :to="{ name: 'Profile' }" class="navItem u-title-font">
           Profile
         </router-link>
 
         <router-link
           :to="{ name: 'ListPanel', params: { type: 'nutritionist' } }"
-          class="navItem"
+          class="navItem u-title-font"
         >
           Search
         </router-link>
@@ -38,14 +38,14 @@
         <div class="d-inline-block" v-if="!loggedInUser">
           <router-link
             :to="{ name: 'Login' }"
-            class="navItem btn btn-outline-primary text-primary"
+            class="navBtn px-3 btn btn-outline-primary u-title-font"
           >
             Login
           </router-link>
 
           <router-link
             :to="{ name: 'Register' }"
-            class="navItem btn btn-primary text-light"
+            class="navBtn px-3 btn btn-primary u-title-font"
           >
             Register
           </router-link>
@@ -93,7 +93,16 @@ export default {
 .navItem {
   display: inline-block;
   margin-left: 16px;
-  color: $dark !important;
+  color: $dark;
   text-decoration: none;
+  font-size: 20px;
+}
+.navItem.router-link-exact-active {
+  color: $primary;
+  border-bottom: 2px solid $primary;
+}
+.navBtn {
+  margin-left: 16px;
+  font-size: 20px;
 }
 </style>
