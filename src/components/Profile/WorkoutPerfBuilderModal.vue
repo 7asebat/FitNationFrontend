@@ -183,7 +183,7 @@ export default {
 
       // await this
 
-      console.log(exercises);
+      exercises;
 
       this.$emit("confirmEdits", exercises);
       this.exercises = [];

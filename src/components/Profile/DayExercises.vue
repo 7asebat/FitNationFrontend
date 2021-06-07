@@ -207,7 +207,7 @@ export default {
         });
 
         this.exercises = exercises;
-        console.log(response);
+        response;
       } catch (err) {
         this.$errorsHandler(err);
       }
