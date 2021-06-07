@@ -144,7 +144,6 @@ export default {
           name: this.workoutName,
           level: this.selectedLevel,
           requires_equipment: this.equipmentsRequired,
-          client_id: 1,
         };
 
         await this.axios.post("workout_plans", payload);

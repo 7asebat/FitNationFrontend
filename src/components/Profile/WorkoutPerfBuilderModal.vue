@@ -6,8 +6,9 @@
     ok-title="Confirm"
     @ok="confirmEdits"
   >
-    <div class="d-flex flex-column container-fluid align-items-center">
-      <b-input-group class="mx-auto mb-3">
+    <div class="d-flex flex-column">
+      <h4>Recommended Based on your workouts</h4>
+      <!-- <b-input-group class="mx-auto mb-3">
         <template #append>
           <b-input-group-text class="bg-white border-left-0 pr-3">
             <i class="fas fa-search" />
@@ -18,34 +19,23 @@
           v-model="exerciseQuery"
           class="border-right-0 text-right"
         />
-      </b-input-group>
+      </b-input-group> -->
 
       <div class="row rounded border-primary py-3">
         <div
-          class="col-12 col-md-4 col-lg-3 mb-3"
+          class="col-12 mb-3"
           v-for="exercise in exercises"
           :key="exercise.id"
         >
-          <div
-            class="c-builder-exercises-modal__exercise-wrapper"
-            @click.prevent="exercise.selected = !exercise.selected"
-          >
-            <div
-              :class="{
-                'c-builder-exercises-modal__selected-overlay--selected':
-                  exercise.selected,
-              }"
-              class="c-builder-exercises-modal__selected-overlay px-3"
-            >
-              <div
-                class="
-                  d-flex
-                  flex-column
-                  align-items-center
-                  justify-content-center
-                  h-100
-                "
-              >
+          <div class="d-flex">
+            <img
+              class="exerciseImage"
+              src="@/assets/images/stayFit.png"
+              alt=""
+            />
+            <div class="ml-3">
+              <h4>{{ exercise.name }}</h4>
+              <div class="d-flex">
                 <b-form-input
                   type="number"
                   v-model="exercise.sets"
@@ -69,9 +59,7 @@
                   @click.stop=""
                 ></b-form-input>
               </div>
-              <!-- <i class="fas fa-check-circle"></i> -->
             </div>
-            <ExerciseCard :data="exercise" />
           </div>
         </div>
       </div>
@@ -90,7 +78,7 @@ export default {
   },
 
   components: {
-    ExerciseCard: () => import("@/components/ExerciseCard.vue"),
+    // ExerciseCard: () => import("@/components/ExerciseCard.vue"),
   },
   data: () => ({
     exerciseQuery: "",
@@ -110,9 +98,9 @@ export default {
         exercises = exercises.map((exercise) => {
           exercise.exercise_id = exercise.id;
           exercise.selected = false;
-          exercise.reps = "";
-          exercise.sets = "";
-          exercise.weight = "";
+          if (!exercise.reps) exercise.reps = "";
+          if (!exercise.sets) exercise.sets = "";
+          if (!exercise.weight) exercise.weight = "";
 
           return exercise;
         });
@@ -159,5 +147,8 @@ export default {
 .c-builder-exercises-modal__selected-overlay--selected {
   opacity: 1;
   visibility: visible;
+}
+.exerciseImage {
+  width: 100px;
 }
 </style>

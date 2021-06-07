@@ -7,11 +7,11 @@
       id="debug"
     >
       <BreakpointDetector visible @change="breakpoint = $event" />
-      <b-form-select
+      <!-- <b-form-select
         class="w-75"
         v-model="type"
         :options="['client', 'trainer', 'nutritionist']"
-      />
+      /> -->
     </div>
 
     <div class="d-flex flex-row flex-wrap w-100 p-xl-3 p-lg-1 px-3">
@@ -39,7 +39,7 @@
           'py-2': breakpoint !== 'xl',
         }"
       >
-        <b-card no-body>
+        <b-card no-body class="p-3">
           <router-view class="px-0" />
         </b-card>
       </div>

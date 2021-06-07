@@ -15,9 +15,9 @@
   font-family: "Bebas Neue", cursive;
 }
 
-.btn:hover{
-  color: #fff !important;
-}
+// .btn:hover{
+//   color: #fff ;
+// }
 
 input {
   height: 50px !important;
@@ -43,4 +43,8 @@ input::placeholder {
     // box-shadow: none;
     color: $dark !important;
   }
+}
+
+.b-calendar-grid-body .row.no-gutters:hover{
+  background-color: #ccc;
 }

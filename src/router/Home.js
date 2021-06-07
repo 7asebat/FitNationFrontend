@@ -27,6 +27,7 @@ export default [
   {
     path: "/workouts/:id",
     name: "SingleWorkout",
+    props: true,
     component: () =>
       import(/* webpackChunkName: "workouts" */ "@/views/SingleWorkout.vue"),
   },
