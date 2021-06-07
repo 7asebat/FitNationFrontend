@@ -7,7 +7,12 @@
     @ok="confirmEdits"
   >
     <div class="d-flex flex-column container-fluid align-items-center">
-      <b-input v-model="weight" placeholder="Weight (kg)" class="w-50 m-2" />
+      <b-input
+        v-model="weight"
+        placeholder="Weight (kg)"
+        class="w-50 m-2"
+        type="number"
+      />
 
       <b-input-group class="mx-auto mb-3">
         <template #append>
@@ -16,22 +21,22 @@
           </b-input-group-text>
         </template>
 
-        <b-form-input v-model="mealQuery" class="border-right-0 text-right" />
+        <b-form-input
+          @input="updateFoods($event)"
+          class="border-right-0 text-right"
+        />
       </b-input-group>
 
       <b-row
-        v-for="(meal, i) in meals"
+        v-for="(food, i) in matchingFoods"
         :key="i"
         :id="`mealRow-${i}`"
-        @mouseenter="meals[i].isHovered = true"
-        @mouseleave="meals[i].isHovered = false"
-        class="rounded border-primary py-3"
-        :class="{ border: meal.isHovered }"
+        class="rounded py-3"
       >
-        <MealCard class="col-10" :meal="meal" />
+        <FoodCard class="col-9" :food="food.food" />
 
-        <div class="col-2 d-flex align-items-center h1">
-          x <b-input v-model="meal.amount" class="ml-3" type="number" />
+        <div class="col-3 d-flex align-items-center">
+          <b-input v-model="food.quantity" class="m-0" type="number" />
         </div>
       </b-row>
 
@@ -44,41 +49,54 @@
 export default {
   name: "NutritionBuilderModal",
 
-  components: {
-    MealCard: () => import("@/components/MealCard.vue"),
+  async created() {
+    // Get all foods
+    const response = await this.axios.get("foods");
+    this.allFoods = response.data.data.food;
   },
+
+  components: {
+    FoodCard: () => import("@/components/FoodCard.vue"),
+  },
+  // TODO(Abdelrahman) Add recipes
   data: () => ({
-    weight: "",
-    mealQuery: "",
-    meals: [
-      {
-        name: "Protein Shake",
-        amount: 0,
-        count: 6,
-        isHovered: false,
-      },
-      {
-        name: "French Toast",
-        amount: 0,
-        count: 6,
-        isHovered: false,
-      },
-    ],
+    allFoods: [],
+    matchingFoods: [],
+    weight: 0,
+    quantity: 0,
   }),
   props: {
     modalId: String,
   },
 
   methods: {
+    updateFoods(query) {
+      if (!query) {
+        this.matchingFoods = [];
+        return;
+      }
+
+      // Filter only matching foods
+      this.matchingFoods = this.allFoods
+        .filter((food) => {
+          if (!food.name) return false;
+          return food.name.search(query) >= 0;
+        })
+        .map((food) => ({ food, quantity: 0 }));
+    },
+
     confirmEdits() {
-      const meals = this.meals
-        .filter((meal) => meal.amount > 0)
-        .map((meal) => {
-          const { name, amount, count } = meal;
-          return { name, amount, count };
-        });
-      this.$emit("confirmEdits", { weight: this.weight, meals });
-      this.meals = [];
+      // Food ids
+      const foods = this.matchingFoods
+        .filter((food) => food.quantity > 0)
+        .map((food) => ({ id: food.food.id, quantity: food.quantity }));
+
+      const payload = { foods };
+
+      // TODO(Abdelrahman) Add validation
+      if (this.weight > 0) payload.weight = this.weight;
+
+      this.$emit("confirmEdits", payload);
     },
   },
 };
