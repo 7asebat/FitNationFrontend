@@ -7,6 +7,14 @@
     :ok-title="`Add Selected Food`"
     @ok="addFood"
   >
+    <b-form-file
+      v-model="image"
+      :state="Boolean(image)"
+      placeholder="Choose a file or drop it here..."
+      drop-placeholder="Drop file here..."
+      class="mb-3"
+    ></b-form-file>
+
     <b-form-input
       v-model="name"
       placeholder="Food Name"
@@ -29,6 +37,7 @@ export default {
       name: "",
       nutritionFacts: "",
       foodType: 0,
+      image: "",
     };
   },
 
@@ -50,6 +59,7 @@ export default {
         payload.append("name", this.name);
         payload.append("nutrition_facts", this.nutritionFacts);
         payload.append("food_type", this.foodType);
+        payload.append("image", this.image);
 
         const response = await this.axios.post("foods", payload);
         const food = response.data.data.food;

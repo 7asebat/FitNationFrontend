@@ -1,11 +1,8 @@
 <template>
   <div class="c-food-card d-flex align-items-center shadow-sm round">
     <div class="c-food-card__image">
-      <img
-        class="w-100"
-        src="https://cdnprod.mafretailproxy.com/sys-master-root/h8c/hc7/10187581554718/32634_main.jpg_480Wx480H"
-        alt=""
-      />
+      <img class="w-100" v-if="food.image" :src="food.image" alt="" />
+      <img class="w-100" v-else src="@/assets/images/defaultFood.png" alt="" />
     </div>
     <div class="c-food-card__info ml-2">
       <h4>{{ food.name }}</h4>
