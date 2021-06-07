@@ -59,7 +59,7 @@
             <FoodCard :food="foodItem" />
           </div>
 
-          <BuilderEmptyState @clicked="showFoodModal" v-show="!food.length" />
+          <BuilderEmptyState @clicked="showFoodModal" />
         </div>
       </div>
     </div>

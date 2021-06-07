@@ -27,8 +27,17 @@
           v-if="['client', 'trainer'].includes(type)"
           :to="{ name: 'MyWorkoutPlans' }"
           class="mr-3 u-title-font profile-tab-head mb-2"
-          >My Workout Plans</router-link
         >
+          My Workout Plans
+        </router-link>
+
+        <router-link
+          v-if="type === 'nutritionist'"
+          :to="{ name: 'MyMeals' }"
+          class="mr-3 u-title-font profile-tab-head mb-2"
+        >
+          My Meals
+        </router-link>
       </div>
 
       <router-view class="mt-5" />

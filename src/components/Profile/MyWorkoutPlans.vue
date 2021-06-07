@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-if="!workoutPlans.length" class="text-center p-5">
+    <div
+      v-if="!workoutPlans.length"
+      class="text-center p-5 bg-light round-corner"
+    >
+      <h1><i class="fas fa-dumbbell"></i></h1>
       <h1 class="u-title-font">You haven't created any workout plans yet!</h1>
       <p class="text-secondary">
         Customize your experience and create your own workout plan now.

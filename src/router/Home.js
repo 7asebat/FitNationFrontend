@@ -96,6 +96,12 @@ export default [
         component: () => import("@/components/Profile/MyWorkoutPlans.vue"),
         meta: { requiresAuth: true },
       },
+      {
+        path: "my-meals",
+        name: "MyMeals",
+        component: () => import("@/components/Profile/MyMeals.vue"),
+        meta: { requiresAuth: true },
+      },
     ],
   },
 ];

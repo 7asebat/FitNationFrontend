@@ -14,7 +14,6 @@
             ? 'RecipesBuilder'
             : ''
         "
-        secondaryButtonText="Need Help? Ask a nutritionist"
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
           veniam iusto esse impedit expedita itaque praesentium dolorum, dolorem
           eum earum fuga cum explicabo provident consequuntur. Ea dolorem non
