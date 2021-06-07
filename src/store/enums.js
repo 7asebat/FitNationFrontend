@@ -36,6 +36,10 @@ export default {
       5: "Friday",
       6: "Saturday",
     },
+    exerciseTypes: {
+      0: "Cardio",
+      1: "Weight lifting",
+    },
   }),
   mutations: {},
   actions: {},

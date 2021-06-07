@@ -4,13 +4,24 @@
       <h1 class="c-popular-exercises-title">
         <span class="text-dark">Popular </span>
         <span class="text-danger">Exercises</span>
+        <span v-if="muscleGroup"> for {{ muscleGroup }}</span>
       </h1>
       <p class="text-secondary">
         Lorem ipsum dolor sit amet, nconsectetur adipisicing elit.
       </p>
     </div>
 
-    <Loading v-if="isLoading" />
+    <div
+      class="round-corner p-5 text-center bg-light"
+      v-show="muscleGroup && !popularExercises.length"
+    >
+      <h1><i class="fas fa-exclamation"></i></h1>
+      <h3 class="u-title-font">No Exercises for the selected muscle</h3>
+      <p class="text-secondary">
+        unfortunately, there are no exercises for this muscle currently. Please
+        check again soon.
+      </p>
+    </div>
 
     <div v-if="!isLoading" class="row">
       <div
@@ -74,7 +85,6 @@ export default {
   },
 
   components: {
-    Loading: () => import("@/components/common/Loading.vue"),
     ExerciseCard: () => import("@/components/ExerciseCard.vue"),
   },
 

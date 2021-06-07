@@ -19,6 +19,13 @@
       class="mb-3"
     ></b-form-input>
 
+    <b-form-file
+      v-model="image"
+      :state="Boolean(image)"
+      placeholder="Choose a file or drop it here..."
+      drop-placeholder="Drop file here..."
+    ></b-form-file>
+
     <b-form-select v-model="muscle" :options="muscles"></b-form-select>
   </b-modal>
 </template>
@@ -30,6 +37,7 @@ export default {
       name: "",
       tips: "",
       muscle: 0,
+      image: "",
     };
   },
 
@@ -46,15 +54,16 @@ export default {
   methods: {
     async addExercise() {
       try {
-        const payload = {
-          exercise: {
-            name: this.name,
-            tips: this.tips,
-            meta_data: {
-              muscle_groups: [Number(this.muscle)],
-            },
-          },
-        };
+        const payload = new FormData();
+        payload.append("name", this.name);
+        payload.append("tips", this.tips);
+        payload.append(
+          "meta_data",
+          JSON.stringify({
+            muscle_groups: [Number(this.muscle)],
+          })
+        );
+        payload.append("image", this.image);
 
         const response = await this.axios.post("exercises", payload);
         const exercise = response.data.data.exercise;

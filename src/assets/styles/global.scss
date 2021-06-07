@@ -19,6 +19,10 @@
 //   color: #fff ;
 // }
 
+.round-corner{
+  border-radius: $border-radius;
+}
+
 input {
   height: 50px !important;
   color: $dark;
