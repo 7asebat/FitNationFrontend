@@ -75,10 +75,22 @@ export default {
         const payload = { workout_plan_id: this.workout.id };
         await this.axios.patch("me/workout_plans/active_plan", payload);
 
+        await this.updateLoggedInUser();
+
         this.$notification(
           "successNotification",
           "Active workout plan is set succesfully"
         );
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+    },
+    async updateLoggedInUser() {
+      try {
+        const response = await this.axios.get("authentication/current_user");
+        const user = response.data.data.user;
+
+        this.$store.commit("setUser", user);
       } catch (err) {
         this.$errorsHandler(err);
       }
