@@ -7,11 +7,22 @@
     ok-title="Add Exercises"
     @ok="confirmEdits"
   >
+    <b-input-group class="mb-2">
+      <b-input-group-prepend is-text>
+        <b-icon icon="search"></b-icon>
+      </b-input-group-prepend>
+      <b-form-input
+        type="search"
+        v-model="exerciseQuery"
+        placeholder="Search Exercises"
+      ></b-form-input>
+    </b-input-group>
+
     <div class="d-flex flex-column">
       <div class="row rounded border-primary py-3">
         <div
           class="col-12 mb-3"
-          v-for="exercise in exercises"
+          v-for="exercise in exercisesFiltered"
           :key="exercise.id"
         >
           <div class="d-flex bg-light round-corner overflow-hidden">
@@ -59,7 +70,18 @@
         </div>
       </div>
 
-      <div></div>
+      <div
+        v-show="!exercisesFiltered.length"
+        class="text-center round-corner py-4"
+      >
+        <h1 class="u-title-font">
+          No search results for :
+          <span class="text-primary">{{ exerciseQuery }}</span>
+        </h1>
+        <p class="text-secondary">
+          No exercises match this name, try searching with another query.
+        </p>
+      </div>
     </div>
   </b-modal>
 </template>
@@ -82,6 +104,14 @@ export default {
   props: {
     modalId: String,
     activeDay: Date,
+  },
+
+  computed: {
+    exercisesFiltered() {
+      return this.exercises.filter((exercise) =>
+        exercise.name.includes(this.exerciseQuery)
+      );
+    },
   },
 
   methods: {
