@@ -3,7 +3,7 @@
     <div class="row my-4">
       <div
         class="col-12 position-relative"
-        :class="{ 'col-md-8 col-lg-9': loggedInUser.active_workout_plan }"
+        :class="{ 'col-md-8 col-lg-9': suggestedExercises.length }"
       >
         <div v-show="!exercises.length">
           <h2 class="u-title-font">No exercises tracked for this day</h2>
@@ -32,10 +32,7 @@
           + Add Exercises
         </button>
       </div>
-      <div
-        class="col-12 col-md-4 col-lg-3"
-        v-if="loggedInUser.active_workout_plan"
-      >
+      <div class="col-12 col-md-4 col-lg-3" v-if="suggestedExercises.length">
         <div class="bg-light p-3 c-day-exercises__suggested-exercises">
           <h3 class="u-title-font">
             This day's <span class="text-primary"> Exercises </span>
@@ -45,25 +42,43 @@
           </p>
 
           <div
-            v-for="exercise in exercises"
+            v-for="exercise in suggestedExercises"
             :key="exercise.instance_id"
             class="mb-3"
           >
             <div class="d-flex">
-              <img
-                src="@/assets/images/beHealthy.png"
-                alt=""
-                class="c-day-exercises__suggested-exercise-image mr-2"
-              />
+              <div>
+                <img
+                  v-if="exercise.image"
+                  :src="exercise.image"
+                  alt=""
+                  class="c-day-exercises__suggested-exercise-image mr-2"
+                />
+
+                <img
+                  v-else
+                  src="@/assets/images/defaultExercise.png"
+                  alt=""
+                  class="c-day-exercises__suggested-exercise-image mr-2"
+                />
+              </div>
+
               <div>
                 <h6>{{ exercise.name }}</h6>
+                <p class="m-0">SETS: {{ exercise.sets }}</p>
+                <p class="m-0">REPS: {{ exercise.reps }}</p>
                 <div class="d-flex">
                   <b-form-input
-                    v-model="text"
+                    v-model="exercise.performance"
                     placeholder="Weight"
                     class="h-auto mr-2"
                   ></b-form-input>
-                  <button class="btn btn-success">Add</button>
+                  <button
+                    class="btn btn-success"
+                    @click="addSuggestedExercise(exercise)"
+                  >
+                    Add
+                  </button>
                 </div>
               </div>
             </div>
@@ -92,8 +107,8 @@ export default {
 
   data() {
     return {
-      text: "",
       exercises: [],
+      suggestedExercises: this.getSuggestedExercises(),
     };
   },
 
@@ -104,8 +119,53 @@ export default {
   },
 
   methods: {
+    async addSuggestedExercise(exercise) {
+      try {
+        const payload = {
+          performance: exercise.performance,
+          date: this.date,
+          workout_plan_exercise_id: exercise.instance_id,
+          sets: exercise.seps,
+          reps: exercise.reps,
+        };
+
+        await this.axios.post("clients/exercises_instances", payload);
+
+        this.$notification(
+          "successNotification",
+          "Exercises of your day have been updated successfully"
+        );
+
+        this.addExercise(exercise);
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+    },
     addExercise(exercise) {
       this.exercises.push(exercise);
+    },
+    getSuggestedExercises() {
+      const user = this.$store.state.user;
+      if (user.active_workout_plan) {
+        const exercise_instances =
+          user.active_workout_plan.exercise_instances[this.date.getDay()];
+
+        if (!exercise_instances) return [];
+
+        const exercises = exercise_instances.map((exerciseInstance) => {
+          const exercise = exerciseInstance.exercise;
+          exercise.reps = exerciseInstance.reps;
+          exercise.sets = exerciseInstance.sets;
+          exercise.duration = exerciseInstance.duration;
+          exercise.performance = exerciseInstance.performance;
+          exercise.instance_id = exerciseInstance.id;
+          return exercise;
+        });
+
+        return exercises;
+      }
+
+      return [];
     },
     async getExercises() {
       try {
