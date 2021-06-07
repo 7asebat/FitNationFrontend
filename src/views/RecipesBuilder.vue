@@ -39,26 +39,28 @@
       </div>
       <div class="col-12 col-md-6">
         <h3 class="mb-3">Food in this recipe</h3>
-        <div
-          class="c-recipes-builder__food-card-container mb-3"
-          v-for="foodItem in food"
-          :key="foodItem.id"
-          @click="removeFoodItem(foodItem)"
-        >
+        <div class="c-recipes-builder__food-container round-corner">
           <div
-            class="
-              c-recipes-builder__food-card-overlay
-              d-flex
-              align-items-center
-              justify-content-center
-            "
+            class="c-recipes-builder__food-card-container mb-3"
+            v-for="foodItem in food"
+            :key="foodItem.id"
+            @click="removeFoodItem(foodItem)"
           >
-            <h1><i class="fas fa-trash text-danger"></i></h1>
+            <div
+              class="
+                c-recipes-builder__food-card-overlay
+                d-flex
+                align-items-center
+                justify-content-center
+              "
+            >
+              <h1><i class="fas fa-trash text-danger"></i></h1>
+            </div>
+            <FoodCard :food="foodItem" />
           </div>
-          <FoodCard :food="foodItem" />
-        </div>
 
-        <BuilderEmptyState @clicked="showFoodModal" v-show="!food.length" />
+          <BuilderEmptyState @clicked="showFoodModal" v-show="!food.length" />
+        </div>
       </div>
     </div>
 
@@ -143,5 +145,10 @@ export default {
   background: rgba(0, 0, 0, 0.7);
   opacity: 0;
   transition: all 0.3s;
+}
+
+.c-recipes-builder__food-container {
+  max-height: 400px;
+  overflow: scroll;
 }
 </style>
