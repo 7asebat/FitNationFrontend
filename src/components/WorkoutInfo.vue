@@ -7,9 +7,18 @@
       <div class="col-lg-6 col-sm-12">
         <div class="d-flex justify-content-between align-items-center">
           <h1 class="u-title-font">{{ workout.name }}</h1>
-          <button class="btn btn-primary" @click="chooseWorkout">
+          <button
+            class="btn btn-primary"
+            @click="chooseWorkout"
+            v-if="
+              !loggedInUser.active_workout_plan ||
+              loggedInUser.active_workout_plan.id !== workout.id
+            "
+          >
             Choose this workout
           </button>
+
+          <h4 v-else class="u-title-font text-success">Active workout</h4>
         </div>
         <p class="text-secondary">
           {{ workout.description }}
@@ -50,6 +59,10 @@ export default {
   computed: {
     levelNames() {
       return this.$store.state.enums.workoutLevels;
+    },
+
+    loggedInUser() {
+      return this.$store.state.user;
     },
   },
 
