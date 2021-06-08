@@ -108,21 +108,10 @@
 </template>
 
 <script>
-import { EventBus } from "@/plugins/eventBus.js";
-
 export default {
   name: "NutritionInfo",
 
   async created() {
-    EventBus.$on("errorNotification", (message, title) => {
-      if (!title) title = "Error happened!";
-      this.makeToast(title, message, "danger");
-    });
-
-    EventBus.$on("successNotification", (message, title) => {
-      if (!title) title = "Successful operation";
-      this.makeToast(title, message, "success");
-    });
     await this.setNutritionInfo();
   },
 
