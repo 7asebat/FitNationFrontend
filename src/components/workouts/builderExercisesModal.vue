@@ -141,6 +141,7 @@ export default {
   transition: all 0.3s;
   opacity: 0;
   visibility: hidden;
+  z-index: 2;
 }
 .c-builder-exercises-modal__selected-overlay--selected {
   opacity: 1;

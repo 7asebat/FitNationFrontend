@@ -10,15 +10,58 @@
         Create your own meal
       </router-link>
     </div>
+
+    <div v-else>
+      <div class="row">
+        <div
+          class="col-12 col-md-4 col-lg-3"
+          v-for="recipe in recipes"
+          :key="recipe.id"
+        >
+          <router-link :to="{ name: 'SingleMeal', params: { id: recipe.id } }">
+            <MealCard :recipe="recipe" />
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  created() {
+    this.getRecipes();
+  },
+
   data() {
     return {
       recipes: [],
     };
+  },
+
+  computed: {
+    loggedInUser() {
+      return this.$store.state.user;
+    },
+  },
+
+  methods: {
+    async getRecipes() {
+      try {
+        const response = await this.axios.get(
+          `recipes/nutritionist/${this.loggedInUser.id}`
+        );
+
+        const recipes = response.data.data.recipes;
+        this.recipes = recipes;
+      } catch (err) {
+        this.$errorsHandler(err);
+      }
+    },
+  },
+
+  components: {
+    MealCard: () => import("@/components/MealCard.vue"),
   },
 };
 </script>

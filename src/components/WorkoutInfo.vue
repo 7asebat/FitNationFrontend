@@ -13,28 +13,29 @@
       <div class="col-lg-6 col-sm-12">
         <div class="d-flex justify-content-between align-items-center">
           <h1 class="u-title-font">{{ workout.name }}</h1>
-          <button
-            class="btn btn-primary"
-            @click="chooseWorkout"
-            v-if="
-              loggedInUser &&
-              (!loggedInUser.active_workout_plan ||
-                loggedInUser.active_workout_plan.id !== workout.id)
-            "
-          >
-            Choose this workout
-          </button>
 
-          <h4
-            v-if="
-              loggedInUser &&
-              loggedInUser.active_workout_plan &&
-              loggedInUser.active_workout_plan.id === workout.id
-            "
-            class="u-title-font text-success"
-          >
-            Active workout
-          </h4>
+          <div v-if="true">
+            <button
+              class="btn btn-primary"
+              @click="chooseWorkout"
+              v-if="
+                !loggedInUser.active_workout_plan ||
+                loggedInUser.active_workout_plan.id !== workout.id
+              "
+            >
+              Choose this workout
+            </button>
+
+            <h4
+              v-if="
+                loggedInUser.active_workout_plan &&
+                loggedInUser.active_workout_plan.id === workout.id
+              "
+              class="u-title-font text-success"
+            >
+              Active workout
+            </h4>
+          </div>
         </div>
         <p class="text-secondary">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quia
@@ -70,6 +71,11 @@
             }}
           </span>
         </p>
+
+        <button class="btn btn-primary mt-4" @click.prevent="deleteWorkout">
+          <i class="fas fa-trash-alt"></i>
+          <span class="ml-2 d-inline-block">Delete workout</span>
+        </button>
       </div>
     </div>
   </div>
@@ -117,6 +123,18 @@ export default {
         this.$store.commit("setUser", user);
       } catch (err) {
         this.$errorsHandler(err);
+      }
+    },
+    async deleteWorkout() {
+      try {
+        await this.axios.delete(`workout_plans/${this.workout.id}`);
+        this.$notification(
+          "successNotification",
+          "Your workout has been deleted successfully!"
+        );
+        this.$router.push({ name: "MyWorkoutPlans" });
+      } catch (err) {
+        this.$errorsHandler(new Error("Error deleting your workout."));
       }
     },
   },
