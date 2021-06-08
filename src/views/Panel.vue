@@ -1,9 +1,10 @@
 <template>
   <div class="bg-light panelView">
-    <Sidenav @sidebarOpened="(val) => (sidebarOpened = val)" />
-    <main :class="{ sidebarOpened: sidebarOpened }">
-      <!-- <Navbar /> -->
+    <Sidenav />
+    <main>
+      <Navbar />
       <!-- <b-container> -->
+
       <div class="panelContainer">
         <b-container>
           <router-view></router-view>
@@ -24,7 +25,7 @@ export default {
   },
 
   components: {
-    // Navbar: () => import('@/components/Panel/Navbar'),
+    Navbar: () => import("@/components/Panel/Navbar"),
     Sidenav: () => import("@/components/Panel/Sidenav.vue"),
   },
 };
@@ -36,12 +37,10 @@ export default {
 }
 
 main {
-  margin-left: 60px;
+  margin-left: 70px;
   transition: all 0.3s;
 }
-main.sidebarOpened {
-  margin-left: 250px;
-}
+
 .panelContainer {
   padding: 50px 0px;
 }

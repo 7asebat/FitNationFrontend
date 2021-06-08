@@ -27,6 +27,43 @@
         ]"
         :busy="isLoading"
       >
+        <template v-slot:cell(name)="data">
+          <div class="d-flex align-items-center">
+            <div class="mr-2 c-list-food__image-container">
+              <img
+                v-if="data.item.image"
+                :src="data.item.image"
+                :alt="data.item.name"
+              />
+              <img
+                v-else
+                src="@/assets/images/defaultFood.png"
+                :alt="data.item.name"
+              />
+            </div>
+            <h4 class="u-title-font m-0">{{ data.item.name }}</h4>
+          </div>
+        </template>
+
+        <template v-slot:cell(nutrition_facts)="data">
+          <div id="nf-div" class="d-flex flex-row">
+            <div id="nf-div-info">
+              <div id="nf-items" class="d-flex flex-row text-center pb-2">
+                <div v-for="(key, i) in keys" :key="i" class="col px-2">
+                  <div class="c-nf-value">
+                    <span class="u-title-font">{{
+                      data.item.nutrition_facts[key]
+                    }}</span>
+
+                    <span class="c-nf-unit">{{ units[key] }}</span>
+                  </div>
+                  <div class="c-nf-type">{{ key }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+
         <template v-slot:cell(actions)="data">
           <b-button
             variant="danger mr-2"
@@ -44,6 +81,20 @@
           </div>
         </template>
       </b-table>
+
+      <b-pagination
+        v-if="meta"
+        v-model="meta.page"
+        :total-rows="meta.total"
+        :per-page="meta.limit"
+        @change="
+          (page) => {
+            getFoods(page);
+          }
+        "
+        align="right"
+        first-number
+      ></b-pagination>
     </b-card>
 
     <DeleteModal
@@ -71,6 +122,14 @@ export default {
       isLoading: false,
       foods: [],
       foodToDelete: "",
+      meta: undefined,
+      keys: ["calories", "protein", "carbs", "sugar"],
+      units: {
+        calories: "KCAL",
+        protein: "g",
+        carbs: "g",
+        sugar: "g",
+      },
     };
   },
   computed: {
@@ -86,6 +145,11 @@ export default {
         const { food } = response.data.data;
 
         this.foods = food;
+
+        const { count, limit, page, total } = response.data;
+        const meta = { count, limit, page, total };
+
+        this.meta = meta;
       } catch (err) {
         this.$errorsHandler(err);
       }
@@ -141,5 +205,26 @@ export default {
 }
 .overflowHidden {
   overflow: hidden;
+}
+.c-nf-value {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.c-nf-unit {
+  font-weight: bold;
+  font-size: small;
+}
+
+.c-nf-type {
+  margin-top: -5px;
+  font-size: small;
+}
+
+.c-list-food__image-container img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 </style>
