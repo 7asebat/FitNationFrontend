@@ -6,44 +6,76 @@
           <i class="fas fa-plus mr-1"></i>
           Today
         </b-button>
+        <div v-else class="my-auto text-dark rounded bg-light mr-2 p-2 px-4">
+          You added today's info. Good job!
+        </div>
       </template>
 
       <b-tab
         v-for="(day, d) in nutritionInfoSorted"
         :key="d"
         :title="datesStringsSorted[d]"
-        class="py-3 px-5"
+        class="py-3 px-lg-5 px-1"
       >
-        <b-row class="col py-2">
-          <div v-if="day.weight" class="alert alert-success mx-2">
-            <i class="fas fa-weight mr-1"></i>
-            {{ day.weight }}kg
+        <b-row class="py-2 px-3">
+          <div
+            class="
+              d-flex
+              flex-row flex-wrap
+              w-100
+              text-center
+              alert
+              border-dark
+              text-dark
+              bg-light
+              justify-content-between
+            "
+          >
+            <div class="col-sm-2 col-12 px-2 m-0 my-auto">
+              <div class="c-nf-value">
+                {{ day.weight }}<span class="c-nf-unit">kg</span>
+              </div>
+              <div class="c-nf-type">
+                <i class="fas fa-weight mr-1"></i>
+              </div>
+            </div>
+            <div
+              v-for="(key, i) in keys"
+              :key="i"
+              class="col-sm-2 col-3 px-2 m-0"
+            >
+              <div class="c-nf-value">
+                {{ aggregatedNutritionFacts[d][key]
+                }}<span class="c-nf-unit">{{ units[key] }}</span>
+              </div>
+              <div class="c-nf-type">{{ key }}</div>
+            </div>
           </div>
         </b-row>
 
-        <b-row v-for="(item, i) in day.specs" :key="i">
-          <div class="col-10 p-3">
+        <b-row v-for="(item, i) in day.specs" :key="i" class="px-2">
+          <div class="col-10 py-3 px-0">
             <FoodCard :food="item.item" class="border" />
           </div>
-          <div class="col-2 d-flex align-items-center">
+          <div class="col-1 d-flex align-items-center p-0 pl-3">
             <h1>x {{ item.quantity }}</h1>
           </div>
         </b-row>
 
         <b-row align-h="end">
           <b-button
-            v-if="!day.specs"
             variant="primary"
             pill
             class="py-3 px-5 mr-0 mb-0"
             @click="$bvModal.show(`nutrition-modal${d}`)"
           >
-            <i class="fas fa-plus mr-2" />
-            <span>Add</span>
+            <i class="fas fa-pen mr-2" />
+            <span>Edit</span>
           </b-button>
         </b-row>
 
         <NutritionBuilderModal
+          class="c-nutrition-modal-fw"
           :modalId="`nutrition-modal${d}`"
           @confirmEdits="
             confirmEdits(nutritionInfoSorted[d].date, ...arguments)
@@ -81,6 +113,13 @@ export default {
 
   data: () => ({
     nutritionInfo: [],
+    keys: ["calories", "protein", "carbs", "sugar"],
+    units: {
+      calories: "KCAL",
+      protein: "g",
+      carbs: "g",
+      sugar: "g",
+    },
   }),
   methods: {
     async getRecipe(id) {
@@ -167,7 +206,21 @@ export default {
       this.nutritionInfo.unshift({ date });
     },
 
-    async initSpec(spec, date) {
+    async existingCWN(date) {
+      let response = await this.axios.get("client_weight_nutritions/client");
+      const cwns = response.data.data.client_weight_nutritions;
+      return cwns.find((cwn) => {
+        const cwnd = new Date(cwn.date);
+        return cwnd - date === 0;
+      });
+    },
+
+    async initCWN(spec, date) {
+      const existing = await this.existingCWN(date);
+      console.log("existing", existing);
+      if (existing) {
+        return existing.id;
+      }
       // Initialize specification
       let response = await this.axios.post("client_weight_nutritions", {
         date,
@@ -187,14 +240,27 @@ export default {
       });
     },
 
+    async updateWeight(weight, id) {
+      // Fill specification
+      return this.axios.patch(`client_weight_nutritions/${id}`, {
+        client_weight_nutrition: {
+          weight,
+        },
+      });
+    },
+
     async confirmEdits(date, payload) {
       const weight = payload.weight;
       const foods = payload.foods;
 
-      if (foods && weight) {
-        const id = await this.initSpec(payload, date);
+      if (foods || weight) {
+        const id = await this.initCWN(payload, date);
 
         let promises = [];
+        if (weight) {
+          promises.push(this.updateWeight(weight, id));
+        }
+
         foods.forEach((food) => {
           promises.push(this.addFoodToSpec(food, id));
         });
@@ -213,6 +279,30 @@ export default {
       return date.getDate() !== lastDay.getDate();
     },
 
+    aggregatedNutritionFacts() {
+      // For each day
+      return this.nutritionInfoSorted.map((day) => {
+        const aggregated = {
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          sugar: 0,
+        };
+        // For each specification
+        day.specs.forEach((item) => {
+          const nf = item.item.nutrition_facts;
+          const q = item.quantity;
+          // For each macro
+          for (const key in nf) {
+            aggregated[key] += nf[key] * q;
+          }
+        });
+
+        console.log(aggregated);
+        return aggregated;
+      });
+    },
+
     nutritionInfoSorted() {
       const sorted = this.nutritionInfo.slice();
       return sorted.sort((a, b) => b.date - a.date);
@@ -226,7 +316,30 @@ export default {
 </script>
 
 <style lang="scss">
-.c-weight {
-  //width: 100px !important;
+.c-nf-value {
+  font-weight: bold;
+  font-size: x-large;
 }
+
+.c-nf-unit {
+  font-weight: bold;
+  font-size: small;
+}
+
+.c-nf-type {
+  margin-top: -5px;
+  font-size: small;
+}
+@media (min-width: 576px) {
+  #nutrition-modal0 .modal-dialog {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 1200px) {
+  #nutrition-modal0 .modal-dialog {
+    max-width: 60%;
+  }
+}
+//width: 100px !important;
 </style>
