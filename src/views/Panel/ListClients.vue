@@ -15,6 +15,25 @@
         :fields="['id', 'name', 'email', 'actions']"
         :busy="isLoading"
       >
+        <template v-slot:cell(name)="data">
+          <div class="d-flex align-items-center">
+            <div class="mr-3 c-list-clients__image-container">
+              <img
+                v-if="data.item.avatar"
+                :src="data.item.avatar"
+                :alt="data.item.name"
+              />
+              <img
+                v-else
+                src="@/assets/images/defaultUser.png"
+                :alt="data.item.name"
+              />
+            </div>
+
+            <h4 class="u-title-font m-0">{{ data.item.name }}</h4>
+          </div>
+        </template>
+
         <template v-slot:cell(actions)="data">
           <b-button
             variant="danger mr-2"
@@ -98,24 +117,20 @@ export default {
       this.isLoading = false;
     },
     async deleteClient() {
-      try{
+      try {
         const id = this.clientToDelete.id;
         await this.axios.delete(`clients/${id}`);
 
-        this.clients = this.clients.filter(client => client.id !== id);
+        this.clients = this.clients.filter((client) => client.id !== id);
 
         this.$bvModal.hide("deleteClient");
         this.$notification(
           "successNotification",
           `Client: ${this.clientToDelete.name} has been deleted successfully!`
         );
-
-
-      }catch(err){
+      } catch (err) {
         this.$errorsHandler(err);
       }
-
-      
     },
   },
 
@@ -144,5 +159,11 @@ export default {
 }
 .overflowHidden {
   overflow: hidden;
+}
+.c-list-clients__image-container img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 </style>
