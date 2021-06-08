@@ -2,12 +2,23 @@
   <div class="container-fluid">
     <b-tabs pills card>
       <template #tabs-start>
-        <b-button v-if="canInsertDay" @click="insertDay" class="bg-dark mr-2">
+        <b-button
+          v-if="canInsertDay"
+          @click="insertDay"
+          class="bg-dark mr-2 text-light"
+        >
           <i class="fas fa-plus mr-1"></i>
           Today
         </b-button>
         <div v-else class="my-auto text-dark rounded bg-light mr-2 p-2 px-4">
-          You added today's info. Good job!
+          {{
+            isValidAggregation(
+              nutritionInfoSorted[0].weight,
+              aggregatedNutritionFacts[0]
+            )
+              ? "You added today's log. Good job!"
+              : "Adding today's log..."
+          }}
         </div>
       </template>
 
@@ -19,6 +30,7 @@
       >
         <b-row class="py-2 px-3">
           <div
+            v-if="isValidAggregation(day.weight, aggregatedNutritionFacts[d])"
             class="
               d-flex
               flex-row flex-wrap
@@ -67,16 +79,25 @@
             variant="primary"
             pill
             class="py-3 px-5 mr-0 mb-0"
-            @click="$bvModal.show(`nutrition-modal${d}`)"
+            @click="$bvModal.show(`nutrition-modal`)"
           >
-            <i class="fas fa-pen mr-2" />
-            <span>Edit</span>
+            <div
+              v-if="isValidAggregation(day.weight, aggregatedNutritionFacts[d])"
+              class="p-0"
+            >
+              <i class="fas fa-pen mr-2" />
+              <span>Edit</span>
+            </div>
+            <div v-else>
+              <i class="fas fa-plus mr-2" />
+              <span>Add</span>
+            </div>
           </b-button>
         </b-row>
 
         <NutritionBuilderModal
           class="c-nutrition-modal-fw"
-          :modalId="`nutrition-modal${d}`"
+          modalId="nutrition-modal"
           @confirmEdits="
             confirmEdits(nutritionInfoSorted[d].date, ...arguments)
           "
@@ -204,6 +225,7 @@ export default {
     insertDay() {
       let date = new Date(Date.now());
       this.nutritionInfo.unshift({ date });
+      // this.$bvModal.show(`nutrition-modal`);
     },
 
     async existingCWN(date) {
@@ -217,7 +239,6 @@ export default {
 
     async initCWN(spec, date) {
       const existing = await this.existingCWN(date);
-      console.log("existing", existing);
       if (existing) {
         return existing.id;
       }
@@ -247,6 +268,15 @@ export default {
           weight,
         },
       });
+    },
+
+    isValidAggregation(weight, aggregation) {
+      let validAggregation = true;
+      for (const key in aggregation) {
+        validAggregation &= aggregation[key];
+      }
+
+      return weight | validAggregation;
     },
 
     async confirmEdits(date, payload) {
@@ -289,6 +319,7 @@ export default {
           sugar: 0,
         };
         // For each specification
+        if (!day.specs) return aggregated;
         day.specs.forEach((item) => {
           const nf = item.item.nutrition_facts;
           const q = item.quantity;
@@ -298,7 +329,6 @@ export default {
           }
         });
 
-        console.log(aggregated);
         return aggregated;
       });
     },
