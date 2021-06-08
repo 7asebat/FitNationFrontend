@@ -11,7 +11,14 @@
           Today
         </b-button>
         <div v-else class="my-auto text-dark rounded bg-light mr-2 p-2 px-4">
-          You added today's info. Good job!
+          {{
+            isValidAggregation(
+              nutritionInfoSorted[0].weight,
+              aggregatedNutritionFacts[0]
+            )
+              ? "You added today's log. Good job!"
+              : "Adding today's log..."
+          }}
         </div>
       </template>
 
@@ -23,6 +30,7 @@
       >
         <b-row class="py-2 px-3">
           <div
+            v-if="isValidAggregation(day.weight, aggregatedNutritionFacts[d])"
             class="
               d-flex
               flex-row flex-wrap
@@ -73,8 +81,17 @@
             class="py-3 px-5 mr-0 mb-0"
             @click="$bvModal.show(`nutrition-modal`)"
           >
-            <i class="fas fa-pen mr-2" />
-            <span>Edit</span>
+            <div
+              v-if="isValidAggregation(day.weight, aggregatedNutritionFacts[d])"
+              class="p-0"
+            >
+              <i class="fas fa-pen mr-2" />
+              <span>Edit</span>
+            </div>
+            <div v-else>
+              <i class="fas fa-plus mr-2" />
+              <span>Add</span>
+            </div>
           </b-button>
         </b-row>
 
@@ -251,6 +268,15 @@ export default {
           weight,
         },
       });
+    },
+
+    isValidAggregation(weight, aggregation) {
+      let validAggregation = true;
+      for (const key in aggregation) {
+        validAggregation &= aggregation[key];
+      }
+
+      return weight | validAggregation;
     },
 
     async confirmEdits(date, payload) {
