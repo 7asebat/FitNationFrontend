@@ -2,7 +2,11 @@
   <div class="container-fluid">
     <b-tabs pills card>
       <template #tabs-start>
-        <b-button v-if="canInsertDay" @click="insertDay" class="bg-dark mr-2">
+        <b-button
+          v-if="canInsertDay"
+          @click="insertDay"
+          class="bg-dark mr-2 text-light"
+        >
           <i class="fas fa-plus mr-1"></i>
           Today
         </b-button>
@@ -67,7 +71,7 @@
             variant="primary"
             pill
             class="py-3 px-5 mr-0 mb-0"
-            @click="$bvModal.show(`nutrition-modal${d}`)"
+            @click="$bvModal.show(`nutrition-modal`)"
           >
             <i class="fas fa-pen mr-2" />
             <span>Edit</span>
@@ -76,7 +80,7 @@
 
         <NutritionBuilderModal
           class="c-nutrition-modal-fw"
-          :modalId="`nutrition-modal${d}`"
+          modalId="nutrition-modal"
           @confirmEdits="
             confirmEdits(nutritionInfoSorted[d].date, ...arguments)
           "
@@ -204,6 +208,7 @@ export default {
     insertDay() {
       let date = new Date(Date.now());
       this.nutritionInfo.unshift({ date });
+      // this.$bvModal.show(`nutrition-modal`);
     },
 
     async existingCWN(date) {
@@ -217,7 +222,6 @@ export default {
 
     async initCWN(spec, date) {
       const existing = await this.existingCWN(date);
-      console.log("existing", existing);
       if (existing) {
         return existing.id;
       }
@@ -289,6 +293,7 @@ export default {
           sugar: 0,
         };
         // For each specification
+        if (!day.specs) return aggregated;
         day.specs.forEach((item) => {
           const nf = item.item.nutrition_facts;
           const q = item.quantity;
@@ -298,7 +303,6 @@ export default {
           }
         });
 
-        console.log(aggregated);
         return aggregated;
       });
     },
