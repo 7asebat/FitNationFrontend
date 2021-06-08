@@ -138,18 +138,6 @@ export default {
       return { name, description, photo };
     },
 
-    async getFood(id) {
-      const response = await this.axios.get(`foods/${id}`);
-      const food = response.data.data.food;
-      return food;
-    },
-
-    async getNutritionSpec(id) {
-      const response = await this.axios.get(`nutrition_specifications/${id}`);
-      const spec = response.data.data.nutrition_specification;
-      return spec;
-    },
-
     async setNutritionInfo() {
       try {
         const response = await this.axios.get(
@@ -160,9 +148,27 @@ export default {
         // For each day
         let populated = nutrition_info.map((info) => {
           // Collect all nutrition specifications
-          let specs = info.nutrition_specifications;
-          // Expand foods/recipes in each specification
+          const foods = info.nutrition_specifications.filter(
+            (spec) => spec.food
+          );
+          const recipes = info.nutrition_specifications.filter(
+            (spec) => spec.recipe
+          );
 
+          // Expand recipes into foods
+          const recipe_foods = [];
+          recipes.forEach((recipe) => {
+            recipe.foods.forEach((food) => {
+              recipe_foods.push({
+                quantity: recipe.quantity * food.quantity,
+                food,
+              });
+            });
+          });
+
+          const specs = foods.concat(recipe_foods);
+
+          // Expand foods/recipes in each specification
           return {
             date: new Date(info.date),
             weight: info.weight,
