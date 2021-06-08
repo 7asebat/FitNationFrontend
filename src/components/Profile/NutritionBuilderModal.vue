@@ -4,15 +4,14 @@
     size="lg"
     title="Add today's nutrition info"
     ok-title="Confirm"
+    scrollable
     @ok="confirmEdits"
   >
     <div class="d-flex flex-column container-fluid align-items-center">
-      <b-input
-        v-model="weight"
-        placeholder="Weight (kg)"
-        class="w-50 m-2"
-        type="number"
-      />
+      <div class="d-flex flex-row align-items-center">
+        <span class="font-weight-bold" style="width: 150px">Weight (kg)</span>
+        <b-input v-model="weight" class="w-100 m-2" type="number" />
+      </div>
 
       <b-input-group class="mx-auto mb-3">
         <template #append>
@@ -33,10 +32,10 @@
         :id="`mealRow-${i}`"
         class="rounded py-3"
       >
-        <FoodCard class="col-9" :food="food.food" />
+        <FoodCard class="col-sm-10 col-9" :food="food.food" />
 
-        <div class="col-3 d-flex align-items-center">
-          <b-input v-model="food.quantity" class="m-0" type="number" />
+        <div class="col-sm-2 col-3 d-flex align-items-center">
+          <b-input v-model="food.quantity" class="m-0" type="number" min="0" />
         </div>
       </b-row>
 
@@ -53,6 +52,7 @@ export default {
     // Get all foods
     const response = await this.axios.get("foods");
     this.allFoods = response.data.data.food;
+    await this.updateFoods();
   },
 
   components: {
@@ -62,7 +62,7 @@ export default {
   data: () => ({
     allFoods: [],
     matchingFoods: [],
-    weight: 0,
+    weight: "",
     quantity: 0,
   }),
   props: {
@@ -71,16 +71,14 @@ export default {
 
   methods: {
     updateFoods(query) {
-      if (!query) {
-        this.matchingFoods = [];
-        return;
-      }
-
       // Filter only matching foods
       this.matchingFoods = this.allFoods
         .filter((food) => {
           if (!food.name) return false;
-          return food.name.search(query) >= 0;
+          return (
+            food.name.toLowerCase().search(query ? query.toLowerCase() : "") >=
+            0
+          );
         })
         .map((food) => ({ food, quantity: 0 }));
     },
