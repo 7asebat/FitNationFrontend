@@ -5,6 +5,7 @@
     size="lg"
     title="Add this week's workout"
     ok-title="Add Exercises"
+    cancel-variant="outline-primary"
   >
     <b-input-group class="mb-2">
       <b-input-group-prepend is-text>

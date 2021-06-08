@@ -6,6 +6,7 @@
     ok-title="Confirm"
     scrollable
     @ok="confirmEdits"
+    cancel-variant="outline-primary"
   >
     <div class="d-flex flex-column container-fluid align-items-center">
       <div class="d-flex flex-row align-items-center">

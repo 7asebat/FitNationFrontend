@@ -6,6 +6,7 @@
     :title="`Add exercise to recipe`"
     :ok-title="`Add Selected Exercise`"
     @ok="addExercise"
+    cancel-variant="outline-primary"
   >
     <b-form-input
       v-model="name"

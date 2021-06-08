@@ -6,6 +6,7 @@
     :title="`Add food to recipe`"
     :ok-title="`Add Selected Food`"
     @ok="addFood"
+    cancel-variant="outline-primary"
   >
     <div class="row">
       <div class="col-12 mb-3" v-for="foodItem in food" :key="foodItem.id">
@@ -36,7 +37,6 @@
                 placeholder="Quantity"
                 @click.stop=""
               ></b-form-input>
-
             </h1>
           </div>
           <FoodItemCard :food="foodItem" />
@@ -60,7 +60,9 @@ export default {
 
   computed: {
     selectedFood() {
-      return this.food.filter((foodItem) => foodItem.selected && foodItem.quantity);
+      return this.food.filter(
+        (foodItem) => foodItem.selected && foodItem.quantity
+      );
     },
   },
 
@@ -117,12 +119,13 @@ export default {
   transition: all 0.3s;
   opacity: 0;
   visibility: hidden;
+  z-index: 3;
 }
 .c-builder-food-modal__selected-overlay--selected {
   opacity: 1;
   visibility: visible;
 }
-.c-builder-food-modal__quantity-input{
+.c-builder-food-modal__quantity-input {
   max-width: 300px;
   margin: 0 auto;
 }

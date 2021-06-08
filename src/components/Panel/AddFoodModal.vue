@@ -6,6 +6,7 @@
     :title="`Add food to recipe`"
     :ok-title="`Add Selected Food`"
     @ok="addFood"
+    cancel-variant="outline-primary"
   >
     <b-form-file
       v-model="image"

@@ -6,6 +6,7 @@
     :title="`Add exercises to ${dayName}`"
     :ok-title="`Add Exercises (${selectedExercises.length})`"
     @ok="addExercises"
+    cancel-variant="outline-primary"
   >
     <div class="row">
       <div
