@@ -7,7 +7,7 @@
         Create your recipe now and share it with all the clients.
       </p>
       <router-link :to="{ name: 'RecipesBuilder' }" class="btn btn-primary">
-        Create your own meal
+        Create your own recipe
       </router-link>
     </div>
 
@@ -18,8 +18,10 @@
           v-for="recipe in recipes"
           :key="recipe.id"
         >
-          <router-link :to="{ name: 'SingleMeal', params: { id: recipe.id } }">
-            <MealCard :recipe="recipe" />
+          <router-link
+            :to="{ name: 'SingleRecipe', params: { id: recipe.id } }"
+          >
+            <RecipeCard :recipe="recipe" />
           </router-link>
         </div>
       </div>
@@ -61,7 +63,7 @@ export default {
   },
 
   components: {
-    MealCard: () => import("@/components/MealCard.vue"),
+    RecipeCard: () => import("@/components/RecipeCard.vue"),
   },
 };
 </script>

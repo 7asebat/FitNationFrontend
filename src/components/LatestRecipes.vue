@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="c-meals-popular-meals">
+    <div class="c-recipes-popular-recipes">
       <h1 class="u-title-font">
-        Popular <span class="text-success">Meals</span>
+        Popular <span class="text-success">Recipes</span>
       </h1>
       <p class="text-secondary">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -14,8 +14,10 @@
           v-for="recipe in recipesFiltered"
           :key="recipe.id"
         >
-          <router-link :to="{ name: 'SingleMeal', params: { id: recipe.id } }">
-            <MealCard :recipe="recipe" />
+          <router-link
+            :to="{ name: 'SingleRecipe', params: { id: recipe.id } }"
+          >
+            <RecipeCard :recipe="recipe" />
           </router-link>
         </div>
       </div>
@@ -82,7 +84,7 @@ export default {
   },
 
   components: {
-    MealCard: () => import("@/components/MealCard.vue"),
+    RecipeCard: () => import("@/components/RecipeCard.vue"),
   },
 };
 </script>

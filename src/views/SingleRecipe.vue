@@ -1,25 +1,25 @@
 <template>
   <div class="container d-flex flex-column my-3">
-    <div v-if="meal">
+    <div v-if="recipe">
       <div class="d-flex mb-5">
         <div class="mr-4">
           <img
-            v-if="meal.image"
-            :src="meal.image"
+            v-if="recipe.image"
+            :src="recipe.image"
             alt=""
-            class="c-single-meal__image"
+            class="c-single-recipe__image"
           />
           <img
             v-else
             src="@/assets/images/defaultRecipe.png"
             alt=""
-            class="c-single-meal__image"
+            class="c-single-recipe__image"
           />
         </div>
 
         <div>
-          <h1 class="u-title-font">{{ meal.name }}</h1>
-          <p class="text-secondary">{{ meal.description }}</p>
+          <h1 class="u-title-font">{{ recipe.name }}</h1>
+          <p class="text-secondary">{{ recipe.description }}</p>
 
           <button
             class="btn btn-primary"
@@ -35,9 +35,9 @@
       <h2 class="u-title-font m-0">
         Items in this <span class="text-success">recipe</span>
       </h2>
-      <p class="text-secondary">{{ meal.foods.length }} Items</p>
+      <p class="text-secondary">{{ recipe.foods.length }} Items</p>
       <FoodItemCard
-        v-for="(foodItem, i) in meal.foods"
+        v-for="(foodItem, i) in recipe.foods"
         :key="i"
         :food="foodItem"
         class="m-3"
@@ -50,7 +50,7 @@
         @ok="deleteRecipe"
       >
         you are going to delete the following recipe :
-        <b>{{ meal ? meal.name : "" }}</b
+        <b>{{ recipe ? recipe.name : "" }}</b
         >. <br />Are you sure ?
       </DeleteModal>
     </div>
@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  name: "SingleMeal",
+  name: "SingleRecipe",
 
   created() {
     this.getRecipe();
@@ -67,7 +67,7 @@ export default {
 
   data() {
     return {
-      meal: undefined,
+      recipe: undefined,
     };
   },
 
@@ -75,7 +75,7 @@ export default {
     recipeOwner() {
       const user = this.$store.state.user;
       return (
-        user.role === "nutritionist" && user.id === this.meal.nutritionist_id
+        user.role === "nutritionist" && user.id === this.recipe.nutritionist_id
       );
     },
   },
@@ -95,7 +95,7 @@ export default {
         const response = await this.axios.get(`recipes/${this.id}`);
         const recipe = response.data.data.recipe;
 
-        this.meal = recipe;
+        this.recipe = recipe;
       } catch (err) {
         this.$errorsHandler(err);
       }
@@ -103,12 +103,12 @@ export default {
 
     async deleteRecipe() {
       try {
-        await this.axios.delete(`recipes/${this.meal.id}`);
+        await this.axios.delete(`recipes/${this.recipe.id}`);
         this.$notification(
           "successNotification",
           "Recipe has been deleted successfully!"
         );
-        this.$router.push({ name: "MyMeals" });
+        this.$router.push({ name: "MyRecipes" });
       } catch (err) {
         this.$errorsHandler(err);
       }
@@ -118,7 +118,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.c-single-meal__image {
+.c-single-recipe__image {
   max-height: 150px;
   float: right;
   border-radius: $border-radius;

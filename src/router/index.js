@@ -24,6 +24,12 @@ const routes = [
       import(/* webpackChunkName: "Panel" */ "../views/Panel.vue"),
     children: [...PanelRoutes],
   },
+  {
+    path: "*",
+    name: "Error404",
+    component: () =>
+      import(/* webpackChunkName: "recipes" */ "@/views/Home/404.vue"),
+  },
 ];
 
 const router = new VueRouter({

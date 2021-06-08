@@ -2,11 +2,11 @@
   <div>
     <div class="container">
       <ImageText
-        title="Meals"
-        imgSrc="meal.png"
+        title="Recipes"
+        imgSrc="recipe.png"
         :primaryButtonText="
           loggedInUser && loggedInUser.role === 'nutritionist'
-            ? 'Create your own meal'
+            ? 'Create your own recipe'
             : ''
         "
         :primaryButtonRoute="

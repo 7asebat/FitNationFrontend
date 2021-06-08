@@ -120,7 +120,7 @@ export default {
           "successNotification",
           "Recipe created successfully"
         );
-        this.$router.push({ name: "Meals" });
+        this.$router.push({ name: "Recipes" });
       } catch (err) {
         this.$errorsHandler(err);
       }

@@ -30,7 +30,7 @@
       <b-row
         v-for="(food, i) in matchingFoods"
         :key="i"
-        :id="`mealRow-${i}`"
+        :id="`recipeRow-${i}`"
         class="rounded py-3"
       >
         <FoodCard class="col-sm-10 col-9" :food="food.food" />

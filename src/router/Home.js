@@ -39,17 +39,17 @@ export default [
   },
 
   {
-    path: "/meals",
-    name: "Meals",
+    path: "/recipes",
+    name: "Recipes",
     component: () =>
-      import(/* webpackChunkName: "meals" */ "@/views/Meals.vue"),
+      import(/* webpackChunkName: "recipes" */ "@/views/Recipes.vue"),
   },
   {
-    path: "/meals/:id",
-    name: "SingleMeal",
+    path: "/recipes/:id",
+    name: "SingleRecipe",
     props: true,
     component: () =>
-      import(/* webpackChunkName: "meals" */ "@/views/SingleMeal.vue"),
+      import(/* webpackChunkName: "recipes" */ "@/views/SingleRecipe.vue"),
   },
   {
     path: "/workout-builder",
@@ -87,7 +87,7 @@ export default [
           return { name: "MyWorkoutPlans" };
 
         case "nutritionist":
-          return { name: "MyMeals" };
+          return { name: "MyRecipes" };
 
         case "admin":
           return { name: "PanelDashboard" };
@@ -123,9 +123,9 @@ export default [
         meta: { requiresAuth: true },
       },
       {
-        path: "my-meals",
-        name: "MyMeals",
-        component: () => import("@/components/Profile/MyMeals.vue"),
+        path: "my-recipes",
+        name: "MyRecipes",
+        component: () => import("@/components/Profile/MyRecipes.vue"),
         meta: { requiresAuth: true },
       },
     ],
@@ -146,13 +146,6 @@ export default [
     name: "ListPanel",
 
     component: () =>
-      import(/* webpackChunkName: "meals" */ "@/views/ListPanel.vue"),
-  },
-
-  {
-    path: "*",
-    name: "Error404",
-    component: () =>
-      import(/* webpackChunkName: "meals" */ "@/views/Home/404.vue"),
+      import(/* webpackChunkName: "recipes" */ "@/views/ListPanel.vue"),
   },
 ];

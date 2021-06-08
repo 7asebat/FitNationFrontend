@@ -34,10 +34,10 @@
 
         <router-link
           v-if="type === 'nutritionist'"
-          :to="{ name: 'MyMeals' }"
+          :to="{ name: 'MyRecipes' }"
           class="mr-3 u-title-font profile-tab-head mb-2"
         >
-          My Meals
+          My Recipes
         </router-link>
       </div>
 

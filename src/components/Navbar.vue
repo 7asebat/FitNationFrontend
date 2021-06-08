@@ -16,8 +16,8 @@
           Workout Plans
         </router-link>
 
-        <router-link :to="{ name: 'Meals' }" class="navItem u-title-font">
-          Meals
+        <router-link :to="{ name: 'Recipes' }" class="navItem u-title-font">
+          Recipes
         </router-link>
 
         <router-link :to="{ name: 'Exercises' }" class="navItem u-title-font">
@@ -84,8 +84,8 @@
             <b-nav-item :to="{ name: 'Workouts' }" class="navItem"
               >Plans</b-nav-item
             >
-            <b-nav-item :to="{ name: 'Meals' }" class="navItem"
-              >Meals</b-nav-item
+            <b-nav-item :to="{ name: 'Recipes' }" class="navItem"
+              >Recipes</b-nav-item
             >
             <b-nav-item :to="{ name: 'Exercises' }" class="navItem"
               >Exercises</b-nav-item
