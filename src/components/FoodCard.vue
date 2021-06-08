@@ -1,9 +1,14 @@
 <template>
-  <div class="c-food-card d-flex align-items-center shadow-sm round p-0 border">
+  <div class="c-food-card d-flex shadow-sm round p-0 border">
     <BreakpointDetector @change="breakpoint = $event" />
     <div class="c-food-card__image" :class="{ 'c-overlay-image': showOverlay }">
-      <img class="w-100" v-if="food.image" :src="food.image" alt="" />
-      <img class="w-100" v-else src="@/assets/images/defaultFood.png" alt="" />
+      <img class="w-100 h-100" v-if="food.image" :src="food.image" alt="" />
+      <img
+        class="w-100 h-100"
+        v-else
+        src="@/assets/images/defaultFood.png"
+        alt=""
+      />
     </div>
     <div class="c-food-card__info p-4">
       <h4>{{ food.name }}</h4>
@@ -42,12 +47,19 @@
 
 <script>
 export default {
+  created() {
+    this.setShowOverlay();
+
+    window.addEventListener("resize", this.setShowOverlay);
+  },
+
   components: {
     BreakpointDetector: () => import("@/components/BreakpointDetector"),
   },
 
   data: () => ({
     breakpoint: "",
+    showOverlay: false,
     keys: ["calories", "protein", "carbs", "sugar"],
     units: {
       calories: "KCAL",
@@ -56,19 +68,22 @@ export default {
       sugar: "g",
     },
   }),
+
   props: {
     food: {
       required: true,
     },
   },
 
+  methods: {
+    setShowOverlay() {
+      this.showOverlay = window.innerWidth <= 573;
+    },
+  },
+
   computed: {
     foodTypes() {
       return this.$store.state.enums.foodTypes;
-    },
-
-    showOverlay() {
-      return this.breakpoint === "sm" || this.breakpoint === "xs";
     },
   },
 };
