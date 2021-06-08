@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container py-4">
     <b-card no-body class="rounded bg-light">
       <div id="inbox-compact">
         <div v-if="contactIdx === null" class="col bg-light rounded px-0">
@@ -11,7 +11,7 @@
             <div>{{ contact }}</div>
             <div
               class="btn rounded-circle bg-primary text-light c-square"
-              @click="contactIdx = i"
+              @click="viewContact(i)"
             >
               <i class="fas fa-arrow-right"></i>
             </div>
@@ -67,7 +67,6 @@ export default {
   data: () => ({
     breakpoint: "",
     message: "",
-    fields: [{ key: "from" }, { key: "text", label: "" }],
     contactIdx: null,
     inbox: [],
   }),
@@ -79,8 +78,9 @@ export default {
   },
 
   methods: {
-    tabChangeHandler(newTab) {
-      this.contactIdx = newTab;
+    viewContact(i) {
+      this.contactIdx = i;
+      this.$router.push("#chat-card-root");
     },
 
     async getMessages(id) {
@@ -119,7 +119,7 @@ export default {
           { body: this.message }
         );
         const message = response.data.message;
-        this.inbox[this.contactIdx].messages.push(message);
+        this.inbox[this.contactIdx].messages.unshift(message);
         this.message = "";
       } catch (err) {
         this.$errorsHandler(err);

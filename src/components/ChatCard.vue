@@ -1,10 +1,9 @@
 <template>
-  <div id="root" class="container-fluid">
-    <b-row
-      v-for="(text, i) in textsSorted"
-      :key="i"
-      :align-h="alignment[role(text)]"
-    >
+  <div
+    id="chat-card-root"
+    class="d-flex flex-column flex-column-reverse container-fluid c-chat-card"
+  >
+    <b-row v-for="(text, i) in texts" :key="i" :align-h="alignment[role(text)]">
       <div
         class="c-text alert"
         :class="`${textAlignment[role(text)]} ${variant[role(text)]}`"
@@ -42,25 +41,22 @@ export default {
       return this.$store.state.user.role === text.sent_by ? 1 : 0;
     },
   },
-
-  computed: {
-    textsSorted() {
-      let sorted = this.texts.slice();
-      sorted = sorted.sort((a, b) => {
-        const da = new Date(a.created_at);
-        const db = new Date(b.created_at);
-        return da - db;
-      });
-
-      return sorted;
-    },
-  },
 };
 </script>
 
 <style scoped lang="scss">
+.c-chat-card {
+  max-height: 700px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.c-chat-card::-webkit-scrollbar {
+}
+
 .c-text {
   min-width: 60% !important;
+  max-width: 90%;
 }
 
 .c-text-time {

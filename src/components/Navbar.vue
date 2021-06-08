@@ -51,21 +51,36 @@
           </router-link>
         </div>
 
-        <b-dropdown v-else class="ml-3 c-navbar__user_dropdown">
-          <template #button-content>
-            <h4 class="u-title-font d-inline mr-3">
-              Hi, <span class="text-primary">{{ loggedInUser.name }}</span>
-            </h4>
-          </template>
-          <b-dropdown-item :to="{ name: 'Profile' }">
-            <i class="fas fa-user"></i>
-            <span class="ml-2">Profile</span>
-          </b-dropdown-item>
-          <b-dropdown-item @click.prevent="logout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span class="ml-2">Logout</span>
-          </b-dropdown-item>
-        </b-dropdown>
+        <div v-else class="d-inline-block">
+          <b-dropdown class="ml-3 c-navbar__user_dropdown">
+            <template #button-content>
+              <h4 class="u-title-font d-inline mr-3">
+                Hi, <span class="text-primary">{{ loggedInUser.name }}</span>
+              </h4>
+            </template>
+            <b-dropdown-item :to="{ name: 'Profile' }">
+              <i class="fas fa-user"></i>
+              <span class="ml-2">Profile</span>
+            </b-dropdown-item>
+            <b-dropdown-item @click.prevent="logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span class="ml-2">Logout</span>
+            </b-dropdown-item>
+          </b-dropdown>
+
+          <router-link :to="{ name: 'Inbox' }">
+            <div
+              class="
+                d-inline-block
+                rounded-circle
+                border border-dark
+                c-square-div
+              "
+            >
+              <i class="fas fa-envelope mx-auto"></i>
+            </div>
+          </router-link>
+        </div>
       </nav>
 
       <div class="d-block d-lg-none">
@@ -130,6 +145,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.c-square-div {
+  height: 35px;
+  width: 35px;
+  text-align: center;
+  line-height: 35px;
+  color: $dark;
+}
+
+.c-square-div:hover {
+  color: $primary;
+}
+
 .logo * {
   font-family: "Bebas Neue", cursive;
 }
