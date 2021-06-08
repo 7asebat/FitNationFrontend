@@ -65,13 +65,8 @@
           </div>
         </b-row>
 
-        <b-row v-for="(item, i) in day.specs" :key="i" class="px-2">
-          <div class="col-10 py-3 px-0">
-            <FoodCard :food="item.food" class="border" />
-          </div>
-          <div class="col-1 d-flex align-items-center p-0 pl-3">
-            <h1>x {{ item.quantity }}</h1>
-          </div>
+        <b-row v-for="item in day.specs" :key="item.id" class="mb-4">
+          <FoodCard :food="item.food" :quantity="item.quantity" class="w-100" />
         </b-row>
 
         <b-row align-h="end">

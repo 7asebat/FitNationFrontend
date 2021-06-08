@@ -1,52 +1,57 @@
 <template>
   <div class="c-food-card d-flex shadow-sm round p-0 border">
     <BreakpointDetector @change="breakpoint = $event" />
-    <div class="c-food-card__image" :class="{ 'c-overlay-image': showOverlay }">
-      <img class="w-100 h-100" v-if="food.image" :src="food.image" alt="" />
+
+    <div
+      class="c-food-card__image-container"
+      :class="{ 'c-overlay-image': showOverlay }"
+    >
       <img
-        class="w-100 h-100"
+        class="w-100 c-food-card__image"
+        v-if="food.image"
+        :src="food.image"
+        alt=""
+      />
+      <img
+        class="w-100 c-food-card__image"
         v-else
         src="@/assets/images/defaultFood.png"
         alt=""
       />
     </div>
-    <div class="c-food-card__info p-4">
-      <h4>{{ food.name }}</h4>
-      <div id="nf-div" class="d-flex flex-row">
-        <div class="col-1 px-0 mr-1" id="nf-div-heart">
-          <i class="fas fa-heartbeat text-success"></i>
-        </div>
-        <div id="nf-div-info">
-          <div id="nf-title" class="d-flex flex-row text-success">
-            Nutrition Facts
-          </div>
-          <div id="nf-items" class="d-flex flex-row text-center pb-2">
-            <div v-for="(key, i) in keys" :key="i" class="col px-2">
-              <div class="c-nf-value">
-                {{ food.nutrition_facts[key]
-                }}<span class="c-nf-unit">{{ units[key] }}</span>
+
+    <div class="c-food-card__info p-4 d-flex w-100 flex-wrap">
+      <div>
+        <h2 class="u-title-font m-0">{{ food.name }}</h2>
+        <span class="bg-success round-corner px-3 text-light mb-3">{{
+          foodTypes[food.food_type]
+        }}</span>
+
+        <div id="nf-div" class="d-flex flex-row">
+          <div id="nf-div-info">
+            <div id="nf-items" class="d-flex flex-row text-center pb-2">
+              <div v-for="(key, i) in keys" :key="i" class="col px-2">
+                <div class="c-nf-value">
+                  <span class="u-title-font">{{
+                    food.nutrition_facts[key]
+                  }}</span>
+
+                  <span class="c-nf-unit">{{ units[key] }}</span>
+                </div>
+                <div class="c-nf-type">{{ key }}</div>
               </div>
-              <div class="c-nf-type">{{ key }}</div>
             </div>
           </div>
         </div>
       </div>
-      <p>
-        <i class="fas fa-utensils text-success"></i>
-        <span class="text-success mx-2">Food Type:</span>
-        <span>{{ foodTypes[food.food_type] }}</span>
-      </p>
-    </div>
-    <div
-      class="d-flex flex-column justify-content-center ml-auto"
-      v-if="food.quantity"
-    >
-      <div class="c-food-card__quantity text-right px-4">
-        <div class="u-title-font">
-          <span class="h1">{{ food.quantity }}</span>
+
+      <div class="ml-auto" v-if="food.quantity || quantity">
+        <div class="u-title-font text-right">
+          <!-- <span class="h3 text-success">x</span> -->
           <span class="h3 text-success">x</span>
+          <span class="h1">{{ food.quantity || quantity }}</span>
+          <h5 class="m-0 u-title-font">quantity</h5>
         </div>
-        <h5 class="m-0 u-title-font">quantity</h5>
       </div>
     </div>
   </div>
@@ -80,6 +85,7 @@ export default {
     food: {
       required: true,
     },
+    quantity: [String, Number],
   },
 
   methods: {
@@ -123,7 +129,7 @@ export default {
   visibility: visible;
 }
 
-.c-food-card__image {
+.c-food-card__image-container {
   flex: 0 0 220px;
 }
 
@@ -143,6 +149,9 @@ export default {
   object-fit: cover;
 }
 
-.c-food-card__info {
+.c-food-card__image {
+  height: 100%;
+  max-height: 200px;
+  object-fit: cover;
 }
 </style>
