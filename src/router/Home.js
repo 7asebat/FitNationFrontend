@@ -6,18 +6,27 @@ export default [
     name: "Index",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Index.vue"),
+    meta: {
+      title: "FitNation",
+    },
   },
   {
     path: "/about",
     name: "About",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    meta: {
+      title: "About",
+    },
   },
   {
     path: "/workouts",
     name: "Workouts",
     component: () =>
       import(/* webpackChunkName: "workouts" */ "@/views/Workouts.vue"),
+    meta: {
+      title: "Workouts",
+    },
   },
 
   {
@@ -28,6 +37,9 @@ export default [
       import(/* webpackChunkName: "workouts" */ "@/views/SingleWorkout.vue"),
     meta: {
       roles: ["client", "trainer"],
+      meta: {
+        title: "Workout",
+      },
     },
   },
 
@@ -36,6 +48,9 @@ export default [
     name: "Exercises",
     component: () =>
       import(/* webpackChunkName: "exercises" */ "@/views/Exercises.vue"),
+    meta: {
+      title: "Exercises",
+    },
   },
 
   {
@@ -43,6 +58,9 @@ export default [
     name: "Recipes",
     component: () =>
       import(/* webpackChunkName: "recipes" */ "@/views/Recipes.vue"),
+    meta: {
+      title: "Recipes",
+    },
   },
   {
     path: "/recipes/:id",
@@ -50,6 +68,9 @@ export default [
     props: true,
     component: () =>
       import(/* webpackChunkName: "recipes" */ "@/views/SingleRecipe.vue"),
+    meta: {
+      title: "Recipe",
+    },
   },
   {
     path: "/workout-builder",
@@ -58,6 +79,7 @@ export default [
       import(/* webpackChunkName: "workouts" */ "@/views/WorkoutBuilder.vue"),
     meta: {
       roles: ["client", "trainer"],
+      title: "Workout Builder",
     },
   },
   {
@@ -67,6 +89,7 @@ export default [
       import(/* webpackChunkName: "recipes" */ "@/views/RecipesBuilder.vue"),
     meta: {
       roles: ["nutritionist"],
+      title: "Recipes Builder",
     },
   },
 
@@ -102,43 +125,33 @@ export default [
         path: "overview",
         name: "ProfileOverview",
         component: () => import("@/components/Profile/ProfileOverview.vue"),
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: "Profile Overview" },
       },
       {
         path: "nutrition-info",
         name: "NutritionInfo",
         component: () => import("@/components/Profile/NutritionInfo.vue"),
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: "Nutrition Info" },
       },
       {
         path: "workout-performance",
         name: "WorkoutPerformance",
         component: () => import("@/components/Profile/WorkoutPerformance.vue"),
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: "Workout Performance" },
       },
       {
         path: "my-workout-plans",
         name: "MyWorkoutPlans",
         component: () => import("@/components/Profile/MyWorkoutPlans.vue"),
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: "My Workout Plans" },
       },
       {
         path: "my-recipes",
         name: "MyRecipes",
         component: () => import("@/components/Profile/MyRecipes.vue"),
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: "My Recipes" },
       },
     ],
-  },
-
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
 
   {

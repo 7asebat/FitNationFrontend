@@ -25,12 +25,26 @@
           {
             key: 'meta_data',
             label: 'Targeted Muscles',
-            formatter: 'formatExerciseType',
           },
           'actions',
         ]"
         :busy="isLoading"
       >
+        <template v-slot:cell(name)="data">
+          <h4 class="u-title-font m-0">{{ data.item.name }}</h4>
+        </template>
+
+        <template v-slot:cell(meta_data)="data">
+          <p
+            v-for="muscle in data.item.meta_data.muscle_groups"
+            :key="muscle"
+            class="m-0"
+          >
+            <i class="fas fa-angle-right"></i>
+            {{ musclesNames[muscle] }}
+          </p>
+        </template>
+
         <template v-slot:cell(actions)="data">
           <b-button
             variant="danger mr-2"
@@ -81,6 +95,9 @@ export default {
     loggedInUser() {
       return this.$store.state.user;
     },
+    musclesNames() {
+      return this.$store.state.enums.muscles;
+    },
   },
   methods: {
     async getExercises() {
@@ -114,16 +131,6 @@ export default {
       } catch (err) {
         this.$errorsHandler(err);
       }
-    },
-    formatExerciseType(exerciseMetaData) {
-      if (exerciseMetaData && exerciseMetaData.muscle_groups) {
-        const muscleIds = exerciseMetaData.muscle_groups;
-        const muscles = this.$store.state.enums.muscles;
-
-        return muscleIds.map((id) => muscles[id]).join(",");
-      }
-
-      return "";
     },
   },
 
