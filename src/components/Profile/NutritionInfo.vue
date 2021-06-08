@@ -67,7 +67,7 @@
 
         <b-row v-for="(item, i) in day.specs" :key="i" class="px-2">
           <div class="col-10 py-3 px-0">
-            <FoodCard :food="item.item" class="border" />
+            <FoodCard :food="item.food" class="border" />
           </div>
           <div class="col-1 d-flex align-items-center p-0 pl-3">
             <h1>x {{ item.quantity }}</h1>
@@ -169,25 +169,10 @@ export default {
         const nutrition_info = response.data.data.client_weight_nutritions;
 
         // For each day
-        let populated = nutrition_info.map(async (info) => {
+        let populated = nutrition_info.map((info) => {
           // Collect all nutrition specifications
-          let specs = info.nutrition_specifications.map(async (spec) => {
-            const specification = await this.getNutritionSpec(spec.id);
-            return specification;
-          });
-          specs = await Promise.all(specs);
-
+          let specs = info.nutrition_specifications;
           // Expand foods/recipes in each specification
-          specs = specs.map(async (spec) => {
-            if (spec.food_id) {
-              const food = await this.getFood(spec.food_id);
-              return { quantity: spec.quantity, item: food };
-            } else if (spec.recipe_id) {
-              const recipe = await this.getRecipe(spec.recipe_id);
-              return { quantity: spec.quantity, item: recipe };
-            }
-          });
-          specs = await Promise.all(specs);
 
           return {
             date: new Date(info.date),
@@ -321,7 +306,7 @@ export default {
         // For each specification
         if (!day.specs) return aggregated;
         day.specs.forEach((item) => {
-          const nf = item.item.nutrition_facts;
+          const nf = item.food.nutrition_facts;
           const q = item.quantity;
           // For each macro
           for (const key in nf) {
