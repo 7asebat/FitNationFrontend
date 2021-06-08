@@ -1,5 +1,12 @@
 <template>
   <div class="c-404 container text-center">
+    <router-link
+      class="logo d-inline-block u-title-font"
+      :to="{ name: 'Index' }"
+    >
+      <h1 class="text-dark">Fit<span class="text-primary">Nation</span></h1>
+    </router-link>
+
     <h1 class="mb-4"><i class="fas fa-bomb text-dark"></i></h1>
     <h1 class="u-title-font text-primary">Oops!</h1>
     <h2 class="u-title-font text-dark">Looks like you're lost</h2>
@@ -14,6 +21,9 @@
 </template>
 
 <style lang="scss" scoped>
+.logo {
+  margin-bottom: 100px;
+}
 .c-404 {
   padding: 150px 0;
 }
