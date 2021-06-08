@@ -24,6 +24,9 @@ export default [
     props: true,
     component: () =>
       import(/* webpackChunkName: "workouts" */ "@/views/SingleWorkout.vue"),
+    meta: {
+      roles: ["client", "trainer"],
+    },
   },
 
   {

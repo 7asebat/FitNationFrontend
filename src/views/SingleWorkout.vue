@@ -1,8 +1,20 @@
 <template>
   <div>
     <div class="container">
-      <WorkoutInfo :workout="workout" class="my-5" />
-      <WorkoutExercises :days="workout.exercise_instances" />
+      <div v-if="workout">
+        <WorkoutInfo :workout="workout" class="my-5" />
+        <WorkoutExercises :days="workout.exercise_instances" />
+      </div>
+
+      <div v-else class="py-5 text-center">
+        <h1 class="u-title-font">No workout found</h1>
+        <p class="text-secondary">
+          No workout with this id was found in our database.
+        </p>
+        <router-link :to="{ name: 'Index' }" class="btn btn-primary"
+          >Back to homepage</router-link
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +31,7 @@ export default {
 
   data() {
     return {
-      workout: {},
+      workout: undefined,
     };
   },
 
