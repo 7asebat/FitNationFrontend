@@ -1,7 +1,7 @@
 <template>
   <div class="container d-flex flex-column my-3">
     <div v-if="recipe">
-      <div class="d-flex mb-5">
+      <div class="c-single-recipe__header-container d-flex flex-wrap mb-5">
         <div class="mr-4">
           <img
             v-if="recipe.image"
@@ -40,7 +40,7 @@
         v-for="(foodItem, i) in recipe.foods"
         :key="i"
         :food="foodItem"
-        class="m-3"
+        class="mb-3"
       />
 
       <DeleteModal
@@ -122,5 +122,12 @@ export default {
   max-height: 150px;
   float: right;
   border-radius: $border-radius;
+}
+
+@media screen and (max-width: 454px) {
+  .c-single-recipe__header-container {
+    justify-content: center;
+    text-align: center;
+  }
 }
 </style>

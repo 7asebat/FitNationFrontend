@@ -7,8 +7,8 @@
       velit vero ratione, unde provident vel fuga ut doloribus minus.
     </p>
 
-    <div class="row my-5">
-      <div class="col-12 col-md-6">
+    <div class="row mt-5">
+      <div class="col-12 col-md-12 col-lg-6">
         <h3 class="mb-3 u-title-font">Recipe Info</h3>
 
         <b-form-input
@@ -32,12 +32,8 @@
           max-rows="8"
           class="mb-3"
         ></b-form-textarea>
-
-        <button class="btn btn-primary" @click.prevent="addRecipe">
-          Save Recipe
-        </button>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-12 col-lg-6">
         <h3 class="mb-3 u-title-font">Food in this recipe</h3>
         <div class="c-recipes-builder__food-container round-corner">
           <div
@@ -63,6 +59,10 @@
         </div>
       </div>
     </div>
+
+    <button class="btn btn-primary mt-3" @click.prevent="addRecipe">
+      Save Recipe
+    </button>
 
     <BuilderFoodModal @addFood="addFood" />
   </div>
@@ -164,10 +164,11 @@ export default {
   background: rgba(0, 0, 0, 0.7);
   opacity: 0;
   transition: all 0.3s;
+  z-index: 2;
 }
 
 .c-recipes-builder__food-container {
-  max-height: 400px;
+  max-height: 600px;
   overflow: scroll;
 }
 </style>
