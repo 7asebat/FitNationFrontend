@@ -36,11 +36,18 @@
         <span class="text-success mx-2">Food Type:</span>
         <span>{{ foodTypes[food.food_type] }}</span>
       </p>
-      <p v-if="food.quantity">
-        <i class="fab fa-slack-hash text-success"></i>
-        <span class="text-success mx-2">Quantity:</span>
-        <span>{{ food.quantity }}</span>
-      </p>
+    </div>
+    <div
+      class="d-flex flex-column justify-content-center ml-auto"
+      v-if="food.quantity"
+    >
+      <div class="c-food-card__quantity text-right px-4">
+        <div class="u-title-font">
+          <span class="h1">{{ food.quantity }}</span>
+          <span class="h3 text-success">x</span>
+        </div>
+        <h5 class="m-0 u-title-font">quantity</h5>
+      </div>
     </div>
   </div>
 </template>
