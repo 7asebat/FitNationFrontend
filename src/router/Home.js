@@ -128,6 +128,12 @@ export default [
         component: () => import("@/components/Profile/MyRecipes.vue"),
         meta: { requiresAuth: true },
       },
+      {
+        path: "inbox",
+        name: "Inbox",
+        component: () => import("@/components/Profile/Inbox.vue"),
+        meta: { requiresAuth: true },
+      },
     ],
   },
 
