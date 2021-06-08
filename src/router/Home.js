@@ -1,3 +1,5 @@
+import store from "@/store/index";
+
 export default [
   {
     path: "",
@@ -72,7 +74,28 @@ export default [
     path: "/profile",
     name: "Profile",
     component: () => import("@/views/Profile.vue"),
-    redirect: { name: "ProfileOverview" },
+    redirect: () => {
+      const user = store.state.user;
+      if (!user) return { name: "Index" };
+
+      const userRole = user.role;
+      switch (userRole) {
+        case "client":
+          return { name: "ProfileOverview" };
+
+        case "trainer":
+          return { name: "MyWorkoutPlans" };
+
+        case "nutritionist":
+          return { name: "MyMeals" };
+
+        case "admin":
+          return { name: "PanelDashboard" };
+
+        default:
+          return { name: "Index" };
+      }
+    },
     meta: { requiresAuth: true },
     children: [
       {

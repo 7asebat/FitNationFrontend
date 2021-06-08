@@ -57,7 +57,7 @@
               Hi, <span class="text-primary">{{ loggedInUser.name }}</span>
             </h4>
           </template>
-          <b-dropdown-item :to="{ name: 'ProfileOverview' }">
+          <b-dropdown-item :to="{ name: 'Profile' }">
             <i class="fas fa-user"></i>
             <span class="ml-2">Profile</span>
           </b-dropdown-item>

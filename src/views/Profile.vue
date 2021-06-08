@@ -5,6 +5,7 @@
     <div class="container">
       <div class="text-center">
         <router-link
+          v-if="type === 'client'"
           :to="{ name: 'ProfileOverview' }"
           class="mr-3 u-title-font profile-tab-head mb-2"
           >Overview</router-link
