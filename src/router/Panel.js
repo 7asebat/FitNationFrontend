@@ -4,21 +4,21 @@ export default [
     name: "PanelDashboard",
     component: () =>
       import(/* webpackChunkName: "panel" */ "@/views/Panel/Dashboard.vue"),
-    meta: {},
+    meta: { roles: ["admin"] },
   },
   {
     path: "clients",
     name: "PanelListClients",
     component: () =>
       import(/* webpackChunkName: "panel" */ "@/views/Panel/ListClients.vue"),
-    meta: {},
+    meta: { roles: ["admin"] },
   },
   {
     path: "trainers",
     name: "PanelListTrainers",
     component: () =>
       import(/* webpackChunkName: "panel" */ "@/views/Panel/ListTrainers.vue"),
-    meta: {},
+    meta: { roles: ["admin"] },
   },
   {
     path: "nutritionists",
@@ -27,20 +27,20 @@ export default [
       import(
         /* webpackChunkName: "panel" */ "@/views/Panel/ListNutritionists.vue"
       ),
-    meta: {},
+    meta: { roles: ["admin"] },
   },
   {
     path: "food",
     name: "PanelListFood",
     component: () =>
       import(/* webpackChunkName: "panel" */ "@/views/Panel/ListFood.vue"),
-    meta: {},
+    meta: { roles: ["admin"] },
   },
   {
     path: "exercises",
     name: "PanelListExercises",
     component: () =>
       import(/* webpackChunkName: "panel" */ "@/views/Panel/ListExercises.vue"),
-    meta: {},
+    meta: { roles: ["admin"] },
   },
 ];
