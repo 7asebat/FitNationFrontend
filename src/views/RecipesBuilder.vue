@@ -1,6 +1,6 @@
 <template>
   <div class="container my-5">
-    <h1>Recipes Builder</h1>
+    <h1 class="u-title-font">Recipes Builder</h1>
     <p class="text-secondary">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi eveniet
       ea maxime natus laboriosam, sunt nesciunt magnam at inventore, commodi
@@ -9,7 +9,7 @@
 
     <div class="row my-5">
       <div class="col-12 col-md-6">
-        <h3 class="mb-3">Recipe Info</h3>
+        <h3 class="mb-3 u-title-font">Recipe Info</h3>
 
         <b-form-input
           v-model="recipeName"
@@ -38,7 +38,7 @@
         </button>
       </div>
       <div class="col-12 col-md-6">
-        <h3 class="mb-3">Food in this recipe</h3>
+        <h3 class="mb-3 u-title-font">Food in this recipe</h3>
         <div class="c-recipes-builder__food-container round-corner">
           <div
             class="c-recipes-builder__food-card-container mb-3"
@@ -72,7 +72,7 @@
 export default {
   data() {
     return {
-      recipeImage: "",
+      recipeImage: undefined,
       recipeName: "",
       recipeDescription: "",
       food: [],
@@ -88,14 +88,33 @@ export default {
   methods: {
     async addRecipe() {
       try {
-        const foods = this.food.map((foodItem) => foodItem.id).join(",");
-        const payload = new FormData();
-        payload.append("name", this.recipeName);
-        payload.append("description", this.recipeDescription);
-        payload.append("foods", foods);
-        payload.append("image", this.recipeImage);
+        const foods = this.food.map((foodItem) => ({
+          id: foodItem.id,
+          quantity: foodItem.quantity,
+        }));
 
-        await this.axios.post("recipes", payload);
+        const payload = {
+          recipe: {
+            name: this.recipeName,
+            description: this.recipeDescription,
+            foods,
+          },
+        };
+
+        const response = await this.axios.post("recipes", payload);
+
+        const recipe = response.data.data.recipe;
+
+        if (this.recipeImage) {
+          try {
+            const payload = new FormData();
+            payload.append("image", this.recipeImage);
+
+            await this.axios.patch(`recipes/${recipe.id}/image`, payload);
+          } catch (err) {
+            this.$errorsHandler(new Error("Failed to upload recipe image"));
+          }
+        }
 
         this.$notification(
           "successNotification",

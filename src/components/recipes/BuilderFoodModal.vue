@@ -18,7 +18,7 @@
               'c-builder-food-modal__selected-overlay--selected':
                 foodItem.selected,
             }"
-            class="c-builder-food-modal__selected-overlay"
+            class="c-builder-food-modal__selected-overlay p-4"
           >
             <h1
               class="
@@ -29,7 +29,14 @@
                 h-100
               "
             >
-              <i class="fas fa-check-circle"></i>
+              <b-form-input
+                class="c-builder-food-modal__quantity-input"
+                type="number"
+                v-model="foodItem.quantity"
+                placeholder="Quantity"
+                @click.stop=""
+              ></b-form-input>
+
             </h1>
           </div>
           <FoodItemCard :food="foodItem" />
@@ -53,7 +60,7 @@ export default {
 
   computed: {
     selectedFood() {
-      return this.food.filter((foodItem) => foodItem.selected);
+      return this.food.filter((foodItem) => foodItem.selected && foodItem.quantity);
     },
   },
 
@@ -65,6 +72,7 @@ export default {
 
         foods = foods.map((food) => {
           food.selected = false;
+          food.quantity = undefined;
           return food;
         });
 
@@ -108,8 +116,14 @@ export default {
   border-radius: $border-radius;
   transition: all 0.3s;
   opacity: 0;
+  visibility: hidden;
 }
 .c-builder-food-modal__selected-overlay--selected {
   opacity: 1;
+  visibility: visible;
+}
+.c-builder-food-modal__quantity-input{
+  max-width: 300px;
+  margin: 0 auto;
 }
 </style>
