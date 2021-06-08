@@ -3,15 +3,16 @@
     <b-row
       v-for="(text, i) in textsSorted"
       :key="i"
-      :align-h="alignment[text.type]"
+      :align-h="alignment[role(text)]"
     >
       <div
         class="c-text alert"
-        :class="`${textAlignment[text.type]} ${variant[text.type]}`"
+        :class="`${textAlignment[role(text)]} ${variant[role(text)]}`"
       >
-        {{ text.text }} <br />
+        {{ text.body }} <br />
         <span class="c-text-time">
-          {{ text.date.toTimeString().slice(0, 5) }}
+          <!-- HH:MM -->
+          {{ timestamp(text) }}
         </span>
       </div>
     </b-row>
@@ -26,24 +27,32 @@ export default {
   },
 
   data: () => ({
-    alignment: {
-      incoming: "start",
-      outgoing: "end",
-    },
-    textAlignment: {
-      incoming: "text-left",
-      outgoing: "text-right",
-    },
-    variant: {
-      incoming: "alert-primary",
-      outgoing: "alert-dark",
-    },
+    alignment: ["start", "end"],
+    textAlignment: ["text-left", "text-right"],
+    variant: ["alert-primary", "alert-dark"],
   }),
+
+  methods: {
+    timestamp(text) {
+      const date = new Date(text.created_at);
+      return date.toTimeString().slice(0, 5);
+    },
+
+    role(text) {
+      return this.$store.state.user.role === text.sent_by ? 1 : 0;
+    },
+  },
 
   computed: {
     textsSorted() {
-      const sorted = this.texts.slice();
-      return sorted.sort((a, b) => a.date - b.date);
+      let sorted = this.texts.slice();
+      sorted = sorted.sort((a, b) => {
+        const da = new Date(a.created_at);
+        const db = new Date(b.created_at);
+        return da - db;
+      });
+
+      return sorted;
     },
   },
 };
