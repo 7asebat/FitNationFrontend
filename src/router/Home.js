@@ -36,9 +36,7 @@ export default [
     component: () =>
       import(/* webpackChunkName: "workouts" */ "@/views/SingleWorkout.vue"),
     meta: {
-      meta: {
-        title: "Workout",
-      },
+      title: "Workout",
     },
   },
 

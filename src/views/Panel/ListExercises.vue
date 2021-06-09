@@ -62,6 +62,19 @@
           </div>
         </template>
       </b-table>
+
+      <b-pagination
+        v-model="meta.page"
+        :total-rows="meta.total"
+        :per-page="meta.limit"
+        @change="
+          (page) => {
+            getExercises(page);
+          }
+        "
+        align="right"
+        first-number
+      ></b-pagination>
     </b-card>
 
     <DeleteModal
@@ -89,6 +102,7 @@ export default {
       isLoading: false,
       exercises: [],
       exerciseToDelete: "",
+      meta: {},
     };
   },
   computed: {
@@ -100,13 +114,20 @@ export default {
     },
   },
   methods: {
-    async getExercises() {
+    async getExercises(exercisesPage) {
       this.isLoading = true;
       try {
-        const response = await this.axios.get("exercises");
+        const response = await this.axios.get(
+          `exercises?page=${exercisesPage}`
+        );
         const { exercises } = response.data.data;
 
         this.exercises = exercises;
+
+        const { count, limit, page, total } = response.data;
+        const meta = { count, limit, page, total };
+
+        this.meta = meta;
       } catch (err) {
         this.$errorsHandler(err);
       }
