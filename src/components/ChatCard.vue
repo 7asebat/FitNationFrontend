@@ -101,7 +101,7 @@ export default {
 
 <style scoped lang="scss">
 .c-chat-card {
-  max-height: 700px;
+  height: 700px;
   overflow-y: scroll;
   overflow-x: hidden;
 }

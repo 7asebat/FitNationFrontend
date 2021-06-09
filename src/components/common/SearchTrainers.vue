@@ -18,7 +18,10 @@
     </b-input-group>
 
     <div v-for="trainer in trainers" :key="trainer.id">
-      <div class="c-search-trainer__trainer-card d-flex align-items-center p-3">
+      <div
+        class="c-search-trainer__trainer-card d-flex align-items-center p-3"
+        @click="selectTrainer(trainer)"
+      >
         <div class="c-search-trainer__trainer-image">
           <img
             v-if="trainer.avatar"
@@ -77,6 +80,11 @@ export default {
       } catch (err) {
         this.$errorsHandler(err);
       }
+    },
+
+    selectTrainer(trainer) {
+      this.$emit("newChat", trainer);
+      this.$bvModal.hide("c-search-trainers-modal");
     },
   },
 };
