@@ -30,6 +30,19 @@
         <ExerciseCard :data="exercise" />
       </div>
     </div>
+
+    <b-pagination
+      v-model="meta.page"
+      :total-rows="meta.total"
+      :per-page="meta.limit"
+      @change="
+        (page) => {
+          getExercises(page);
+        }
+      "
+      align="right"
+      first-number
+    ></b-pagination>
   </div>
 </template>
 
@@ -38,12 +51,13 @@ export default {
   name: "PopularExercises",
 
   created() {
-    this.getExercises();
+    this.getExercises(1);
   },
 
   data: () => ({
     popularExercises: [],
     isLoading: false,
+    meta: {},
   }),
 
   props: {
@@ -60,7 +74,7 @@ export default {
   },
 
   methods: {
-    async getExercises() {
+    async getExercises(exercisesPage) {
       this.isLoading = true;
       try {
         let response;
@@ -70,9 +84,15 @@ export default {
           );
 
           response = await this.axios.get(
-            `exercises/muscle_group?muscle_group=${muscleGroup}`
+            `exercises/muscle_group?muscle_group=${muscleGroup}&page=${exercisesPage}`
           );
-        } else response = await this.axios.get("exercises");
+        } else
+          response = await this.axios.get(`exercises?page=${exercisesPage}`);
+
+        const { count, limit, page, total } = response.data;
+        const meta = { count, limit, page, total };
+
+        this.meta = meta;
 
         this.popularExercises = response.data.data.exercises;
       } catch (err) {
@@ -88,7 +108,7 @@ export default {
 
   watch: {
     muscleGroup() {
-      this.getExercises();
+      this.getExercises(1);
     },
   },
 };
