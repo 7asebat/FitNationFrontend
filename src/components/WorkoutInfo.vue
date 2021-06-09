@@ -18,23 +18,12 @@
             <button
               class="btn btn-primary"
               @click="chooseWorkout"
-              v-if="
-                loggedInUser.role === 'client' &&
-                (!loggedInUser.active_workout_plan ||
-                  loggedInUser.active_workout_plan.id !== workout.id)
-              "
+              v-if="canChooseWorkout"
             >
               Choose this workout
             </button>
 
-            <h4
-              v-if="
-                loggedInUser.role === 'client' &&
-                loggedInUser.active_workout_plan &&
-                loggedInUser.active_workout_plan.id === workout.id
-              "
-              class="u-title-font text-success"
-            >
+            <h4 v-if="isActiveWorkout" class="u-title-font text-success">
               Active workout
             </h4>
           </div>
@@ -57,10 +46,6 @@
           <span class="mx-2 text-dark">{{ levelNames[workout.level] }}</span>
         </p>
 
-        <!-- <p class="my-1 c-workout-card-workout-property">
-          <span class="text-danger"><i class="fas fa-running"></i></span>
-          <span class="mx-2 text-dark">{{ workout.exercises }} Exercises</span>
-        </p> -->
         <p class="my-1 c-workout-card-workout-property">
           <span class="text-danger"><i class="fas fa-dumbbell"></i></span>
           <span class="mx-2 text-dark">
@@ -94,6 +79,26 @@ export default {
   },
 
   computed: {
+    isActiveWorkout() {
+      const user = this.loggedInUser;
+      if (!user) return false;
+
+      const isClient = user.role === "client";
+      const activePlan = user.active_workout_plan;
+
+      return isClient && activePlan && activePlan.id == this.workout.id;
+    },
+
+    canChooseWorkout() {
+      const user = this.loggedInUser;
+      if (!user) return false;
+
+      const isClient = user.role === "client";
+      const activePlan = user.active_workout_plan;
+
+      return isClient && (!activePlan || activePlan.id != this.workout.id);
+    },
+
     levelNames() {
       return this.$store.state.enums.workoutLevels;
     },
