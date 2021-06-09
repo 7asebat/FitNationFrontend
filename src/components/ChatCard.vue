@@ -33,7 +33,7 @@
       </template>
       <b-form-input
         v-model="message"
-        class="border-right-0 text-right"
+        class="border-right-0"
         @keyup.enter="sendText"
       />
     </b-input-group>

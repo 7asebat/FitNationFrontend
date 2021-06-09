@@ -2,7 +2,13 @@
   <div class="container py-4">
     <b-card no-body class="rounded overflow-hidden">
       <div class="row c-inbox__container">
-        <div class="c-inbox__users col-4">
+        <div
+          class="c-inbox__users col-12 col-lg-4 d-lg-block"
+          :class="{
+            'd-none': selectedConversation,
+            'd-block': !selectedConversation,
+          }"
+        >
           <div class="bg-light h-100">
             <div
               class="
@@ -26,8 +32,12 @@
                 v-for="contact in conversations"
                 :key="contact.id"
                 class="p-3 d-flex flex-row border-bottom c-inbox__user"
-                @click.prevent="contactIdx = contact.id"
-                :class="{ 'bg-primary': contactIdx === contact.id }"
+                @click.prevent="selectedConversation = contact"
+                :class="{
+                  'bg-primary':
+                    selectedConversation &&
+                    selectedConversation.id === contact.id,
+                }"
               >
                 <div class="c-inbox__contact-image">
                   <img
@@ -44,7 +54,11 @@
 
                 <div
                   class="ml-3"
-                  :class="{ 'text-light': contactIdx === contact.id }"
+                  :class="{
+                    'text-light':
+                      selectedConversation &&
+                      selectedConversation.id === contact.id,
+                  }"
                 >
                   <h3 class="u-title-font mb-0">{{ contact.name }}</h3>
                   <p class="m-0">{{ contact.email }}</p>
@@ -53,9 +67,23 @@
             </div>
           </div>
         </div>
-        <div class="c-inbox__chats col-8 bg-white h-100">
+        <div
+          class="c-inbox__chats col-lg-8 col-12 bg-white h-100"
+          v-if="selectedConversation"
+        >
+          <div class="d-flex align-items-center p-3 bg-light d-block d-lg-none">
+            <div @click.prevent="selectedConversation = null">
+              <i
+                class="fas fa-chevron-left h4 text-primary c-inbox__back-btn"
+              ></i>
+            </div>
+            <h3 class="u-title-font ml-4">
+              {{ selectedConversation.name }}
+            </h3>
+          </div>
+
           <div class="p-4 h-100">
-            <ChatCard :chatId="contactIdx" />
+            <ChatCard :chatId="selectedConversation.id" />
           </div>
         </div>
       </div>
@@ -82,6 +110,7 @@ export default {
     breakpoint: "",
     message: "",
     contactIdx: null,
+    selectedConversation: undefined,
     inbox: [],
     conversations: [],
   }),
@@ -97,7 +126,7 @@ export default {
       if (!this.conversations.find((conv) => conv.id == trainer.id))
         this.conversations.unshift(trainer);
 
-      this.contactIdx = trainer.id;
+      this.selectedConversation = trainer;
     },
 
     async getConversations() {
@@ -105,7 +134,7 @@ export default {
         const response = await this.axios.get("messaging/conversations");
         const conversations = response.data.conversations;
 
-        if (conversations.length) this.contactIdx = conversations[0].id;
+        if (conversations.length) this.selectedConversation = conversations[0];
         this.conversations = conversations;
       } catch (err) {
         this.$errorsHandler(err);
@@ -159,6 +188,10 @@ export default {
 }
 
 .c-inbox__user {
+  cursor: pointer;
+}
+
+.c-inbox__back-btn {
   cursor: pointer;
 }
 </style>
