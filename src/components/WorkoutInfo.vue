@@ -19,8 +19,9 @@
               class="btn btn-primary"
               @click="chooseWorkout"
               v-if="
-                !loggedInUser.active_workout_plan ||
-                loggedInUser.active_workout_plan.id !== workout.id
+                loggedInUser.role === 'client' &&
+                (!loggedInUser.active_workout_plan ||
+                  loggedInUser.active_workout_plan.id !== workout.id)
               "
             >
               Choose this workout
@@ -28,6 +29,7 @@
 
             <h4
               v-if="
+                loggedInUser.role === 'client' &&
                 loggedInUser.active_workout_plan &&
                 loggedInUser.active_workout_plan.id === workout.id
               "
