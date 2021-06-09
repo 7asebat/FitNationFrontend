@@ -15,6 +15,7 @@
         type="search"
         v-model="exerciseQuery"
         placeholder="Search Exercises"
+        @input="getExercises"
       ></b-form-input>
     </b-input-group>
 
@@ -22,7 +23,7 @@
       <div class="row rounded border-primary py-3">
         <div
           class="col-12 mb-3"
-          v-for="exercise in exercisesFiltered"
+          v-for="exercise in exercises"
           :key="exercise.id"
         >
           <div class="d-flex bg-light round-corner overflow-hidden">
@@ -88,10 +89,7 @@
         </div>
       </div>
 
-      <div
-        v-show="!exercisesFiltered.length"
-        class="text-center round-corner py-4"
-      >
+      <div v-show="!exercises.length" class="text-center round-corner py-4">
         <h1 class="u-title-font">
           No search results for :
           <span class="text-primary">{{ exerciseQuery }}</span>
@@ -109,7 +107,7 @@ export default {
   name: "ExercisePerfBuilderModal",
 
   created() {
-    this.getExercises();
+    this.getExercises(this.exerciseQuery);
   },
 
   components: {
@@ -122,14 +120,6 @@ export default {
   props: {
     modalId: String,
     activeDay: Date,
-  },
-
-  computed: {
-    exercisesFiltered() {
-      return this.exercises.filter((exercise) =>
-        exercise.name.includes(this.exerciseQuery)
-      );
-    },
   },
 
   methods: {
@@ -155,10 +145,10 @@ export default {
         this.$errorsHandler(err);
       }
     },
-    async getExercises() {
+    async getExercises(query) {
       this.isLoading = true;
       try {
-        const response = await this.axios.get("exercises");
+        const response = await this.axios.get(`exercises?q=${query}`);
         let exercises = response.data.data.exercises;
 
         exercises = exercises.map((exercise) => {
