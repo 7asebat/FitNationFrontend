@@ -96,7 +96,7 @@ export default [
     path: "inbox",
     name: "Inbox",
     component: () => import("@/components/Profile/Inbox.vue"),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, roles: ["client", "trainer"] },
   },
   {
     path: "/profile",

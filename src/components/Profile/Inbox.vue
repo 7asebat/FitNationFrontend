@@ -22,7 +22,10 @@
             >
               <h1 class="u-title-font m-0">Inbox</h1>
 
-              <div v-b-modal="'c-search-trainers-modal'">
+              <div
+                v-b-modal="'c-search-trainers-modal'"
+                v-if="loggedInUser && loggedInUser.role === 'client'"
+              >
                 <i class="fas fa-edit h5"></i>
               </div>
             </div>
@@ -132,6 +135,9 @@ export default {
   }),
 
   computed: {
+    loggedInUser() {
+      return this.$store.state.user;
+    },
     contacts() {
       return [];
     },
