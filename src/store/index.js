@@ -5,8 +5,8 @@ import enums from "./enums";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules:{
-    enums
+  modules: {
+    enums,
   },
 
   state: {
@@ -25,9 +25,10 @@ export default new Vuex.Store({
   },
   actions: {
     logout(context) {
-      context.commit("setUser", null);
-      context.commit("setToken", null);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      context.state.user = null;
+      context.state.token = null;
     },
   },
-  
 });

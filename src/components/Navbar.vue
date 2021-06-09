@@ -101,21 +101,41 @@
             <b-nav-item :to="{ name: 'Exercises' }" class="navItem"
               >Exercises</b-nav-item
             >
-            <b-nav-item :to="{ name: 'Profile' }" class="navItem"
+            <b-nav-item
+              :to="{ name: 'Profile' }"
+              class="navItem"
+              v-if="loggedInUser"
               >Profile</b-nav-item
             >
+
             <b-nav-item
-              :to="{ name: 'ListPanel', params: { type: 'nutritionist' } }"
+              :to="{ name: 'Inbox' }"
               class="navItem"
-            >
-              Search
+              v-if="loggedInUser"
+              >Inbox
             </b-nav-item>
-            <b-nav-item :to="{ name: 'Login' }" class="navItem"
+
+            <b-nav-item
+              :to="{ name: 'Login' }"
+              class="navItem"
+              v-if="!loggedInUser"
               >Login</b-nav-item
             >
-            <b-nav-item :to="{ name: 'Register' }" class="navItem">
+            <b-nav-item
+              :to="{ name: 'Register' }"
+              v-if="!loggedInUser"
+              class="navItem"
+            >
               Register
             </b-nav-item>
+            <a
+              href=""
+              class="navItem"
+              @click.prevent="logout"
+              v-if="loggedInUser"
+            >
+              Logout
+            </a>
           </b-navbar-nav>
         </b-collapse>
       </div>
@@ -134,7 +154,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
-      this.$router.push({ name: "Index" });
+      if (this.$route.name != "Index") this.$router.push({ name: "Index" });
     },
   },
 };
