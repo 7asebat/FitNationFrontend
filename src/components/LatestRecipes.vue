@@ -23,6 +23,14 @@
       </div>
     </div>
 
+    <div
+      v-if="!recipesFiltered || !recipesFiltered.length"
+      class="text-center py-5 bg-light round-corner"
+    >
+      <h3 class="u-title-font">No Recipes yet</h3>
+      <p class="m-0">No nutritionists have added recipes yet!</p>
+    </div>
+
     <b-pagination
       v-if="showPagination"
       v-model="meta.page"

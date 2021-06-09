@@ -36,6 +36,14 @@
       </div>
     </div>
 
+    <div
+      v-if="!workoutsFiltered || !workoutsFiltered.length"
+      class="text-center py-5 bg-light round-corner"
+    >
+      <h3 class="u-title-font">No workouts yet</h3>
+      <p class="m-0">No trainer have built workouts yet!</p>
+    </div>
+
     <b-pagination
       v-if="showPagination"
       v-model="meta.page"
