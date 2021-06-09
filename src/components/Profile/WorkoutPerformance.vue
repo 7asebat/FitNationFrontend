@@ -72,7 +72,6 @@ export default {
       this.days = days;
     },
     changeSelectedDay(updatedDayIndex) {
-      updatedDayIndex;
       this.selectedDay = updatedDayIndex;
     },
 
@@ -100,7 +99,6 @@ export default {
     },
 
     formatExerciseType(exerciseMetaData) {
-      exerciseMetaData;
       const muscleIds = exerciseMetaData.muscle_groups;
       const muscles = this.$store.state.enums.muscles;
 

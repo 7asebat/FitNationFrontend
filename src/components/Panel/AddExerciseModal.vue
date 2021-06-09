@@ -76,7 +76,6 @@ export default {
               `exercises/${exercise.id}/image`,
               payload
             );
-            response;
           } catch (err) {
             this.$errorsHandler(new Error("Failed to upload exercise image!"));
           }

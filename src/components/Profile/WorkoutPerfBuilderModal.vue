@@ -177,26 +177,6 @@ export default {
       }
       this.isLoading = false;
     },
-    // async confirmEdits() {
-    //   try {
-    //     // const payload
-
-    //     await this.axios.post("clients/exercises_instances");
-    //   } catch (err) {
-    //     this.$errorsHandler(err);
-    //   }
-
-    //   const exercises = this.exercises.filter(
-    //     (exercise) => (exercise.sets > 0) & (exercise.reps > 0)
-    //   );
-
-    //   // await this
-
-    //   exercises;
-
-    //   this.$emit("confirmEdits", exercises);
-    //   this.exercises = [];
-    // },
   },
 };
 </script>
