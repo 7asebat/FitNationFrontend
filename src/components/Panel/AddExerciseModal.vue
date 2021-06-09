@@ -72,10 +72,7 @@ export default {
           const payload = new FormData();
           payload.append("image", this.image);
           try {
-            const response = await this.axios.patch(
-              `exercises/${exercise.id}/image`,
-              payload
-            );
+            await this.axios.patch(`exercises/${exercise.id}/image`, payload);
           } catch (err) {
             this.$errorsHandler(new Error("Failed to upload exercise image!"));
           }
