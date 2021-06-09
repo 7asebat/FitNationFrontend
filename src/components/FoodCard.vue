@@ -103,13 +103,11 @@ export default {
 
     paddedNutritionFacts() {
       const facts = {};
-      for (const key in this.keys) {
-        if (!this.food.nutrition_facts[key]) {
-          facts[key] = 0;
-        } else {
-          facts[key] = this.food.nutrition_facts[key];
-        }
-      }
+
+      this.keys.forEach((key) => {
+        facts[key] = this.food.nutrition_facts[key] || 0;
+      });
+
       return facts;
     },
   },

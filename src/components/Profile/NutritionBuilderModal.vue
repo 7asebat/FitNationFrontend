@@ -23,10 +23,7 @@
               </b-input-group-text>
             </template>
 
-            <b-form-input
-              @input="updateFoods($event)"
-              class="border-right-0 text-right"
-            />
+            <b-form-input @input="updateFoods($event)" class="border-right-0" />
           </b-input-group>
 
           <b-row
