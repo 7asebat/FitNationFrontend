@@ -1,6 +1,13 @@
 <template>
   <div class="container py-4">
     <b-card no-body class="rounded bg-light">
+      <div
+        class="p-4 d-flex flex-row justify-content-between border-bottom"
+        v-if="!inbox.length"
+      >
+        No new messages...
+      </div>
+
       <div id="inbox-compact">
         <div v-if="contactIdx === null" class="col bg-light rounded px-0">
           <div

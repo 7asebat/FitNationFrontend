@@ -26,14 +26,6 @@
 
         <router-link
           v-if="['client', 'trainer'].includes(type)"
-          :to="{ name: 'Inbox' }"
-          class="mr-3 u-title-font profile-tab-head mb-2"
-        >
-          Inbox
-        </router-link>
-
-        <router-link
-          v-if="['client', 'trainer'].includes(type)"
           :to="{ name: 'MyWorkoutPlans' }"
           class="mr-3 u-title-font profile-tab-head mb-2"
         >

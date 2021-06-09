@@ -43,7 +43,7 @@
               justify-content-between
             "
           >
-            <div class="col-sm-2 col-12 px-2 m-0 my-auto">
+            <div class="col-sm-2 col-12 px-2 m-0 my-auto" v-if="day.weight">
               <div class="c-nf-value">
                 {{ day.weight }}<span class="c-nf-unit">kg</span>
               </div>
@@ -65,7 +65,7 @@
           </div>
         </b-row>
 
-        <b-row v-for="item in day.specs" :key="item.id" class="mb-4">
+        <b-row v-for="(item, i) in day.specs" :key="i" class="mb-4">
           <FoodCard :food="item.food" :quantity="item.quantity" class="w-100" />
         </b-row>
 
@@ -143,31 +143,38 @@ export default {
         // For each day
         let populated = nutrition_info.map((info) => {
           // Collect all nutrition specifications
-          const foods = info.nutrition_specifications.filter(
+          const food_specs = info.nutrition_specifications.filter(
             (spec) => spec.food
           );
-          const recipes = info.nutrition_specifications.filter(
+          const recipe_specs = info.nutrition_specifications.filter(
             (spec) => spec.recipe
           );
 
           // Expand recipes into foods
           const recipe_foods = [];
-          recipes.forEach((recipe) => {
-            recipe.foods.forEach((food) => {
+          recipe_specs.forEach((spec) => {
+            spec.recipe.foods.forEach((food) => {
               recipe_foods.push({
-                quantity: recipe.quantity * food.quantity,
-                food,
+                quantity: spec.quantity * food.quantity,
+                food: food.food,
               });
             });
           });
-
-          const specs = foods.concat(recipe_foods);
+          const specs = food_specs.concat(recipe_foods);
+          let uniqueSpecs = {};
+          specs.forEach((item) => {
+            if (uniqueSpecs[item.food.id]) {
+              uniqueSpecs[item.food.id].quantity += item.quantity;
+            } else {
+              uniqueSpecs[item.food.id] = item;
+            }
+          });
 
           // Expand foods/recipes in each specification
           return {
             date: new Date(info.date),
             weight: info.weight,
-            specs,
+            specs: Object.values(uniqueSpecs),
           };
         });
 
@@ -226,12 +233,13 @@ export default {
       return response.data.data.client_weight_nutritions.id;
     },
 
-    async addFoodToSpec(food, id) {
+    async patchSpec(spec, id) {
       // Fill specification
       return this.axios.patch(`client_weight_nutritions/${id}/add_spec`, {
         nutrition_specification: {
-          food_id: food.id,
-          quantity: food.quantity,
+          food_id: spec.food_id,
+          recipe_id: spec.recipe_id,
+          quantity: spec.quantity,
         },
       });
     },
@@ -247,18 +255,18 @@ export default {
 
     isValidAggregation(weight, aggregation) {
       let validAggregation = true;
-      for (const key in aggregation) {
-        validAggregation &= aggregation[key];
+      for (const key of this.keys) {
+        console.log(key, aggregation[key]);
+        validAggregation &= aggregation[key] > 0;
       }
 
       return weight | validAggregation;
     },
 
     async confirmEdits(date, payload) {
-      const weight = payload.weight;
-      const foods = payload.foods;
+      const { weight, foods, recipes } = payload;
 
-      if (foods || weight) {
+      if (weight || foods || recipes) {
         const id = await this.initCWN(payload, date);
 
         let promises = [];
@@ -267,7 +275,18 @@ export default {
         }
 
         foods.forEach((food) => {
-          promises.push(this.addFoodToSpec(food, id));
+          promises.push(
+            this.patchSpec({ food_id: food.id, quantity: food.quantity }, id)
+          );
+        });
+
+        recipes.forEach((recipe) => {
+          promises.push(
+            this.patchSpec(
+              { recipe_id: recipe.id, quantity: recipe.quantity },
+              id
+            )
+          );
         });
         await Promise.all(promises);
         await this.setNutritionInfo();
