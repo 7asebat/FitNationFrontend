@@ -28,6 +28,14 @@
             </div>
             <hr />
             <div class="c-inbox__users-container">
+              <div v-if="!conversations.length" class="py-5 px-3 text-center">
+                <h1 class="u-title-font">No conversations</h1>
+                <p>
+                  You can start a conversation with a trainer from the compose
+                  button above
+                </p>
+              </div>
+
               <div
                 v-for="contact in conversations"
                 :key="contact.id"
@@ -67,23 +75,31 @@
             </div>
           </div>
         </div>
-        <div
-          class="c-inbox__chats col-lg-8 col-12 bg-white h-100"
-          v-if="selectedConversation"
-        >
-          <div class="d-flex align-items-center p-3 bg-light d-block d-lg-none">
-            <div @click.prevent="selectedConversation = null">
-              <i
-                class="fas fa-chevron-left h4 text-primary c-inbox__back-btn"
-              ></i>
+        <div class="c-inbox__chats col-lg-8 col-12 bg-white h-100">
+          <div v-if="selectedConversation">
+            <div
+              class="d-flex align-items-center p-3 bg-light d-block d-lg-none"
+            >
+              <div @click.prevent="selectedConversation = null">
+                <i
+                  class="fas fa-chevron-left h4 text-primary c-inbox__back-btn"
+                ></i>
+              </div>
+              <h3 class="u-title-font ml-4">
+                {{ selectedConversation.name }}
+              </h3>
             </div>
-            <h3 class="u-title-font ml-4">
-              {{ selectedConversation.name }}
-            </h3>
+
+            <div class="p-4 h-100">
+              <ChatCard :chatId="selectedConversation.id" />
+            </div>
           </div>
 
-          <div class="p-4 h-100">
-            <ChatCard :chatId="selectedConversation.id" />
+          <div v-else class="text-center py-5 d-none d-lg-block">
+            <h1 class="u-title-font">No conversation selected</h1>
+            <p class="text-secondary">
+              Choose a conversation from the left menu to see the messages.
+            </p>
           </div>
         </div>
       </div>
