@@ -18,9 +18,9 @@ export default {
       13: "quads",
     },
     foodTypes: {
-      0: "vegetables",
-      1: "fruits",
-      2: "carbohydrates",
+      0: "Vegetables",
+      1: "Fruits",
+      2: "Seafood",
     },
     workoutLevels: {
       0: "Beginner",
