@@ -36,7 +36,6 @@ export default [
     component: () =>
       import(/* webpackChunkName: "workouts" */ "@/views/SingleWorkout.vue"),
     meta: {
-      roles: ["client", "trainer"],
       meta: {
         title: "Workout",
       },
@@ -79,6 +78,7 @@ export default [
       import(/* webpackChunkName: "workouts" */ "@/views/WorkoutBuilder.vue"),
     meta: {
       roles: ["client", "trainer"],
+      requiresAuth: true,
       title: "Workout Builder",
     },
   },
@@ -89,6 +89,7 @@ export default [
       import(/* webpackChunkName: "recipes" */ "@/views/RecipesBuilder.vue"),
     meta: {
       roles: ["nutritionist"],
+      requiresAuth: true,
       title: "Recipes Builder",
     },
   },
