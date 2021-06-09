@@ -60,9 +60,9 @@ export default {
 
   props: {
     data: Object,
-    sets: Number,
-    reps: Number,
-    weight: Number,
+    sets: [Number, String],
+    reps: [Number, String],
+    weight: [Number, String],
   },
 
   computed: {

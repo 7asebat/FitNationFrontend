@@ -159,6 +159,7 @@ export default {
           "Your workout has been deleted successfully!"
         );
         this.$router.push({ name: "MyWorkoutPlans" });
+        this.updateLoggedInUser();
       } catch (err) {
         this.$errorsHandler(new Error("Error deleting your workout."));
       }

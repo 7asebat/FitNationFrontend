@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <h1>Workout Builder</h1>
+    <h1 class="u-title-font">Workout Builder</h1>
     <p class="text-secondary">
       Customize your experience by building your own workout plan using our
       <span class="text-primary">Workout plan builder</span>. You can add your

@@ -28,8 +28,6 @@
         >
           <div class="d-flex bg-light round-corner overflow-hidden">
             <video
-              autoplay
-              loop
               v-if="exercise.clip"
               :src="exercise.clip"
               class="exerciseImage"
@@ -80,6 +78,9 @@
                 <button
                   class="btn mb-2 btn-success flexItem h-auto"
                   @click.prevent="addExercise(exercise)"
+                  :disabled="
+                    !exercise.reps || !exercise.sets || !exercise.performance
+                  "
                 >
                   Add
                 </button>
