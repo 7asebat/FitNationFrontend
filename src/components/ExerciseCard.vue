@@ -5,6 +5,7 @@
         <video
           autoplay
           loop
+          muted
           v-if="data.clip"
           :src="data.clip"
           class="c-exercise-image"
