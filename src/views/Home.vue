@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
+  <div class="home d-flex flex-column">
     <Navbar />
     <router-view></router-view>
-    <Footer class="mt-4" />
+    <Footer class="mt-auto" />
   </div>
 </template>
 
