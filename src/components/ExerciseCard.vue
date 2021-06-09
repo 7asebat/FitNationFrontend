@@ -3,13 +3,14 @@
     <div class="d-flex flex-column text-left">
       <div>
         <video
-          autoplay
           loop
           muted
           v-if="data.clip"
           :src="data.clip"
           class="c-exercise-image"
           type="video/mp4"
+          @mouseenter="playVideo"
+          @mouseleave="pauseVideo"
         ></video>
 
         <img
@@ -74,6 +75,16 @@ export default {
   },
 
   methods: {
+    playVideo(evt) {
+      const video = evt.target;
+      video.play();
+    },
+
+    pauseVideo(evt) {
+      const video = evt.target;
+      video.pause();
+    },
+
     getImgSrc(imageName) {
       var images = require.context("../assets/images", true);
       return images("./" + imageName);
