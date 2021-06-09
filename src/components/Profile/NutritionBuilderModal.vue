@@ -55,7 +55,7 @@
 
             <b-form-input
               @input="updateRecipes($event)"
-              class="border-right-0 text-right"
+              class="border-right-0 text-left"
             />
           </b-input-group>
 
