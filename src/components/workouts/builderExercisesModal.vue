@@ -8,6 +8,18 @@
     @ok="addExercises"
     cancel-variant="outline-primary"
   >
+    <b-input-group class="mb-2">
+      <b-input-group-prepend is-text>
+        <b-icon icon="search"></b-icon>
+      </b-input-group-prepend>
+      <b-form-input
+        type="search"
+        v-model="query"
+        placeholder="Search Exercises"
+        @input="getExercises"
+      ></b-form-input>
+    </b-input-group>
+
     <div class="row">
       <div
         class="col-sm-6 col-md-3 mb-3"
@@ -57,18 +69,29 @@
         </div>
       </div>
     </div>
+
+    <div v-show="!exerciseData.length" class="text-center round-corner py-4">
+      <h1 class="u-title-font">
+        No search results for :
+        <span class="text-primary">{{ query }}</span>
+      </h1>
+      <p class="text-secondary">
+        No exercises match this name, try searching with another query.
+      </p>
+    </div>
   </b-modal>
 </template>
 
 <script>
 export default {
   created() {
-    this.getExercises();
+    this.getExercises(this.query);
   },
 
   data() {
     return {
       exerciseData: [],
+      query: "",
     };
   },
 
@@ -89,9 +112,9 @@ export default {
   },
 
   methods: {
-    async getExercises() {
+    async getExercises(query) {
       try {
-        const response = await this.axios.get("exercises");
+        const response = await this.axios.get(`exercises?q=${query}`);
         let exercises = response.data.data.exercises;
 
         exercises = exercises.map((exercise) => {
