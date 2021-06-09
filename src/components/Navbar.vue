@@ -61,7 +61,10 @@
             </b-dropdown-item>
           </b-dropdown>
 
-          <router-link :to="{ name: 'Inbox' }">
+          <router-link
+            :to="{ name: 'Inbox' }"
+            v-if="['client', 'trainer'].includes(loggedInUser.role)"
+          >
             <div
               class="
                 d-inline-block
