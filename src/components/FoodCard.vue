@@ -35,7 +35,7 @@
               <div v-for="(key, i) in keys" :key="i" class="col px-2">
                 <div class="c-nf-value">
                   <span class="u-title-font">{{
-                    food.nutrition_facts[key]
+                    paddedNutritionFacts[key]
                   }}</span>
 
                   <span class="c-nf-unit">{{ units[key] }}</span>
@@ -100,6 +100,19 @@ export default {
     foodTypes() {
       return this.$store.state.enums.foodTypes;
     },
+
+    paddedNutritionFacts() {
+      const facts = {};
+      for (const key in this.keys) {
+        if (!this.food.nutrition_facts[key]) {
+          facts[key] = 0;
+        } else {
+          facts[key] = this.food.nutrition_facts[key];
+        }
+      }
+      console.log('ONLY LOG', facts);
+      return facts;
+    }
   },
 };
 </script>

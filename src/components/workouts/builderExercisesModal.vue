@@ -39,6 +39,7 @@
                 v-model="exercise.sets"
                 placeholder="Sets"
                 class="mb-3"
+                min="0"
                 @click.stop=""
               ></b-form-input>
 
@@ -46,6 +47,7 @@
                 type="number"
                 v-model="exercise.reps"
                 placeholder="Reps"
+                min="0"
                 @click.stop=""
               ></b-form-input>
             </div>

@@ -256,7 +256,6 @@ export default {
     isValidAggregation(weight, aggregation) {
       let validAggregation = true;
       for (const key of this.keys) {
-        console.log(key, aggregation[key]);
         validAggregation &= aggregation[key] > 0;
       }
 
@@ -355,13 +354,13 @@ export default {
   font-size: small;
 }
 @media (min-width: 576px) {
-  #nutrition-modal0 .modal-dialog {
+  #nutrition-modal .modal-dialog {
     max-width: 90%;
   }
 }
 
 @media (min-width: 1200px) {
-  #nutrition-modal0 .modal-dialog {
+  #nutrition-modal .modal-dialog {
     max-width: 60%;
   }
 }
