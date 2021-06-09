@@ -2,9 +2,10 @@
   <div class="container py-5">
     <h1>Workout Builder</h1>
     <p class="text-secondary">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero ea non et
-      adipisci libero possimus veniam minus, autem facilis illo pariatur minima
-      rerum, doloremque quis quidem sint. Doloribus, veniam officia.
+      Customize your experience by building your own workout plan using our
+      <span class="text-primary">Workout plan builder</span>. You can add your
+      preferred exercises in each day and specify sets and reps that fit your
+      needs.
     </p>
 
     <div class="row">

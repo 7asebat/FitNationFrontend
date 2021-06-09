@@ -5,9 +5,22 @@
         <div v-show="!selectedMuscle" class="mb-4">
           <div class="d-flex flex-column align-items-center text-center">
             <h1 class="c-image-text-title text-dark">Exercises</h1>
-            <div class="text-secondary">
-              {{ subtitle }}
-            </div>
+            <p class="text-secondary">
+              Bodyweight exercises are simple, effective ways to improve
+              balance, flexibility, and strength without gym machines or
+              equipment. You can do all these bodyweight exercises at home or at
+              gym.
+            </p>
+
+            <p class="text-secondary">
+              From legs and shoulders to chest and abs, we’ve covered every part
+              of your body that can get stronger with body resistance alone.
+            </p>
+            <p class="text-secondary">
+              We’ve also provided some basic bodyweight exercises for beginners
+              and compared bodyweight workout results to those of weighted, gym,
+              and cardio routines.
+            </p>
 
             <div id="muscle-text-action" class="d-flex flex-row mt-3">
               <div>
@@ -47,8 +60,6 @@ export default {
   data: () => ({
     selectedMuscle: "",
     muscles: ["abs"],
-    subtitle:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   }),
 
   methods: {

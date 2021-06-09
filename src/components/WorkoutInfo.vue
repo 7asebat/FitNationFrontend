@@ -38,10 +38,8 @@
           </div>
         </div>
         <p class="text-secondary">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quia
-          veniam repellendus iure quis id dolore? Fuga beatae ab pariatur
-          doloremque. Sed, dignissimos? Similique, est illum rerum commodi nihil
-          consectetur!
+          You can find all the info related to your workout and the exercises
+          attached to each day from this view.
         </p>
 
         <p class="my-1 c-workout-card-workout-property">

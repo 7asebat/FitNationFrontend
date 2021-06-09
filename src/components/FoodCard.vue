@@ -27,6 +27,8 @@
           foodTypes[food.food_type]
         }}</span>
 
+        <p class="text-secondary mt-3 mb-0">All quantities are per 100 gm</p>
+
         <div id="nf-div" class="d-flex flex-row">
           <div id="nf-div-info">
             <div id="nf-items" class="d-flex flex-row text-center pb-2">
@@ -151,7 +153,7 @@ export default {
 
 .c-food-card__image {
   height: 100%;
-  max-height: 200px;
+  max-height: 300px;
   object-fit: cover;
 }
 </style>

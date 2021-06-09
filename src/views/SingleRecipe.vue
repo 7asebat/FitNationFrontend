@@ -39,7 +39,8 @@
       <FoodItemCard
         v-for="(foodItem, i) in recipe.foods"
         :key="i"
-        :food="foodItem"
+        :food="foodItem.food"
+        :quantity="foodItem.quantity"
         class="mb-3"
       />
 

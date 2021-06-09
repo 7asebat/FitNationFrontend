@@ -1,10 +1,11 @@
 <template>
   <div>
     <h1 class="text-center c-goals-slider-title">
-      Choose your <span class="text-danger">Goals</span>
+      Choose your <span class="text-danger">Goal</span>
     </h1>
     <p class="text-secondary text-center">
-      Lorem ipsum dolor sit amet, nconsectetur adipisicing elit.
+      you need to find a workout that appeals to you and is feasible based on
+      your abilities.
     </p>
 
     <div class="c-goals-slider-slider d-flex justify-content-center">

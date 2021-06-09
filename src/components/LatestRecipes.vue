@@ -2,10 +2,10 @@
   <div>
     <div class="c-recipes-popular-recipes">
       <h1 class="u-title-font">
-        Popular <span class="text-success">Recipes</span>
+        Latest <span class="text-success">Recipes</span>
       </h1>
       <p class="text-secondary">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+        A list of the latest recipes listed by our nutritionists
       </p>
 
       <div class="row">

@@ -6,10 +6,7 @@
         imgSrc="workoutsHeader.png"
         :primaryButtonText="canCreateWorkout ? 'Create your own plan' : ''"
         :primaryButtonRoute="canCreateWorkout ? 'WorkoutBuilder' : ''"
-        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-          veniam iusto esse impedit expedita itaque praesentium dolorum, dolorem
-          eum earum fuga cum explicabo provident consequuntur. Ea dolorem non
-          natus voluptates."
+        description="Now is as good a time as any to focus on getting your body into the best shape possible. Whether you want to build muscle or completely transform your body, if you follow the right workout routine for men, you will get exactly what you need."
       />
       <GoalsSlider />
       <PopularWorkouts class="my-5" />

@@ -6,9 +6,7 @@
           Latest
           <span class="text-danger">Workouts</span>
         </h1>
-        <p class="text-secondary">
-          Lorem ipsum dolor sit amet, nconsectetur adipisicing elit.
-        </p>
+        <p class="text-secondary">Find the right workout routine for you!</p>
       </div>
 
       <div v-if="canCreateWorkout">

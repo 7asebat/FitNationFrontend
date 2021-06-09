@@ -5,7 +5,7 @@
       A quick overview about how the platform behaves
     </p>
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-12">
         <div class="row">
           <div class="col-12 col-md-6 mb-3">
             <div class="statistics_card p-3 bg-primary text-light">
@@ -58,10 +58,6 @@
           </div>
         </div>
       </div>
-
-      <div class="col-12 col-md-6">
-        <PieChart :labels="['biceps', 'abs']" :data="[12, 234]" />
-      </div>
     </div>
   </div>
 </template>
@@ -98,9 +94,7 @@ export default {
     },
   },
 
-  components: {
-    PieChart: () => import("@/components/charts/PieChart"),
-  },
+  components: {},
 };
 </script>
 

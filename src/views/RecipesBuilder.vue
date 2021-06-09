@@ -2,9 +2,10 @@
   <div class="container my-5">
     <h1 class="u-title-font">Recipes Builder</h1>
     <p class="text-secondary">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi eveniet
-      ea maxime natus laboriosam, sunt nesciunt magnam at inventore, commodi
-      velit vero ratione, unde provident vel fuga ut doloribus minus.
+      Healthy food is the primary key for a healthy life. Using our
+      <span class="text-success">recipes builder </span> you can build your own
+      recipes that fits your needs and keep track of what you are eating along
+      the week.
     </p>
 
     <div class="row mt-5">

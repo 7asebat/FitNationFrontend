@@ -18,10 +18,7 @@
           >
             <h1 class="u-title-font">{{ selectedMuscle }}</h1>
             <p class="text-secondary">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam
-              sapiente quisquam commodi, similique perferendis voluptatibus,
-              quos officiis consectetur ipsam modi beatae, numquam atque sit
-              facere? Inventore iusto magnam cumque repellendus?
+              {{ muscleDescription[selectedMuscle.toLowerCase()] }}
             </p>
           </div>
           <div class="col-12" :class="{ 'col-md-6': selectedMuscle }">
@@ -229,6 +226,34 @@ export default {
         "glutes",
         "quads",
       ],
+      muscleDescription: {
+        biceps:
+          'The biceps (Latin: musculus biceps brachii, "two-headed muscle of the arm") is a large muscle that lies on the front of the upper arm between the shoulder and the elbow. Both heads of the muscle arise on the scapula and join to form a single muscle belly which is attached to the upper forearm.',
+        deltoids:
+          "The Deltoid muscle is a large triangular shaped muscle which lies over the glenohumeral joint and which gives the shoulder its rounded contour. It is named after the Greek letter delta, which is shaped like an equilateral triangle.",
+        forearms:
+          "The forearm contains many muscles, including the flexors and extensors of the digits, a flexor of the elbow (brachioradialis), and pronators and supinators that turn the hand to face down or upwards, respectively. ... The posterior compartment contains the extensors of the hands, which are supplied by the radial nerve.",
+        triceps:
+          'The triceps, also triceps brachii (Latin for "three-headed muscle of the arm"), is a large muscle on the back of the upper limb of many vertebrates. It consists of 3 parts: the medial, lateral, and long head. It is the muscle principally responsible for extension of the elbow joint (straightening of the arm).',
+        trapezius:
+          "The trapezius muscle is a large superficial back muscle that resembles a trapezoid. It extends from the external protuberance of the occipital bone to the lower thoracic vertebrae and laterally to the spine of the scapula. The trapezius has upper, middle, and lower groups of fibers.",
+        lats: "The latissimus dorsi muscles, known as the lats, are the large V-shaped muscles that connect your arms to your vertebral column. They help protect and stabilize your spine while providing shoulder and back strength. Your lats also help with shoulder and arm movement and support good posture.",
+        abs: "Rectus abdominis, informally known as the abs muscle, is a long muscle of the anterior abdominal wall. In those with low body fat, it is clearly visible beneath the skin forming the 'six pack'. It extends from the rib cage all the way to the pubic bone.",
+        obliques:
+          "Oblique muscle refers to two abdominal muscles – the external and internal obliques. These provide trunk flexion and rotation. The external oblique is the thickest and runs from the lower ribs to the iliac crest.",
+        pectorals:
+          'Pectoral muscles (colloquially referred to as "pecs") are the muscles that connect the front of the human chest with the bones of the upper arm and shoulder.',
+        adductors:
+          "The muscles in the medial compartment of the thigh are collectively known as the hip adductors. There are five muscles in this group; gracilis, obturator externus, adductor brevis, adductor longus and adductor magnus.",
+        calves:
+          "The calf is comprised of two muscles — the gastrocnemius and the soleus. These muscles meet at the Achilles tendon, which attaches directly to the heel. Any leg or foot motion uses these muscles.",
+        hamstrings:
+          "The muscles in the posterior compartment of the thigh are collectively known as the hamstrings. They consist of the biceps femoris, semitendinosus and semimembranosus, which form prominent tendons medially and laterally at the back of the knee. As group, these muscles act to extend at the hip, and flex at the knee.",
+        glutes:
+          "The gluteal muscles, often called glutes are a group of three muscles which make up the gluteal region commonly known as the buttocks: the gluteus maximus, gluteus medius and gluteus minimus. The three muscles originate from the ilium and sacrum and insert on the femur.",
+        quads:
+          "The quadriceps femoris is a hip flexor and a knee extensor. It consists of four individual muscles; three vastus muscles and the rectus femoris. They form the main bulk of the thigh, and collectively are one of the most powerful muscles in the body. It is located in the anterior compartment of the thigh.",
+      },
       selectedMuscle: "",
     };
   },

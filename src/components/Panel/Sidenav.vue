@@ -29,11 +29,11 @@
             </router-link>
 
             <router-link :to="{ name: 'PanelListFood' }">
-              <i class="fas fa-apple-alt"></i>
+              <i class="fas fa-utensils"></i>
             </router-link>
 
             <router-link :to="{ name: 'PanelListExercises' }">
-              <i class="fas fa-apple-alt"></i>
+              <i class="fas fa-dumbbell"></i>
             </router-link>
           </b-nav>
         </nav>

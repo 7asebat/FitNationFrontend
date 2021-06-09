@@ -42,27 +42,6 @@
         >
           {{ loggedInUser.role }}
         </span>
-
-        <!-- <div class="d-flex justify-content-between">
-          <div class="ml-4">
-            <a href="#" class="btn btn-outline-primary">
-              <i class="fas fa-user-edit"></i>
-              <span class="ml-2">Edit Profile</span>
-            </a>
-          </div>
-        </div> -->
-        <p class="text-secondary">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
-          necessitatibus dignissimos enim quam tempora.
-        </p>
-        <!-- <p class="mb-1">
-          <i class="far fa-calendar-alt text-primary"></i>
-          <span class="mx-2 text-secondary">15 May 1980 (21 years)</span>
-        </p>
-        <p class="mb-1">
-          <i class="fas fa-map-marker-alt text-primary"></i>
-          <span class="mx-2 text-secondary">Maadi, Cairo, Egypt</span>
-        </p> -->
       </div>
     </div>
   </div>

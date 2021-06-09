@@ -14,10 +14,10 @@
             ? 'RecipesBuilder'
             : ''
         "
-        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-          veniam iusto esse impedit expedita itaque praesentium dolorum, dolorem
-          eum earum fuga cum explicabo provident consequuntur. Ea dolorem non
-          natus voluptates."
+        :description="[
+          'How to get through the week with healthy but satisfying meals that will make you feel good as well as virtuous?',
+          'Get inspired by our nutritious flavour-packed recipes including vegetarian, vegan and meat options.',
+        ]"
         theme="success"
       />
 

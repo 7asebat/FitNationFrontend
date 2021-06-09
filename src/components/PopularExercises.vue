@@ -6,9 +6,7 @@
         <span class="text-danger">Exercises</span>
         <span v-if="muscleGroup"> for {{ muscleGroup }}</span>
       </h1>
-      <p class="text-secondary">
-        Lorem ipsum dolor sit amet, nconsectetur adipisicing elit.
-      </p>
+      <p class="text-secondary">List of exercises you can choose from them</p>
     </div>
 
     <div
