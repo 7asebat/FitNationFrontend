@@ -72,7 +72,11 @@
           </span>
         </p>
 
-        <button class="btn btn-primary mt-4" @click.prevent="deleteWorkout">
+        <button
+          class="btn btn-primary mt-4"
+          @click.prevent="deleteWorkout"
+          v-if="isWorkoutOwner"
+        >
           <i class="fas fa-trash-alt"></i>
           <span class="ml-2 d-inline-block">Delete workout</span>
         </button>
@@ -96,6 +100,23 @@ export default {
 
     loggedInUser() {
       return this.$store.state.user;
+    },
+
+    isWorkoutOwner() {
+      const user = this.loggedInUser;
+      if (!user) return false;
+
+      const isClientOwner =
+        user.role === "client" &&
+        this.workout.client &&
+        this.workout.client.id === user.id;
+
+      const isTrainerOwner =
+        user.role === "trainer" &&
+        this.workout.trainer &&
+        this.workout.trainer.id === user.id;
+
+      return isClientOwner || isTrainerOwner;
     },
   },
 
