@@ -8,6 +8,28 @@
     @ok="addFood"
     cancel-variant="outline-primary"
   >
+    <b-input-group class="mb-2">
+      <b-input-group-prepend is-text>
+        <b-icon icon="search"></b-icon>
+      </b-input-group-prepend>
+      <b-form-input
+        type="search"
+        v-model="query"
+        @input="getAllFood"
+        placeholder="Search Food"
+      ></b-form-input>
+    </b-input-group>
+
+    <div v-show="!food.length" class="text-center round-corner py-4">
+      <h3 class="u-title-font">
+        No search results for :
+        <span class="text-primary">{{ query }}</span>
+      </h3>
+      <p class="text-secondary">
+        No food match this name, try searching with another name.
+      </p>
+    </div>
+
     <div class="row">
       <div class="col-12 mb-3" v-for="foodItem in food" :key="foodItem.id">
         <div
@@ -33,6 +55,7 @@
               <b-form-input
                 class="c-builder-food-modal__quantity-input"
                 type="number"
+                min="0"
                 v-model="foodItem.quantity"
                 placeholder="Quantity"
                 @click.stop=""
@@ -49,27 +72,28 @@
 <script>
 export default {
   created() {
-    this.getAllFood();
+    this.getAllFood(this.query);
   },
 
   data() {
     return {
       food: [],
+      query: "",
     };
   },
 
   computed: {
     selectedFood() {
       return this.food.filter(
-        (foodItem) => foodItem.selected && foodItem.quantity
+        (foodItem) => foodItem.selected && foodItem.quantity > 1
       );
     },
   },
 
   methods: {
-    async getAllFood() {
+    async getAllFood(query) {
       try {
-        const response = await this.axios.get("foods");
+        const response = await this.axios.get(`foods?q=${query}`);
         let foods = response.data.data.food;
 
         foods = foods.map((food) => {

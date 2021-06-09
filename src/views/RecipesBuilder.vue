@@ -9,7 +9,7 @@
     </p>
 
     <div class="row mt-5">
-      <div class="col-12 col-md-12 col-lg-6">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-6">
         <h3 class="mb-3 u-title-font">Recipe Info</h3>
 
         <b-form-input
@@ -34,7 +34,7 @@
           class="mb-3"
         ></b-form-textarea>
       </div>
-      <div class="col-12 col-md-12 col-lg-6">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-6">
         <h3 class="mb-3 u-title-font">Food in this recipe</h3>
         <div class="c-recipes-builder__food-container round-corner">
           <div
