@@ -110,9 +110,8 @@ export default {
           facts[key] = this.food.nutrition_facts[key];
         }
       }
-      console.log('ONLY LOG', facts);
       return facts;
-    }
+    },
   },
 };
 </script>

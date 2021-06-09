@@ -75,9 +75,11 @@ export default {
   computed: {
     recipeOwner() {
       const user = this.$store.state.user;
-      return (
-        user.role === "nutritionist" && user.id === this.recipe.nutritionist_id
-      );
+      if (!user) return false;
+
+      const isNutritionist = user.role === "nutritionist";
+
+      return isNutritionist && user.id == this.recipe.nutritionist_id;
     },
   },
 
