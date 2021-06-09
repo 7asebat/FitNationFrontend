@@ -158,12 +158,4 @@ export default [
       },
     ],
   },
-
-  {
-    path: "/list/:type",
-    name: "ListPanel",
-
-    component: () =>
-      import(/* webpackChunkName: "recipes" */ "@/views/ListPanel.vue"),
-  },
 ];

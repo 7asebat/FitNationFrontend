@@ -28,13 +28,6 @@
           About
         </router-link>
 
-        <router-link
-          :to="{ name: 'ListPanel', params: { type: 'nutritionist' } }"
-          class="navItem u-title-font"
-        >
-          Search
-        </router-link>
-
         <div class="d-inline-block" v-if="!loggedInUser">
           <router-link
             :to="{ name: 'Login' }"
