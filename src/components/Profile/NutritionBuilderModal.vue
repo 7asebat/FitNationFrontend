@@ -128,7 +128,6 @@ export default {
       });
 
       this.matchingFoods = response.data.data.food;
-      console.log(this.matchingFoods);
     },
 
     confirmEdits() {
